@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const services = [
@@ -22,9 +23,19 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-gray-800 py-4">
+    <motion.header
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-gray-800 py-4"
+    >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-green-400">Enzonic</h1>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <img src="/enzonic-logo.png" alt="Enzonic Logo" className="h-12 w-12" />
+        </motion.div>
         <nav>
           <ul className="flex space-x-4 items-center">
             <li><Button variant="ghost" className="text-green-400">Home</Button></li>
@@ -49,7 +60,7 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 };
 

@@ -35,7 +35,7 @@ const Team = () => {
     {
       name: "MATIASS (CAT WITH CHIPS)",
       role: "CO-OWNER",
-      description: "",
+      description: "Hey there, I'm cat with chips or you can call me Matiass or cat for short. I'm British, I love chips and crisps. I love Hazbin Hotel and anime, especially Jujutsu Kaisen. I have depression. My favorite color is purple and I'm single. Bye bye!",
       avatarUrl: "/placeholder.svg"
     },
     {
