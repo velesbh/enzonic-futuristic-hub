@@ -25,8 +25,8 @@ const ServiceCard = ({ title, description, action, icon: Icon }) => (
     <Card className="bg-gray-800 border-gray-700 h-full overflow-hidden relative">
       <CardHeader className="relative z-10">
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
         >
           <Icon className="w-16 h-16 mb-4 text-green-400" />
@@ -37,7 +37,7 @@ const ServiceCard = ({ title, description, action, icon: Icon }) => (
       <CardContent className="relative z-10">
         <Button 
           variant="outline" 
-          className="w-full text-green-400 border-green-400 hover:bg-green-400 hover:text-gray-800 transition-all duration-300"
+          className="w-full text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300 transition-all duration-300"
         >
           {action}
         </Button>
