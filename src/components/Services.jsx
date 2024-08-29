@@ -18,18 +18,36 @@ const iconMap = {
 
 const ServiceCard = ({ title, description, action, icon: Icon }) => (
   <motion.div
-    whileHover={{ scale: 1.05 }}
+    whileHover={{ scale: 1.05, rotateY: 10 }}
     whileTap={{ scale: 0.95 }}
+    transition={{ type: "spring", stiffness: 300 }}
   >
-    <Card className="bg-gray-800 border-gray-700 h-full">
-      <CardHeader>
-        <Icon className="w-12 h-12 mb-4 text-green-400" />
-        <CardTitle className="text-green-400">{title}</CardTitle>
+    <Card className="bg-gray-800 border-gray-700 h-full overflow-hidden relative">
+      <CardHeader className="relative z-10">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+        >
+          <Icon className="w-16 h-16 mb-4 text-green-400" />
+        </motion.div>
+        <CardTitle className="text-green-400 text-xl">{title}</CardTitle>
         <CardDescription className="text-green-200">{description}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <Button variant="outline" className="w-full text-green-400 border-green-400 hover:bg-green-400 hover:text-gray-800">{action}</Button>
+      <CardContent className="relative z-10">
+        <Button 
+          variant="outline" 
+          className="w-full text-green-400 border-green-400 hover:bg-green-400 hover:text-gray-800 transition-all duration-300"
+        >
+          {action}
+        </Button>
       </CardContent>
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-green-400/5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      />
     </Card>
   </motion.div>
 );
@@ -53,22 +71,27 @@ const Services = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-8 text-center text-green-400"
+        className="text-4xl font-bold mb-12 text-center text-green-400"
       >
         Our Services
       </motion.h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         {services.map((service, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <ServiceCard {...service} icon={iconMap[service.title]} />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

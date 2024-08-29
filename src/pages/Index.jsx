@@ -6,6 +6,19 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
+const AnimatedGrid = () => (
+  <div className="fixed inset-0 z-0 overflow-hidden">
+    <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 100, 0, 0.1)" strokeWidth="1" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+);
+
 const AnimatedBackground = () => (
   <div className="fixed inset-0 z-0 overflow-hidden">
     {[...Array(50)].map((_, i) => (
@@ -36,6 +49,7 @@ const AnimatedBackground = () => (
 const Index = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-green-400 relative overflow-hidden">
+      <AnimatedGrid />
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-8 relative z-10">
@@ -54,8 +68,13 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-gray-900">
+                <Button 
+                  variant="outline" 
+                  className="text-green-400 border-green-400 hover:bg-green-400 hover:text-gray-900 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-400/50"
+                >
                   {text}
                 </Button>
               </motion.div>
