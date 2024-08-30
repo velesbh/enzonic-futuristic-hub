@@ -5,6 +5,14 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const AnimatedGrid = () => {
   return (
@@ -46,7 +54,7 @@ const FeatureCard = ({ title, description, icon: Icon }) => (
   </motion.div>
 );
 
-const PlanCard = ({ title, description, price, features }) => (
+const PlanCard = ({ title, description, price, features, isExtreme }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col"
@@ -59,21 +67,88 @@ const PlanCard = ({ title, description, price, features }) => (
         <li key={index} className="mb-2">• {feature}</li>
       ))}
     </ul>
+    {isExtreme && (
+      <p className="text-yellow-400 mb-4">This plan will take up to 24H to setup</p>
+    )}
     <Button variant="outline" className="mt-auto text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
       Select Plan
     </Button>
   </motion.div>
 );
 
+const PlanComparison = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button variant="outline" className="mt-4 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
+        Plan Comparison
+      </Button>
+    </DialogTrigger>
+    <DialogContent className="bg-gray-800 text-green-300">
+      <DialogHeader>
+        <DialogTitle className="text-green-400">Plan Comparison</DialogTitle>
+        <DialogDescription>
+          <table className="w-full mt-4">
+            <thead>
+              <tr>
+                <th className="text-left">Feature</th>
+                <th className="text-center">Budget</th>
+                <th className="text-center">Normal</th>
+                <th className="text-center">Extreme</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Price per GB RAM</td>
+                <td className="text-center">$0.90</td>
+                <td className="text-center">$1.10</td>
+                <td className="text-center">$3.00</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td className="text-center">Shared</td>
+                <td className="text-center">AMD EPYC 7R17</td>
+                <td className="text-center">i9-9900K</td>
+              </tr>
+              <tr>
+                <td>Dedicated IP</td>
+                <td className="text-center">-</td>
+                <td className="text-center">-</td>
+                <td className="text-center">$5/month</td>
+              </tr>
+            </tbody>
+          </table>
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
+);
+
 const EnzonicHosting = () => {
   const [selectedPlan, setSelectedPlan] = useState('minecraft');
 
   const plans = {
-    minecraft: [
-      { title: "Starter", description: "Perfect for small servers", price: "$5/month", features: ["1GB RAM", "10GB SSD", "Unlimited Players"] },
-      { title: "Pro", description: "For growing communities", price: "$15/month", features: ["4GB RAM", "50GB SSD", "Unlimited Players", "Daily Backups"] },
-      { title: "Elite", description: "High-performance option", price: "$30/month", features: ["8GB RAM", "100GB SSD", "Unlimited Players", "DDoS Protection", "Dedicated IP"] },
-    ],
+    minecraft: {
+      budget: [
+        { title: "Proxy Plan", description: "Perfect for proxy servers", price: "$2.70/quarter", features: ["1GB RAM"] },
+        { title: "Coal Plan", description: "Perfect for playing by yourself with some mods or a few friends", price: "$2.70/month", features: ["3GB RAM"] },
+        { title: "Iron Plan", description: "Perfect for running small SMPs with around 10 players online", price: "$5.40/month", features: ["6GB RAM"] },
+        { title: "Diamond Plan", description: "Perfect for bigger SMPs or big modpacks", price: "$9/month", features: ["10GB RAM"] },
+      ],
+      normal: [
+        { title: "Coal Plan", description: "Perfect for playing by yourself with some mods, big modpacks or a few friends", price: "$3.30/month", features: ["3GB RAM"] },
+        { title: "Iron Plan", description: "Perfect for running small SMPs with around 20 players online and even modpacks", price: "$6.60/month", features: ["6GB RAM"] },
+        { title: "Diamond Plan", description: "Perfect for big SMPs or big modpacks", price: "$11/month", features: ["10GB RAM"] },
+        { title: "Netherite Plan", description: "Perfect for a small network or SMPs with big modpacks or loads of players", price: "$17.60/month", features: ["16GB RAM", "Up to 48H setup time"] },
+        { title: "Bedrock Plan", description: "Perfect for a big amount of players, plugins or mods, very good for pretty much anything that isn't too crazy", price: "$26.4/month", features: ["24GB RAM", "Up to 48H setup time"] },
+      ],
+      extreme: [
+        { title: "Iron Plan", description: "Perfect for running SMPs with around 25 players online and even modpacks", price: "$18/month", features: ["6GB RAM"] },
+        { title: "Diamond Plan", description: "Perfect for big SMPs or big modpacks", price: "$30/month", features: ["10GB RAM"] },
+        { title: "Netherite Plan", description: "Perfect for a small network or SMPs with big modpacks or loads of players (around 50)", price: "$48/month", features: ["16GB RAM"] },
+        { title: "Bedrock Plan", description: "You can run your own network with around 60 Players", price: "$72/month", features: ["24GB RAM"] },
+        { title: "Barrier Plan", description: "Our most powerful plan for large-scale operations", price: "$96/month", features: ["32GB RAM"] },
+      ]
+    },
     rust: [
       { title: "Basic", description: "Start your Rust journey", price: "$20/month", features: ["4GB RAM", "50GB SSD", "50 Players"] },
       { title: "Advanced", description: "For serious Rust players", price: "$40/month", features: ["8GB RAM", "100GB SSD", "100 Players", "Priority Support"] },
@@ -100,6 +175,8 @@ const EnzonicHosting = () => {
       { title: "Enterprise VPS", description: "High-performance solution", price: "$60/month", features: ["4 vCPUs", "8GB RAM", "160GB SSD", "5TB Bandwidth", "DDoS Protection"] },
     ],
   };
+
+  const [selectedTier, setSelectedTier] = useState('budget');
 
   return (
     <div className="min-h-screen bg-gray-900 text-green-400 relative overflow-hidden">
@@ -158,17 +235,61 @@ const EnzonicHosting = () => {
                 key={plan}
                 variant={selectedPlan === plan ? "default" : "outline"}
                 className="m-2 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300"
-                onClick={() => setSelectedPlan(plan)}
+                onClick={() => {
+                  setSelectedPlan(plan);
+                  setSelectedTier('budget');
+                }}
               >
                 {plan.charAt(0).toUpperCase() + plan.slice(1)} Servers
               </Button>
             ))}
           </div>
+          {selectedPlan === 'minecraft' && (
+            <div className="flex justify-center space-x-4 mb-8">
+              <Button
+                variant={selectedTier === 'budget' ? "default" : "outline"}
+                className="text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300"
+                onClick={() => setSelectedTier('budget')}
+              >
+                Budget
+              </Button>
+              <Button
+                variant={selectedTier === 'normal' ? "default" : "outline"}
+                className="text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300"
+                onClick={() => setSelectedTier('normal')}
+              >
+                Normal
+              </Button>
+              <Button
+                variant={selectedTier === 'extreme' ? "default" : "outline"}
+                className="text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300"
+                onClick={() => setSelectedTier('extreme')}
+              >
+                Extreme
+              </Button>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {plans[selectedPlan].map((plan, index) => (
-              <PlanCard key={index} {...plan} />
-            ))}
+            {selectedPlan === 'minecraft'
+              ? plans.minecraft[selectedTier].map((plan, index) => (
+                  <PlanCard key={index} {...plan} isExtreme={selectedTier === 'extreme'} />
+                ))
+              : plans[selectedPlan].map((plan, index) => (
+                  <PlanCard key={index} {...plan} />
+                ))}
           </div>
+          {selectedPlan === 'minecraft' && (
+            <>
+              <div className="text-center mt-8">
+                <Button variant="outline" className="text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
+                  Contact Us for Custom Plan
+                </Button>
+              </div>
+              <div className="text-center mt-4">
+                <PlanComparison />
+              </div>
+            </>
+          )}
         </section>
       </main>
       <Footer />
