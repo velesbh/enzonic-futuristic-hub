@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -17,43 +17,56 @@ const iconMap = {
   "Enzonic Productions": VideoIcon,
 };
 
-const ServiceCard = ({ title, description, action, icon: Icon, to }) => (
-  <motion.div
-    whileHover={{ scale: 1.05, rotateY: 10 }}
-    whileTap={{ scale: 0.95 }}
-    transition={{ type: "spring", stiffness: 300 }}
-  >
-    <Card className="bg-gray-800 border-gray-700 h-full overflow-hidden relative">
-      <CardHeader className="relative z-10">
-        <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
-        >
-          <Icon className="w-16 h-16 mb-4 text-blue-400" />
-        </motion.div>
-        <CardTitle className="text-white text-xl">{title}</CardTitle>
-        <CardDescription className="text-gray-300">{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="relative z-10">
-        <Link to={to}>
-          <Button 
-            variant="outline" 
-            className="w-full text-white border-white bg-gray-800 hover:bg-blue-900 hover:text-blue-300 transition-all duration-300"
+const ServiceCard = ({ title, description, action, icon: Icon, to, index }) => {
+  const controls = useAnimation();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={controls}
+      whileHover={{ scale: 1.05, rotateY: 10 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      onViewportEnter={() => {
+        controls.start({
+          opacity: 1,
+          y: 0,
+          transition: { delay: index * 0.1, duration: 0.5 }
+        });
+      }}
+    >
+      <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
+        <CardHeader className="relative z-10">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
           >
-            {action}
-          </Button>
-        </Link>
-      </CardContent>
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-400/5"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      />
-    </Card>
-  </motion.div>
-);
+            <Icon className="w-16 h-16 mb-4 text-purple-400" />
+          </motion.div>
+          <CardTitle className="text-white text-2xl font-bold">{title}</CardTitle>
+          <CardDescription className="text-blue-300">{description}</CardDescription>
+        </CardHeader>
+        <CardContent className="relative z-10">
+          <Link to={to}>
+            <Button 
+              variant="outline" 
+              className="w-full text-white border-purple-500 bg-transparent hover:bg-purple-900 hover:text-purple-300 transition-all duration-300"
+            >
+              {action}
+            </Button>
+          </Link>
+        </CardContent>
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-400/5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        />
+      </Card>
+    </motion.div>
+  );
+};
 
 const Services = () => {
   const services = [
@@ -69,32 +82,37 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-12">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-12 text-center text-white"
-      >
-        Our Services
-      </motion.h2>
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <ServiceCard {...service} icon={iconMap[service.title]} />
-          </motion.div>
-        ))}
-      </motion.div>
+    <section className="py-12 relative overflow-hidden">
+      <motion.div
+        className="absolute inset-0 z-0"
+        animate={{
+          background: [
+            "linear-gradient(to right, #8e2de2, #4a00e0)",
+            "linear-gradient(to right, #4a00e0, #8e2de2)",
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+      />
+      <div className="relative z-10">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-5xl font-bold mb-12 text-center text-white"
+        >
+          Our Services
+        </motion.h2>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {services.map((service, index) => (
+            <ServiceCard key={index} {...service} icon={iconMap[service.title]} index={index} />
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };
