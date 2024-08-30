@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon } from 'lucide-react';
+import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon, Cpu, Memory, HardDrive } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 const AnimatedGrid = () => {
   return (
@@ -43,12 +35,29 @@ const AnimatedGrid = () => {
   );
 };
 
+const AnimatedIcon = ({ icon: Icon }) => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
+      rotate: [0, 360],
+      transition: { duration: 5, repeat: Infinity, ease: "linear" }
+    });
+  }, [controls]);
+
+  return (
+    <motion.div animate={controls}>
+      <Icon className="w-12 h-12 text-green-400 mb-4" />
+    </motion.div>
+  );
+};
+
 const FeatureCard = ({ title, description, icon: Icon }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center"
   >
-    <Icon className="w-12 h-12 text-green-400 mb-4" />
+    <AnimatedIcon icon={Icon} />
     <h3 className="text-lg font-semibold text-green-400 mb-2">{title}</h3>
     <p className="text-green-300 text-center">{description}</p>
   </motion.div>
@@ -77,50 +86,39 @@ const PlanCard = ({ title, description, price, features, isExtreme }) => (
 );
 
 const PlanComparison = () => (
-  <Dialog>
-    <DialogTrigger asChild>
-      <Button variant="outline" className="mt-4 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
-        Plan Comparison
-      </Button>
-    </DialogTrigger>
-    <DialogContent className="bg-gray-800 text-green-300">
-      <DialogHeader>
-        <DialogTitle className="text-green-400">Plan Comparison</DialogTitle>
-        <DialogDescription>
-          <table className="w-full mt-4">
-            <thead>
-              <tr>
-                <th className="text-left">Feature</th>
-                <th className="text-center">Budget</th>
-                <th className="text-center">Normal</th>
-                <th className="text-center">Extreme</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Price per GB RAM</td>
-                <td className="text-center">$0.90</td>
-                <td className="text-center">$1.10</td>
-                <td className="text-center">$3.00</td>
-              </tr>
-              <tr>
-                <td>CPU</td>
-                <td className="text-center">Shared</td>
-                <td className="text-center">AMD EPYC 7R17</td>
-                <td className="text-center">i9-9900K</td>
-              </tr>
-              <tr>
-                <td>Dedicated IP</td>
-                <td className="text-center">-</td>
-                <td className="text-center">-</td>
-                <td className="text-center">$5/month</td>
-              </tr>
-            </tbody>
-          </table>
-        </DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
+  <div className="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+    <h3 className="text-2xl font-bold mb-4 text-green-400">Plan Comparison</h3>
+    <table className="w-full">
+      <thead>
+        <tr>
+          <th className="text-left text-green-400">Feature</th>
+          <th className="text-center text-green-400">Budget</th>
+          <th className="text-center text-green-400">Normal</th>
+          <th className="text-center text-green-400">Extreme</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="text-green-300">Price per GB RAM</td>
+          <td className="text-center text-green-300">$0.90</td>
+          <td className="text-center text-green-300">$1.10</td>
+          <td className="text-center text-green-300">$3.00</td>
+        </tr>
+        <tr>
+          <td className="text-green-300">CPU</td>
+          <td className="text-center text-green-300">Shared</td>
+          <td className="text-center text-green-300">AMD EPYC 7R17</td>
+          <td className="text-center text-green-300">i9-9900K</td>
+        </tr>
+        <tr>
+          <td className="text-green-300">Dedicated IP</td>
+          <td className="text-center text-green-300">-</td>
+          <td className="text-center text-green-300">-</td>
+          <td className="text-center text-green-300">$5/month</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 );
 
 const EnzonicHosting = () => {
