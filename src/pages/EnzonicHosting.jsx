@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon, Cpu, Memory, HardDrive } from 'lucide-react';
+import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon, Cpu, HardDrive } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AnimatedGrid = () => {
