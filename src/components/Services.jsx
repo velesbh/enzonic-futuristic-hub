@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -16,7 +17,7 @@ const iconMap = {
   "Enzonic Productions": VideoIcon,
 };
 
-const ServiceCard = ({ title, description, action, icon: Icon }) => (
+const ServiceCard = ({ title, description, action, icon: Icon, to }) => (
   <motion.div
     whileHover={{ scale: 1.05, rotateY: 10 }}
     whileTap={{ scale: 0.95 }}
@@ -35,12 +36,14 @@ const ServiceCard = ({ title, description, action, icon: Icon }) => (
         <CardDescription className="text-green-200">{description}</CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
-        <Button 
-          variant="outline" 
-          className="w-full text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300 transition-all duration-300"
-        >
-          {action}
-        </Button>
+        <Link to={to}>
+          <Button 
+            variant="outline" 
+            className="w-full text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300 transition-all duration-300"
+          >
+            {action}
+          </Button>
+        </Link>
       </CardContent>
       <motion.div 
         className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-green-400/5"
@@ -54,15 +57,15 @@ const ServiceCard = ({ title, description, action, icon: Icon }) => (
 
 const Services = () => {
   const services = [
-    { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER" },
-    { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS" },
-    { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD" },
-    { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW" },
-    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW" },
-    { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW" },
-    { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW" },
-    { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW" },
-    { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW" },
+    { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER", to: "/hosting" },
+    { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS", to: "/" },
+    { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD", to: "/" },
+    { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW", to: "/" },
+    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/" },
+    { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW", to: "/" },
+    { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW", to: "/" },
+    { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/" },
+    { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/" },
   ];
 
   return (
