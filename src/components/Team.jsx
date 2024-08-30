@@ -1,21 +1,41 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { motion } from 'framer-motion';
 
 const TeamMember = ({ name, role, description, avatarUrl }) => (
-  <Card className="bg-gray-800 border-gray-700">
-    <CardHeader>
-      <Avatar className="w-24 h-24 mx-auto mb-4">
-        <AvatarImage src={avatarUrl} alt={name} />
-        <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-      </Avatar>
-      <CardTitle className="text-blue-400">{name}</CardTitle>
-      <CardDescription>{role}</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <p className="text-sm text-gray-400">{description}</p>
-    </CardContent>
-  </Card>
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ scale: 1.05 }}
+  >
+    <Card className="bg-gray-800 border-gray-700 h-full overflow-hidden relative">
+      <CardHeader className="relative z-10">
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+        >
+          <Avatar className="w-24 h-24 mx-auto mb-4">
+            <AvatarImage src={avatarUrl} alt={name} />
+            <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          </Avatar>
+        </motion.div>
+        <CardTitle className="text-green-400 text-xl">{name}</CardTitle>
+        <CardDescription className="text-green-200">{role}</CardDescription>
+      </CardHeader>
+      <CardContent className="relative z-10">
+        <p className="text-sm text-gray-400">{description}</p>
+      </CardContent>
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-green-400/5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      />
+    </Card>
+  </motion.div>
 );
 
 const Team = () => {
@@ -48,12 +68,24 @@ const Team = () => {
 
   return (
     <section className="py-12">
-      <h2 className="text-3xl font-bold mb-8 text-center text-blue-400">Our Team</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl font-bold mb-12 text-center text-green-400"
+      >
+        Our Team
+      </motion.h2>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         {teamMembers.map((member, index) => (
           <TeamMember key={index} {...member} />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
