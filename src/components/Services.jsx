@@ -30,23 +30,23 @@ const ServiceCard = ({ title, description, action, icon: Icon, to }) => (
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
         >
-          <Icon className="w-16 h-16 mb-4 text-green-400" />
+          <Icon className="w-16 h-16 mb-4 text-blue-400" />
         </motion.div>
-        <CardTitle className="text-green-400 text-xl">{title}</CardTitle>
-        <CardDescription className="text-green-200">{description}</CardDescription>
+        <CardTitle className="text-white text-xl">{title}</CardTitle>
+        <CardDescription className="text-gray-300">{description}</CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
         <Link to={to}>
           <Button 
             variant="outline" 
-            className="w-full text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300 transition-all duration-300"
+            className="w-full text-white border-white bg-gray-800 hover:bg-blue-900 hover:text-blue-300 transition-all duration-300"
           >
             {action}
           </Button>
         </Link>
       </CardContent>
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-green-400/5"
+        className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-400/5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -74,7 +74,7 @@ const Services = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-12 text-center text-green-400"
+        className="text-4xl font-bold mb-12 text-center text-white"
       >
         Our Services
       </motion.h2>

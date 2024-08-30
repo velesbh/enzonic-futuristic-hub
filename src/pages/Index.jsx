@@ -6,54 +6,58 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
-const AnimatedBubbles = () => {
-  const bubbles = React.useMemo(() => {
-    const result = [];
-    for (let i = 0; i < 30; i++) {
-      const size = Math.random() * 30 + 10;
-      result.push({
-        id: i,
-        size,
-        x: Math.random() * (window.innerWidth - size),
-        y: Math.random() * (window.innerHeight - size),
-      });
-    }
-    return result;
-  }, []);
-
+const AnimatedBackground = () => {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {bubbles.map((bubble) => (
-        <motion.div
-          key={bubble.id}
-          className="absolute bg-green-500 rounded-full opacity-5"
-          style={{
-            width: bubble.size,
-            height: bubble.size,
-            left: bubble.x,
-            top: bubble.y,
-          }}
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#1a1a2e', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#16213e', stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grad1)" />
+        <motion.circle
+          cx="10%"
+          cy="10%"
+          r="5%"
+          fill="#0f3460"
+          initial={{ opacity: 0.3 }}
           animate={{
-            y: [0, -5, 0],
-            scale: [1, 1.05, 1],
-            opacity: [0.03, 0.05, 0.03],
+            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.2, 1],
           }}
           transition={{
-            duration: Math.random() * 8 + 10,
+            duration: 5,
             repeat: Infinity,
             repeatType: 'reverse',
-            ease: 'easeInOut',
           }}
         />
-      ))}
+        <motion.circle
+          cx="90%"
+          cy="90%"
+          r="7%"
+          fill="#e94560"
+          initial={{ opacity: 0.2 }}
+          animate={{
+            opacity: [0.2, 0.4, 0.2],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+      </svg>
     </div>
   );
 };
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-green-400 relative overflow-hidden">
-      <AnimatedBubbles />
+    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+      <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-8 relative z-10">
         <motion.div
@@ -62,22 +66,36 @@ const Index = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl font-bold mb-4 text-green-400">Welcome to Enzonic</h1>
-          <p className="text-2xl mb-8 text-green-300">Empowering the future with innovative solutions</p>
+          <motion.h1 
+            className="text-6xl font-bold mb-4 text-white"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Welcome to Enzonic
+          </motion.h1>
+          <motion.p 
+            className="text-2xl mb-8 text-gray-300"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            Empowering the future with innovative solutions
+          </motion.p>
           <div className="flex justify-center space-x-4 flex-wrap">
             {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS'].map((text, index) => (
               <motion.div
                 key={text}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                transition={{ delay: index * 0.1 + 0.6 }}
+                whileHover={{ scale: 1.05, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 className="m-2"
               >
                 <Button 
                   variant="outline" 
-                  className="text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-400/30"
+                  className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-blue-500/30"
                 >
                   {text}
                 </Button>

@@ -8,7 +8,7 @@ const TeamMember = ({ name, role, description, avatarUrl }) => (
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    whileHover={{ scale: 1.05 }}
+    whileHover={{ scale: 1.05, rotateY: 5 }}
   >
     <Card className="bg-gray-800 border-gray-700 h-full overflow-hidden relative">
       <CardHeader className="relative z-10">
@@ -17,19 +17,19 @@ const TeamMember = ({ name, role, description, avatarUrl }) => (
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
         >
-          <Avatar className="w-24 h-24 mx-auto mb-4">
+          <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-blue-500">
             <AvatarImage src={avatarUrl} alt={name} />
             <AvatarFallback>{name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
           </Avatar>
         </motion.div>
-        <CardTitle className="text-green-400 text-xl">{name}</CardTitle>
-        <CardDescription className="text-green-200">{role}</CardDescription>
+        <CardTitle className="text-white text-xl">{name}</CardTitle>
+        <CardDescription className="text-blue-300">{role}</CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
-        <p className="text-sm text-gray-400">{description}</p>
+        <p className="text-sm text-gray-300">{description}</p>
       </CardContent>
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-green-400/5"
+        className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-400/5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -72,7 +72,7 @@ const Team = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-12 text-center text-green-400"
+        className="text-4xl font-bold mb-12 text-center text-white"
       >
         Our Team
       </motion.h2>
