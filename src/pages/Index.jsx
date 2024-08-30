@@ -8,23 +8,23 @@ import { Button } from '@/components/ui/button';
 
 const AnimatedBubbles = () => (
   <div className="fixed inset-0 z-0 overflow-hidden">
-    {[...Array(20)].map((_, i) => (
+    {[...Array(30)].map((_, i) => (
       <motion.div
         key={i}
-        className="absolute bg-green-500 rounded-full opacity-10"
+        className="absolute bg-green-500 rounded-full opacity-5"
         style={{
-          width: Math.random() * 100 + 20,
-          height: Math.random() * 100 + 20,
+          width: Math.random() * 30 + 10,
+          height: Math.random() * 30 + 10,
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
         }}
         animate={{
-          y: [0, -30, 0],
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
+          y: [0, -10, 0],
+          scale: [1, 1.1, 1],
+          opacity: [0.05, 0.1, 0.05],
         }}
         transition={{
-          duration: Math.random() * 5 + 5,
+          duration: Math.random() * 8 + 10,
           repeat: Infinity,
           repeatType: 'reverse',
           ease: 'easeInOut',
