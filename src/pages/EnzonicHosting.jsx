@@ -29,11 +29,11 @@ const AnimatedBackground = () => {
             animate={{
               opacity: [0.2, 0.5, 0.2],
               scale: [0.8, 1.2, 0.8],
-              x: ['-10%', '10%', '-10%'],
-              y: ['-10%', '10%', '-10%'],
+              x: ['-2%', '2%', '-2%'],
+              y: ['-2%', '2%', '-2%'],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: 20,
               repeat: Infinity,
               repeatType: 'reverse',
             }}
