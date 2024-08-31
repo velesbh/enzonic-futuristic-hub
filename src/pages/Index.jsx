@@ -156,8 +156,10 @@ const Index = () => {
           </div>
         </motion.div>
       </main>
-      <Services />
-      <Team />
+      <div className="relative z-10">
+        <Services />
+        <Team />
+      </div>
       <Footer />
     </div>
   );
