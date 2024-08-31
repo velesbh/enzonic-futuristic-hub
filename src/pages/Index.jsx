@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Services from '../components/Services';
 import Team from '../components/Team';
 import Footer from '../components/Footer';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { TypeAnimation } from 'react-type-animation';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 const AnimatedBackground = () => {
   return (
@@ -18,7 +20,7 @@ const AnimatedBackground = () => {
           </linearGradient>
         </defs>
         <rect width="100%" height="100%" fill="url(#grad1)" />
-        {[...Array(20)].map((_, i) => (
+        {[...Array(50)].map((_, i) => (
           <motion.circle
             key={i}
             cx={`${Math.random() * 100}%`}
@@ -64,6 +66,7 @@ const FloatingElement = ({ children }) => {
 
 const Index = () => {
   const controls = useAnimation();
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     controls.start(i => ({
@@ -71,61 +74,87 @@ const Index = () => {
       y: 0,
       transition: { delay: i * 0.1 },
     }));
+
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [controls]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
-      <main className="container mx-auto px-4 py-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <FloatingElement>
-            <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+      <Parallax pages={3}>
+        <ParallaxLayer offset={0} speed={0.5}>
+          <main className="container mx-auto px-4 py-32 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
             >
-              Welcome to Enzonic
-            </motion.h1>
-          </FloatingElement>
-          <motion.p 
-            className="text-2xl mb-8 text-blue-300"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            Empowering the future with innovative solutions
-          </motion.p>
-          <div className="flex justify-center space-x-4 flex-wrap">
-            {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS'].map((text, index) => (
-              <motion.div
-                key={text}
-                custom={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={controls}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-                className="m-2"
-              >
-                <Button 
-                  variant="outline" 
-                  className="text-white border-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-pink-500/30"
+              <FloatingElement>
+                <motion.h1 
+                  className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  {text}
-                </Button>
+                  Welcome to Enzonic
+                </motion.h1>
+              </FloatingElement>
+              <motion.div 
+                className="text-2xl mb-8 text-blue-300 h-20"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <TypeAnimation
+                  sequence={[
+                    'Empowering the future with innovative solutions',
+                    1000,
+                    'Transforming ideas into digital reality',
+                    1000,
+                    'Pushing the boundaries of technology',
+                    1000,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                />
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
-        <Services />
-        <Team />
-      </main>
+              <div className="flex justify-center space-x-4 flex-wrap">
+                {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS'].map((text, index) => (
+                  <motion.div
+                    key={text}
+                    custom={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={controls}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="m-2"
+                  >
+                    <Button 
+                      variant="outline" 
+                      className="text-white border-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-pink-500/30"
+                    >
+                      {text}
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </main>
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={1} speed={0.8}>
+          <Services />
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={2} speed={1.2}>
+          <Team />
+        </ParallaxLayer>
+      </Parallax>
       <Footer />
     </div>
   );
