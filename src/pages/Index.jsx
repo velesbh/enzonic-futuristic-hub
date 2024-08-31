@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
+import { Link } from 'react-router-dom';
 
 const AnimatedBackground = () => {
   return (
@@ -134,7 +135,14 @@ const Index = () => {
             />
           </motion.div>
           <div className="flex justify-center space-x-4 flex-wrap">
-            {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS', 'CLOUD', 'VPN'].map((text, index) => (
+            {[
+              { text: 'HOSTING', path: '/hosting' },
+              { text: 'RO-MINE', path: '/' },
+              { text: 'DISCORD', path: '/' },
+              { text: 'NEWS', path: '/news' },
+              { text: 'CLOUD', path: '/' },
+              { text: 'VPN', path: '/' }
+            ].map(({ text, path }, index) => (
               <motion.div
                 key={text}
                 custom={index}
@@ -144,12 +152,14 @@ const Index = () => {
                 whileTap={{ scale: 0.95 }}
                 className="m-2"
               >
-                <Button 
-                  variant="outline" 
-                  className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
-                >
-                  {text}
-                </Button>
+                <Link to={path}>
+                  <Button 
+                    variant="outline" 
+                    className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
+                  >
+                    {text}
+                  </Button>
+                </Link>
               </motion.div>
             ))}
           </div>
