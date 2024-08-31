@@ -6,7 +6,6 @@ import Footer from '../components/Footer';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 const AnimatedBackground = () => {
   return (
@@ -84,91 +83,81 @@ const Index = () => {
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
-      <Parallax pages={3}>
-        <ParallaxLayer offset={0} speed={0.5}>
-          <main className="container mx-auto px-4 py-32 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+      <main className="container mx-auto px-4 py-32 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <FloatingElement>
+            <motion.h1 
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <FloatingElement>
-                <motion.h1 
-                  className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  Welcome to Enzonic
-                </motion.h1>
-              </FloatingElement>
-              <motion.div 
-                className="text-2xl mb-8 text-green-300 h-20"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+              Welcome to Enzonic
+            </motion.h1>
+          </FloatingElement>
+          <motion.div 
+            className="text-2xl mb-8 text-green-300 h-20"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <TypeAnimation
+              sequence={[
+                'Enzonic: Hosting',
+                1000,
+                'Enzonic: AI',
+                1000,
+                'Enzonic: Cloud',
+                1000,
+                'Enzonic: VPN',
+                1000,
+                'Enzonic: Games',
+                1000,
+                'Enzonic: Events',
+                1000,
+                'Enzonic: Web designer',
+                1000,
+                'Enzonic: Connect',
+                1000,
+                'Enzonic: News',
+                1000,
+                'And much more',
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </motion.div>
+          <div className="flex justify-center space-x-4 flex-wrap">
+            {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS', 'CLOUD', 'VPN'].map((text, index) => (
+              <motion.div
+                key={text}
+                custom={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={controls}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="m-2"
               >
-                <TypeAnimation
-                  sequence={[
-                    'Enzonic: Hosting',
-                    1000,
-                    'Enzonic: AI',
-                    1000,
-                    'Enzonic: Cloud',
-                    1000,
-                    'Enzonic: VPN',
-                    1000,
-                    'Enzonic: Games',
-                    1000,
-                    'Enzonic: Events',
-                    1000,
-                    'Enzonic: Web designer',
-                    1000,
-                    'Enzonic: Connect',
-                    1000,
-                    'Enzonic: News',
-                    1000,
-                    'And much more',
-                    1000,
-                  ]}
-                  wrapper="span"
-                  speed={50}
-                  repeat={Infinity}
-                />
+                <Button 
+                  variant="outline" 
+                  className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
+                >
+                  {text}
+                </Button>
               </motion.div>
-              <div className="flex justify-center space-x-4 flex-wrap">
-                {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS', 'CLOUD', 'VPN'].map((text, index) => (
-                  <motion.div
-                    key={text}
-                    custom={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={controls}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="m-2"
-                  >
-                    <Button 
-                      variant="outline" 
-                      className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
-                    >
-                      {text}
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </main>
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={1} speed={0.8}>
-          <Services />
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={2} speed={1.2}>
-          <Team />
-        </ParallaxLayer>
-      </Parallax>
+            ))}
+          </div>
+        </motion.div>
+      </main>
+      <Services />
+      <Team />
       <Footer />
     </div>
   );
