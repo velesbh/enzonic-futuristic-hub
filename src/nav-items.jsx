@@ -1,4 +1,4 @@
-import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon } from "lucide-react";
+import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import EnzonicHosting from "./pages/EnzonicHosting.jsx";
 import News from "./pages/News.jsx";
