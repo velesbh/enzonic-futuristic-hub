@@ -81,34 +81,34 @@ const PlanCard = ({ title, description, price, features, isExtreme, icon: Icon }
 
 const PlanComparison = () => (
   <div className="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h3 className="text-2xl font-bold mb-4 text-green-400">Plan Comparison</h3>
+    <h3 className="text-2xl font-bold mb-4 text-purple-400">Plan Comparison</h3>
     <table className="w-full">
       <thead>
         <tr>
-          <th className="text-left text-green-400">Feature</th>
-          <th className="text-center text-green-400">Budget</th>
-          <th className="text-center text-green-400">Normal</th>
-          <th className="text-center text-green-400">Extreme</th>
+          <th className="text-left text-purple-400">Feature</th>
+          <th className="text-center text-purple-400">Budget</th>
+          <th className="text-center text-purple-400">Normal</th>
+          <th className="text-center text-purple-400">Extreme</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="text-green-300">Price per GB RAM</td>
-          <td className="text-center text-green-300">$0.90</td>
-          <td className="text-center text-green-300">$1.10</td>
-          <td className="text-center text-green-300">$3.00</td>
+          <td className="text-purple-300">Price per GB RAM</td>
+          <td className="text-center text-purple-300">$0.90</td>
+          <td className="text-center text-purple-300">$1.10</td>
+          <td className="text-center text-purple-300">$3.00</td>
         </tr>
         <tr>
-          <td className="text-green-300">CPU</td>
-          <td className="text-center text-green-300">Shared</td>
-          <td className="text-center text-green-300">AMD EPYC 7R17</td>
-          <td className="text-center text-green-300">i9-9900K</td>
+          <td className="text-purple-300">CPU</td>
+          <td className="text-center text-purple-300">Shared</td>
+          <td className="text-center text-purple-300">AMD EPYC 7R17</td>
+          <td className="text-center text-purple-300">i9-9900K</td>
         </tr>
         <tr>
-          <td className="text-green-300">Dedicated IP</td>
-          <td className="text-center text-green-300">-</td>
-          <td className="text-center text-green-300">-</td>
-          <td className="text-center text-green-300">$5/month</td>
+          <td className="text-purple-300">Dedicated IP</td>
+          <td className="text-center text-purple-300">-</td>
+          <td className="text-center text-purple-300">-</td>
+          <td className="text-center text-purple-300">$5/month</td>
         </tr>
       </tbody>
     </table>
