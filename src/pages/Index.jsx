@@ -14,9 +14,9 @@ const AnimatedBackground = () => {
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#0f0c29', stopOpacity: 1 }} />
-            <stop offset="50%" style={{ stopColor: '#302b63', stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: '#24243e', stopOpacity: 1 }} />
+            <stop offset="0%" style={{ stopColor: '#0a2f1f', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: '#1a5f3f', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#2a8f5f', stopOpacity: 1 }} />
           </linearGradient>
         </defs>
         <rect width="100%" height="100%" fill="url(#grad1)" />
@@ -26,7 +26,7 @@ const AnimatedBackground = () => {
             cx={`${Math.random() * 100}%`}
             cy={`${Math.random() * 100}%`}
             r={`${Math.random() * 2 + 0.5}%`}
-            fill={`rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.3)`}
+            fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
             initial={{ opacity: 0.2, scale: 0 }}
             animate={{
               opacity: [0.2, 0.5, 0.2],
@@ -95,7 +95,7 @@ const Index = () => {
             >
               <FloatingElement>
                 <motion.h1 
-                  className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"
+                  className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
@@ -104,18 +104,32 @@ const Index = () => {
                 </motion.h1>
               </FloatingElement>
               <motion.div 
-                className="text-2xl mb-8 text-blue-300 h-20"
+                className="text-2xl mb-8 text-green-300 h-20"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <TypeAnimation
                   sequence={[
-                    'Empowering the future with innovative solutions',
+                    'Enzonic: Hosting',
                     1000,
-                    'Transforming ideas into digital reality',
+                    'Enzonic: AI',
                     1000,
-                    'Pushing the boundaries of technology',
+                    'Enzonic: Cloud',
+                    1000,
+                    'Enzonic: VPN',
+                    1000,
+                    'Enzonic: Games',
+                    1000,
+                    'Enzonic: Events',
+                    1000,
+                    'Enzonic: Web designer',
+                    1000,
+                    'Enzonic: Connect',
+                    1000,
+                    'Enzonic: News',
+                    1000,
+                    'And much more',
                     1000,
                   ]}
                   wrapper="span"
@@ -124,7 +138,7 @@ const Index = () => {
                 />
               </motion.div>
               <div className="flex justify-center space-x-4 flex-wrap">
-                {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS'].map((text, index) => (
+                {['HOSTING', 'RO-MINE', 'DISCORD', 'NEWS', 'CLOUD', 'VPN'].map((text, index) => (
                   <motion.div
                     key={text}
                     custom={index}
@@ -136,7 +150,7 @@ const Index = () => {
                   >
                     <Button 
                       variant="outline" 
-                      className="text-white border-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-pink-500/30"
+                      className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
                     >
                       {text}
                     </Button>
