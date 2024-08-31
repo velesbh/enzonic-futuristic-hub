@@ -26,15 +26,14 @@ const AnimatedBackground = () => {
             cy={`${Math.random() * 100}%`}
             r={`${Math.random() * 2 + 0.5}%`}
             fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
-            initial={{ opacity: 0.2, scale: 0 }}
             animate={{
               opacity: [0.2, 0.5, 0.2],
-              scale: [0, 1, 0],
-              x: [0, Math.random() * 100 - 50, 0],
-              y: [0, Math.random() * 100 - 50, 0],
+              scale: [0.8, 1.2, 0.8],
+              x: ['-10%', '10%', '-10%'],
+              y: ['-10%', '10%', '-10%'],
             }}
             transition={{
-              duration: Math.random() * 10 + 5,
+              duration: Math.random() * 10 + 10,
               repeat: Infinity,
               repeatType: 'reverse',
             }}
