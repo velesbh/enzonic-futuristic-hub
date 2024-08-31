@@ -5,33 +5,61 @@ import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Settings, Server, Clock, Shield, Zap, HeadphonesIcon, Cpu, HardDrive, DollarSign, Rocket, Music, Globe, Mic, Cloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { TypeAnimation } from 'react-type-animation';
 
-const AnimatedGrid = () => {
+const AnimatedBackground = () => {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {Array.from({ length: 100 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute bg-green-500 opacity-5"
-          style={{
-            width: 2,
-            height: 2,
-            left: `${(i % 10) * 10}%`,
-            top: `${Math.floor(i / 10) * 10}%`,
-          }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.03, 0.05, 0.03],
-          }}
-          transition={{
-            duration: Math.random() * 4 + 2,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-        />
-      ))}
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#0a2f1f', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: '#1a5f3f', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#2a8f5f', stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grad1)" />
+        {[...Array(50)].map((_, i) => (
+          <motion.circle
+            key={i}
+            cx={`${Math.random() * 100}%`}
+            cy={`${Math.random() * 100}%`}
+            r={`${Math.random() * 2 + 0.5}%`}
+            fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+            initial={{ opacity: 0.2, scale: 0 }}
+            animate={{
+              opacity: [0.2, 0.5, 0.2],
+              scale: [0, 1, 0],
+              x: [0, Math.random() * 100 - 50, 0],
+              y: [0, Math.random() * 100 - 50, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 5,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+        ))}
+      </svg>
     </div>
+  );
+};
+
+const FloatingElement = ({ children }) => {
+  return (
+    <motion.div
+      animate={{
+        y: [0, -10, 0],
+        rotate: [-1, 1, -1],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -117,6 +145,20 @@ const PlanComparison = () => (
 
 const EnzonicHosting = () => {
   const [selectedPlan, setSelectedPlan] = useState('minecraft');
+  const controls = useAnimation();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    controls.start(i => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1 },
+    }));
+
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [controls]);
 
   const plans = {
     minecraft: {
@@ -172,35 +214,63 @@ const EnzonicHosting = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
-      <AnimatedGrid />
+      <AnimatedBackground />
       <Header />
-      <main className="container mx-auto px-4 py-8 relative z-10">
+      <main className="container mx-auto px-4 py-32 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl font-bold mb-4 text-white">Welcome to Enzonic Hosting</h1>
-          <p className="text-2xl mb-8 text-gray-300">Powerful and reliable hosting solutions</p>
+          <FloatingElement>
+            <motion.h1 
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Enzonic Hosting
+            </motion.h1>
+          </FloatingElement>
+          <motion.div 
+            className="text-2xl mb-8 text-green-300 h-20"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <TypeAnimation
+              sequence={[
+                'Powerful and reliable hosting solutions',
+                1000,
+                'Game servers, web hosting, and more',
+                1000,
+                'Tailored for your needs',
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </motion.div>
           <div className="flex justify-center space-x-4 flex-wrap">
             <Link to="/">
-              <Button variant="outline" className="m-2 text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200">
+              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
                 Home
               </Button>
             </Link>
             <a href="https://panel.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
+              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
                 Game Panel
               </Button>
             </a>
             <a href="https://webpanel.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
+              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
                 Webhosting Panel
               </Button>
             </a>
             <a href="https://vps.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-green-400 border-green-400 bg-gray-800 hover:bg-green-900 hover:text-green-300">
+              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
                 VPS Panel
               </Button>
             </a>

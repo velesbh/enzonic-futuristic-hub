@@ -158,6 +158,8 @@ const Index = () => {
       </main>
       <div className="relative z-10">
         <Services />
+      </div>
+      <div className="relative z-10 mt-16">
         <Team />
       </div>
       <Footer />
