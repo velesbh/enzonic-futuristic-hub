@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
@@ -10,14 +10,69 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { plans } from '../data/hostingPlans';
 
-const FeatureCard = ({ icon: Icon, title, description }) => (
+const AnimatedBackground = () => {
+  return (
+    <div className="fixed inset-0 z-0 overflow-hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#0a2f1f', stopOpacity: 1 }} />
+            <stop offset="50%" style={{ stopColor: '#1a5f3f', stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: '#2a8f5f', stopOpacity: 1 }} />
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grad1)" />
+        {[...Array(50)].map((_, i) => (
+          <motion.circle
+            key={i}
+            cx={`${Math.random() * 100}%`}
+            cy={`${Math.random() * 100}%`}
+            r={`${Math.random() * 2 + 0.5}%`}
+            fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+            animate={{
+              opacity: [0.2, 0.5, 0.2],
+              scale: [0.8, 1.2, 0.8],
+              x: ['-2%', '2%', '-2%'],
+              y: ['-2%', '2%', '-2%'],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+        ))}
+      </svg>
+    </div>
+  );
+};
+
+const FloatingElement = ({ children }) => {
+  return (
+    <motion.div
+      animate={{
+        y: [0, -10, 0],
+        rotate: [-1, 1, -1],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const FeatureCard = ({ title, description, icon: Icon }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center"
   >
-    <Icon className="w-12 h-12 text-green-400 mb-4" />
-    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-    <p className="text-gray-300">{description}</p>
+    <Icon className="w-12 h-12 text-white mb-4" />
+    <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
+    <p className="text-gray-300 text-center">{description}</p>
   </motion.div>
 );
 
@@ -46,8 +101,6 @@ const PlanCard = ({ title, price, features, icon: Icon }) => (
 );
 
 const EnzonicHosting = () => {
-  const [selectedCategory, setSelectedCategory] = useState('minecraft');
-
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
@@ -117,7 +170,7 @@ const EnzonicHosting = () => {
         {/* Hosting Plans */}
         <section className="mb-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Our Hosting Solutions</h2>
-          <Tabs selectedTabClassName="border-b-2 border-green-400">
+          <Tabs>
             <TabList className="flex justify-center mb-8">
               <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Minecraft</Tab>
               <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Web Hosting</Tab>
