@@ -11,10 +11,12 @@ import PlanSelector from '../components/PlanSelector';
 import { plans } from '../data/hostingPlans';
 
 const EnzonicHosting = () => {
-  const [selectedPlan, setSelectedPlan] = useState('minecraft');
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [selectedTier, setSelectedTier] = useState('budget');
 
   const renderPlans = () => {
+    if (!selectedPlan) return null;
+
     const currentPlans = selectedPlan === 'minecraft' ? plans.minecraft[selectedTier] : plans[selectedPlan];
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
