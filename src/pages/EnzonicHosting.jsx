@@ -3,28 +3,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Settings, Server, Clock, Shield, HeadphonesIcon, Cpu, HardDrive, DollarSign, Rocket, Music, Globe, Mic, Cloud, Gamepad } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { TypeAnimation } from 'react-type-animation';
+import { Link } from 'react-router-dom';
+import { Settings, Server, Clock, Shield, HeadphonesIcon, Cpu, HardDrive, DollarSign, Rocket, Music, Globe, Mic, Cloud, Gamepad, Zap } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, StaticIcon, FeatureCard, PlanCard, PlanComparison } from '../components/HostingComponents';
 
 const EnzonicHosting = () => {
   const [selectedPlan, setSelectedPlan] = useState('minecraft');
-  const controls = useAnimation();
-  const [scrollY, setScrollY] = useState(0);
   const [selectedTier, setSelectedTier] = useState('budget');
-
-  useEffect(() => {
-    controls.start(i => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1 },
-    }));
-
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
 
   const plans = {
     minecraft: {
@@ -100,6 +86,17 @@ const EnzonicHosting = () => {
     ],
   };
 
+  const renderPlans = () => {
+    const currentPlans = selectedPlan === 'minecraft' ? plans.minecraft[selectedTier] : plans[selectedPlan];
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {currentPlans.map((plan, index) => (
+          <PlanCard key={index} {...plan} isExtreme={selectedTier === 'extreme'} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
@@ -172,7 +169,7 @@ const EnzonicHosting = () => {
             <FeatureCard title="DDoS Protection" description="Advanced protection against DDoS attacks" icon={Shield} />
             <FeatureCard title="24/7 Support" description="Our team is always ready to help you" icon={HeadphonesIcon} />
             <FeatureCard title="Scalable Resources" description="Easily upgrade your plan as your needs grow" icon={Zap} />
-            <FeatureCard title="SSD Storage" description="Lightning-fast SSD storage for all plans" icon={Server} />
+            <FeatureCard title="SSD Storage" description="Lightning-fast SSD storage for all plans" icon={HardDrive} />
             <FeatureCard title="Custom Solutions" description="Tailored hosting solutions for your specific needs" icon={Settings} />
           </div>
         </section>
@@ -196,38 +193,19 @@ const EnzonicHosting = () => {
           </div>
           {selectedPlan === 'minecraft' && (
             <div className="flex justify-center space-x-4 mb-8">
-              <Button
-                variant={selectedTier === 'budget' ? "default" : "outline"}
-                className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
-                onClick={() => setSelectedTier('budget')}
-              >
-                Budget
-              </Button>
-              <Button
-                variant={selectedTier === 'normal' ? "default" : "outline"}
-                className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
-                onClick={() => setSelectedTier('normal')}
-              >
-                Normal
-              </Button>
-              <Button
-                variant={selectedTier === 'extreme' ? "default" : "outline"}
-                className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
-                onClick={() => setSelectedTier('extreme')}
-              >
-                Extreme
-              </Button>
+              {['budget', 'normal', 'extreme'].map((tier) => (
+                <Button
+                  key={tier}
+                  variant={selectedTier === tier ? "default" : "outline"}
+                  className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
+                  onClick={() => setSelectedTier(tier)}
+                >
+                  {tier.charAt(0).toUpperCase() + tier.slice(1)}
+                </Button>
+              ))}
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {selectedPlan === 'minecraft'
-              ? plans.minecraft[selectedTier].map((plan, index) => (
-                  <PlanCard key={index} {...plan} isExtreme={selectedTier === 'extreme'} />
-                ))
-              : plans[selectedPlan].map((plan, index) => (
-                  <PlanCard key={index} {...plan} />
-                ))}
-          </div>
+          {renderPlans()}
           {selectedPlan === 'minecraft' && (
             <>
               <div className="text-center mt-8">
