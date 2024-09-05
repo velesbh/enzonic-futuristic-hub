@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { GamepadIcon, ShoppingCartIcon, ServerIcon, InfoIcon } from 'lucide-react';
-import { AnimatedBackground, FloatingElement, FeatureCard } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton } from '../components/AnimatedComponents';
 
 const RoMine = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-green-900 to-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -22,7 +22,7 @@ const RoMine = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-green-600"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -31,7 +31,7 @@ const RoMine = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-blue-300 h-20"
+            className="text-2xl mb-8 text-green-300 h-20"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -59,13 +59,9 @@ const RoMine = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Link to="/">
-              <Button variant="outline" className="text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
-                Home
-              </Button>
+              <GlowingButton>Home</GlowingButton>
             </Link>
-            <Button variant="outline" className="text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
-              Shop
-            </Button>
+            <GlowingButton>Shop</GlowingButton>
           </motion.div>
         </motion.div>
         
@@ -121,9 +117,7 @@ const RoMine = () => {
           <h2 className="text-4xl font-bold mb-8 text-center text-white">Minebucks Shop</h2>
           <div className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg text-center">
             <p className="text-xl mb-4">Enhance your Ro-Mine experience with Minebucks!</p>
-            <Button variant="outline" className="text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
-              Buy Minebucks
-            </Button>
+            <GlowingButton>Buy Minebucks</GlowingButton>
           </div>
         </motion.section>
       </main>

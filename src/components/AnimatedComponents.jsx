@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 export const AnimatedBackground = () => (
   <div className="fixed inset-0 z-0 overflow-hidden">
@@ -87,12 +88,27 @@ export const PlanCard = ({ title, price, features, icon: Icon, description }) =>
         </li>
       ))}
     </ul>
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="mt-auto text-white border-blue-400 bg-gray-700 hover:bg-blue-600 hover:text-white transition-colors duration-300 py-2 px-4 rounded"
-    >
-      Select Plan
-    </motion.button>
+    <GlowingButton className="mt-auto">Select Plan</GlowingButton>
   </motion.div>
+);
+
+export const GlowingButton = ({ children, className, ...props }) => (
+  <Button
+    className={`relative overflow-hidden group ${className}`}
+    {...props}
+  >
+    <span className="relative z-10">{children}</span>
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+      animate={{
+        scale: [1, 1.5, 1],
+        rotate: [0, 360, 0],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: 'loop',
+      }}
+    />
+  </Button>
 );

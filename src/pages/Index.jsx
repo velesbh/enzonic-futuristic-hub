@@ -7,11 +7,11 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -23,7 +23,7 @@ const Index = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -72,12 +72,7 @@ const Index = () => {
               { text: 'VPN', path: '/' }
             ].map(({ text, path }) => (
               <Link key={text} to={path}>
-                <Button 
-                  variant="outline" 
-                  className="text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
-                >
-                  {text}
-                </Button>
+                <GlowingButton>{text}</GlowingButton>
               </Link>
             ))}
           </motion.div>

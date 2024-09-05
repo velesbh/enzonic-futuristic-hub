@@ -9,13 +9,13 @@ import 'react-tabs/style/react-tabs.css';
 import { Zap, Shield, HeadphonesIcon } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
-import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton } from '../components/AnimatedComponents';
 
 const EnzonicHosting = () => {
   const [isComparisonPopupOpen, setIsComparisonPopupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900 text-white">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-16 relative z-10">
@@ -27,7 +27,7 @@ const EnzonicHosting = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500"
+              className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -60,10 +60,10 @@ const EnzonicHosting = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Button className="bg-blue-500 text-white hover:bg-blue-600 mr-4">Get Started</Button>
-            <Button variant="outline" className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white" onClick={() => setIsComparisonPopupOpen(true)}>
+            <GlowingButton className="mr-4">Get Started</GlowingButton>
+            <GlowingButton variant="outline" onClick={() => setIsComparisonPopupOpen(true)}>
               Compare Plans
-            </Button>
+            </GlowingButton>
           </motion.div>
         </motion.section>
 
@@ -131,7 +131,7 @@ const EnzonicHosting = () => {
         >
           <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
           <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
-          <Button className="bg-blue-500 text-white hover:bg-blue-600 text-lg px-8 py-3">Sign Up Now</Button>
+          <GlowingButton>Sign Up Now</GlowingButton>
         </motion.section>
       </main>
       <Footer />

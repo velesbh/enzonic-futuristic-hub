@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
-import { AnimatedBackground, FloatingElement } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
 
 const NewsCard = ({ title, date, author, excerpt }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     className="mb-8"
   >
-    <Card className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg text-white">
+    <Card className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg text-white border-blue-500">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">{title}</CardTitle>
         <CardDescription className="text-gray-400">
@@ -23,9 +23,7 @@ const NewsCard = ({ title, date, author, excerpt }) => (
       </CardHeader>
       <CardContent>
         <p className="text-gray-300">{excerpt}</p>
-        <Button variant="outline" className="mt-4 text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
-          Read More
-        </Button>
+        <GlowingButton className="mt-4">Read More</GlowingButton>
       </CardContent>
     </Card>
   </motion.div>
@@ -54,7 +52,7 @@ const News = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-indigo-900 to-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -66,7 +64,7 @@ const News = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -124,9 +122,7 @@ const News = () => {
               placeholder="Enter your email"
               className="px-4 py-2 rounded-l-md bg-gray-800 text-white border-2 border-blue-500 focus:outline-none focus:border-blue-400"
             />
-            <Button className="rounded-r-md bg-blue-500 hover:bg-blue-600 text-white">
-              Subscribe
-            </Button>
+            <GlowingButton className="rounded-l-none">Subscribe</GlowingButton>
           </div>
         </motion.section>
       </main>
