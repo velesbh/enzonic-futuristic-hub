@@ -5,62 +5,76 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { Settings, Server, Clock, Shield, HeadphonesIcon, Cpu, HardDrive, Zap } from 'lucide-react';
-import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, PlanComparison } from '../components/HostingComponents';
-import PlanSelector from '../components/PlanSelector';
+import { Settings, Server, Clock, Shield, HeadphonesIcon, Cpu, HardDrive, Zap, Gamepad, Globe } from 'lucide-react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import { plans } from '../data/hostingPlans';
 
+const FeatureCard = ({ icon: Icon, title, description }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+  >
+    <Icon className="w-12 h-12 text-green-400 mb-4" />
+    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+    <p className="text-gray-300">{description}</p>
+  </motion.div>
+);
+
+const PlanCard = ({ title, price, features, icon: Icon }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col"
+  >
+    <div className="flex items-center mb-4">
+      <Icon className="w-8 h-8 text-green-400 mr-2" />
+      <h3 className="text-xl font-semibold text-white">{title}</h3>
+    </div>
+    <p className="text-3xl font-bold text-white mb-4">{price}</p>
+    <ul className="text-gray-300 mb-4 flex-grow">
+      {features.map((feature, index) => (
+        <li key={index} className="mb-2 flex items-center">
+          <Zap className="w-4 h-4 text-green-400 mr-2" />
+          {feature}
+        </li>
+      ))}
+    </ul>
+    <Button variant="outline" className="mt-auto text-white border-green-400 bg-gray-700 hover:bg-green-600 hover:text-white transition-colors duration-300">
+      Select Plan
+    </Button>
+  </motion.div>
+);
+
 const EnzonicHosting = () => {
-  const [selectedPlan, setSelectedPlan] = useState(null);
-  const [selectedTier, setSelectedTier] = useState('budget');
-
-  const renderPlans = () => {
-    if (!selectedPlan) return null;
-
-    const currentPlans = selectedPlan === 'minecraft' ? plans.minecraft[selectedTier] : plans[selectedPlan];
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {currentPlans.map((plan, index) => (
-          <PlanCard key={index} {...plan} isExtreme={selectedTier === 'extreme'} />
-        ))}
-      </div>
-    );
-  };
+  const [selectedCategory, setSelectedCategory] = useState('minecraft');
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
-      <AnimatedBackground />
+    <div className="min-h-screen bg-gray-900 text-white">
       <Header />
-      <main className="container mx-auto px-4 py-32 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <FloatingElement>
-            <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Enzonic Hosting
-            </motion.h1>
-          </FloatingElement>
+      <main className="container mx-auto px-4 py-16">
+        {/* Hero Section */}
+        <section className="text-center mb-16">
+          <motion.h1 
+            className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Enzonic Hosting
+          </motion.h1>
           <motion.div 
-            className="text-2xl mb-8 text-green-300 h-20"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-2xl mb-8 text-gray-300 h-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             <TypeAnimation
               sequence={[
-                'Powerful and reliable hosting solutions',
+                'Powerful servers for your games',
                 1000,
-                'Game servers, web hosting, and more',
+                'Lightning-fast web hosting',
                 1000,
-                'Tailored for your needs',
+                'Reliable VPS solutions',
                 1000,
               ]}
               wrapper="span"
@@ -68,63 +82,92 @@ const EnzonicHosting = () => {
               repeat={Infinity}
             />
           </motion.div>
-          <div className="flex justify-center space-x-4 flex-wrap">
-            <Link to="/">
-              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
-                Home
-              </Button>
-            </Link>
-            <a href="https://panel.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
-                Game Panel
-              </Button>
-            </a>
-            <a href="https://webpanel.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
-                Webhosting Panel
-              </Button>
-            </a>
-            <a href="https://vps.enzonic.xyz" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="m-2 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
-                VPS Panel
-              </Button>
-            </a>
-          </div>
-        </motion.div>
-        
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Button className="bg-green-500 text-white hover:bg-green-600 mr-4">Get Started</Button>
+            <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-white">Learn More</Button>
+          </motion.div>
+        </section>
+
+        {/* Feature Highlights */}
         <section className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-center text-white">Our Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FeatureCard title="99.9% Uptime" description="We guarantee your services will be available 99.9% of the time" icon={Clock} />
-            <FeatureCard title="DDoS Protection" description="Advanced protection against DDoS attacks" icon={Shield} />
-            <FeatureCard title="24/7 Support" description="Our team is always ready to help you" icon={HeadphonesIcon} />
-            <FeatureCard title="Scalable Resources" description="Easily upgrade your plan as your needs grow" icon={Zap} />
-            <FeatureCard title="SSD Storage" description="Lightning-fast SSD storage for all plans" icon={HardDrive} />
-            <FeatureCard title="Custom Solutions" description="Tailored hosting solutions for your specific needs" icon={Settings} />
+          <h2 className="text-4xl font-bold mb-8 text-center">Why Choose Enzonic Hosting?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <FeatureCard 
+              icon={Zap} 
+              title="Lightning Fast" 
+              description="Experience blazing fast speeds with our optimized infrastructure."
+            />
+            <FeatureCard 
+              icon={Shield} 
+              title="Ironclad Security" 
+              description="Your data is protected with state-of-the-art security measures."
+            />
+            <FeatureCard 
+              icon={HeadphonesIcon} 
+              title="24/7 Support" 
+              description="Our expert team is always ready to assist you, anytime."
+            />
           </div>
         </section>
 
+        {/* Hosting Plans */}
         <section className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-center text-white">Our Plans</h2>
-          <PlanSelector
-            selectedPlan={selectedPlan}
-            setSelectedPlan={setSelectedPlan}
-            selectedTier={selectedTier}
-            setSelectedTier={setSelectedTier}
-          />
-          {renderPlans()}
-          {selectedPlan === 'minecraft' && (
-            <>
-              <div className="text-center mt-8">
-                <Button variant="outline" className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200">
-                  Contact Us for Custom Plan
-                </Button>
+          <h2 className="text-4xl font-bold mb-8 text-center">Our Hosting Solutions</h2>
+          <Tabs selectedTabClassName="border-b-2 border-green-400">
+            <TabList className="flex justify-center mb-8">
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Minecraft</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Web Hosting</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">VPS</Tab>
+            </TabList>
+
+            <TabPanel>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {plans.minecraft.budget.slice(0, 3).map((plan, index) => (
+                  <PlanCard key={index} {...plan} icon={Gamepad} />
+                ))}
               </div>
-              <div className="text-center mt-4">
-                <PlanComparison />
+            </TabPanel>
+            <TabPanel>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {plans.website.map((plan, index) => (
+                  <PlanCard key={index} {...plan} icon={Globe} />
+                ))}
               </div>
-            </>
-          )}
+            </TabPanel>
+            <TabPanel>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {plans.vps.map((plan, index) => (
+                  <PlanCard key={index} {...plan} icon={Server} />
+                ))}
+              </div>
+            </TabPanel>
+          </Tabs>
+        </section>
+
+        {/* Testimonials */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">What Our Customers Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+              <p className="text-gray-300 mb-4">"Enzonic Hosting has been a game-changer for our Minecraft server. The performance is unmatched!"</p>
+              <p className="text-green-400 font-semibold">- Alex, Server Owner</p>
+            </div>
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+              <p className="text-gray-300 mb-4">"I've tried many hosting providers, but Enzonic's support team is by far the best. They're always there when I need them."</p>
+              <p className="text-green-400 font-semibold">- Sarah, Web Developer</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="text-center">
+          <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
+          <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
+          <Button className="bg-green-500 text-white hover:bg-green-600 text-lg px-8 py-3">Sign Up Now</Button>
         </section>
       </main>
       <Footer />
