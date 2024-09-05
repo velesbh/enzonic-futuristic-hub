@@ -1,66 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
-
-const AnimatedBackground = () => {
-  return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#0a2f1f', stopOpacity: 1 }} />
-            <stop offset="50%" style={{ stopColor: '#1a5f3f', stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: '#2a8f5f', stopOpacity: 1 }} />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grad1)" />
-        {[...Array(50)].map((_, i) => (
-          <motion.circle
-            key={i}
-            cx={`${Math.random() * 100}%`}
-            cy={`${Math.random() * 100}%`}
-            r={`${Math.random() * 2 + 0.5}%`}
-            fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
-            animate={{
-              opacity: [0.2, 0.5, 0.2],
-              scale: [0.8, 1.2, 0.8],
-              x: ['-2%', '2%', '-2%'],
-              y: ['-2%', '2%', '-2%'],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-};
-
-const FloatingElement = ({ children }) => {
-  return (
-    <motion.div
-      animate={{
-        y: [0, -10, 0],
-        rotate: [-1, 1, -1],
-      }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        repeatType: 'reverse',
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-};
+import { AnimatedBackground, FloatingElement } from '../components/AnimatedComponents';
 
 const NewsCard = ({ title, date, author, excerpt }) => (
   <motion.div
@@ -77,7 +23,7 @@ const NewsCard = ({ title, date, author, excerpt }) => (
       </CardHeader>
       <CardContent>
         <p className="text-gray-300">{excerpt}</p>
-        <Button variant="outline" className="mt-4 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30">
+        <Button variant="outline" className="mt-4 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30">
           Read More
         </Button>
       </CardContent>
@@ -86,21 +32,6 @@ const NewsCard = ({ title, date, author, excerpt }) => (
 );
 
 const News = () => {
-  const controls = useAnimation();
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    controls.start(i => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1 },
-    }));
-
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
-
   const newsItems = [
     {
       title: "Enzonic Launches New Cloud Services",
@@ -123,7 +54,7 @@ const News = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -165,16 +96,26 @@ const News = () => {
           </motion.div>
         </motion.div>
         
-        <section className="mb-16">
+        <motion.section 
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <h2 className="text-4xl font-bold mb-8 text-center text-white">Latest News</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {newsItems.map((item, index) => (
               <NewsCard key={index} {...item} />
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="text-center">
+        <motion.section 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <h2 className="text-3xl font-bold mb-4 text-white">Subscribe to Our Newsletter</h2>
           <p className="text-gray-300 mb-6">Stay up to date with the latest news and updates from Enzonic.</p>
           <div className="flex justify-center">
@@ -187,7 +128,7 @@ const News = () => {
               Subscribe
             </Button>
           </div>
-        </section>
+        </motion.section>
       </main>
       <Footer />
     </div>

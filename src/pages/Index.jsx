@@ -1,86 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Services from '../components/Services';
 import Team from '../components/Team';
 import Footer from '../components/Footer';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-
-const AnimatedBackground = () => {
-  return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#0a2f1f', stopOpacity: 1 }} />
-            <stop offset="50%" style={{ stopColor: '#1a5f3f', stopOpacity: 1 }} />
-            <stop offset="100%" style={{ stopColor: '#2a8f5f', stopOpacity: 1 }} />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grad1)" />
-        {[...Array(50)].map((_, i) => (
-          <motion.circle
-            key={i}
-            cx={`${Math.random() * 100}%`}
-            cy={`${Math.random() * 100}%`}
-            r={`${Math.random() * 2 + 0.5}%`}
-            fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
-            animate={{
-              opacity: [0.2, 0.5, 0.2],
-              scale: [0.8, 1.2, 0.8],
-              x: ['-2%', '2%', '-2%'],
-              y: ['-2%', '2%', '-2%'],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-};
-
-const FloatingElement = ({ children }) => {
-  return (
-    <motion.div
-      animate={{
-        y: [0, -10, 0],
-        rotate: [-1, 1, -1],
-      }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        repeatType: 'reverse',
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-};
+import { AnimatedBackground, FloatingElement } from '../components/AnimatedComponents';
 
 const Index = () => {
-  const controls = useAnimation();
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    controls.start(i => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1 },
-    }));
-
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [controls]);
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -118,14 +49,6 @@ const Index = () => {
                 1000,
                 'Enzonic: Games',
                 1000,
-                'Enzonic: Events',
-                1000,
-                'Enzonic: Web designer',
-                1000,
-                'Enzonic: Connect',
-                1000,
-                'Enzonic: News',
-                1000,
                 'And much more',
                 1000,
               ]}
@@ -134,7 +57,12 @@ const Index = () => {
               repeat={Infinity}
             />
           </motion.div>
-          <div className="flex justify-center space-x-4 flex-wrap">
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             {[
               { text: 'HOSTING', path: '/hosting' },
               { text: 'RO-MINE', path: '/ro-mine' },
@@ -142,35 +70,21 @@ const Index = () => {
               { text: 'NEWS', path: '/news' },
               { text: 'CLOUD', path: '/' },
               { text: 'VPN', path: '/' }
-            ].map(({ text, path }, index) => (
-              <motion.div
-                key={text}
-                custom={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={controls}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-                className="m-2"
-              >
-                <Link to={path}>
-                  <Button 
-                    variant="outline" 
-                    className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:shadow-lg hover:shadow-green-500/30"
-                  >
-                    {text}
-                  </Button>
-                </Link>
-              </motion.div>
+            ].map(({ text, path }) => (
+              <Link key={text} to={path}>
+                <Button 
+                  variant="outline" 
+                  className="text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30"
+                >
+                  {text}
+                </Button>
+              </Link>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </main>
-      <div className="relative z-10">
-        <Services />
-      </div>
-      <div className="relative z-10 mt-16">
-        <Team />
-      </div>
+      <Services />
+      <Team />
       <Footer />
     </div>
   );
