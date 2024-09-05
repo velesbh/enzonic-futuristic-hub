@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ const NewsCard = ({ title, date, author, excerpt }) => (
     whileHover={{ scale: 1.05 }}
     className="mb-8"
   >
-    <Card className="bg-gray-800 text-white">
+    <Card className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg text-white">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">{title}</CardTitle>
         <CardDescription className="text-gray-400">
@@ -23,7 +23,7 @@ const NewsCard = ({ title, date, author, excerpt }) => (
       </CardHeader>
       <CardContent>
         <p className="text-gray-300">{excerpt}</p>
-        <Button variant="outline" className="mt-4 text-white border-green-500 bg-gradient-to-r from-green-600 to-green-400 hover:from-green-500 hover:to-green-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30">
+        <Button variant="outline" className="mt-4 text-white border-blue-500 bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-500 hover:to-blue-300 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
           Read More
         </Button>
       </CardContent>
@@ -66,7 +66,7 @@ const News = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-green-500 to-green-600"
+              className="text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -75,7 +75,7 @@ const News = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-green-300 h-20"
+            className="text-2xl mb-8 text-blue-300 h-20"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -122,9 +122,9 @@ const News = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              className="px-4 py-2 rounded-l-md bg-gray-800 text-white border-2 border-green-500 focus:outline-none focus:border-green-400"
+              className="px-4 py-2 rounded-l-md bg-gray-800 text-white border-2 border-blue-500 focus:outline-none focus:border-blue-400"
             />
-            <Button className="rounded-r-md bg-green-500 hover:bg-green-600 text-white">
+            <Button className="rounded-r-md bg-blue-500 hover:bg-blue-600 text-white">
               Subscribe
             </Button>
           </div>

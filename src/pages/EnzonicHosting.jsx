@@ -27,7 +27,7 @@ const EnzonicHosting = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+              className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -60,8 +60,8 @@ const EnzonicHosting = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Button className="bg-green-500 text-white hover:bg-green-600 mr-4">Get Started</Button>
-            <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-white" onClick={() => setIsComparisonPopupOpen(true)}>
+            <Button className="bg-blue-500 text-white hover:bg-blue-600 mr-4">Get Started</Button>
+            <Button variant="outline" className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white" onClick={() => setIsComparisonPopupOpen(true)}>
               Compare Plans
             </Button>
           </motion.div>
@@ -102,9 +102,9 @@ const EnzonicHosting = () => {
           <h2 className="text-4xl font-bold mb-8 text-center">Our Minecraft Hosting Solutions</h2>
           <Tabs>
             <TabList className="flex justify-center mb-8">
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Budget</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Normal</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-400 transition-colors duration-300">Extreme</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-blue-400 transition-colors duration-300">Budget</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-blue-400 transition-colors duration-300">Normal</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-blue-400 transition-colors duration-300">Extreme</Tab>
             </TabList>
 
             {['budget', 'normal', 'extreme'].map((tier) => (
@@ -131,7 +131,7 @@ const EnzonicHosting = () => {
         >
           <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
           <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
-          <Button className="bg-green-500 text-white hover:bg-green-600 text-lg px-8 py-3">Sign Up Now</Button>
+          <Button className="bg-blue-500 text-white hover:bg-blue-600 text-lg px-8 py-3">Sign Up Now</Button>
         </motion.section>
       </main>
       <Footer />
