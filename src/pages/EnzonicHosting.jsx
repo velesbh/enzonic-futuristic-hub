@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { Zap, Shield, HeadphonesIcon, Cpu, Globe, Clock, DollarSign, Award } from 'lucide-react';
+import { Zap, Shield, HeadphonesIcon, Cpu, Globe, Clock, DollarSign, Award, Server, Rocket } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
 import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, AnimatedQuote } from '../components/AnimatedComponents';
@@ -124,6 +124,16 @@ const EnzonicHosting = () => {
               icon={Award} 
               title="Reliability Guaranteed" 
               description="99.9% uptime SLA for uninterrupted gaming sessions."
+            />
+            <FeatureCard 
+              icon={Server} 
+              title="Scalable Resources" 
+              description="Easily upgrade your plan as your needs grow."
+            />
+            <FeatureCard 
+              icon={Rocket} 
+              title="One-Click Modpack Installation" 
+              description="Install popular modpacks with just a single click."
             />
           </AnimatedGrid>
         </motion.section>
