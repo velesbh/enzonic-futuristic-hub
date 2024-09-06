@@ -101,7 +101,7 @@ export const PlanCard = ({ title, price, features, icon: Icon, description }) =>
         </motion.li>
       ))}
     </ul>
-    <GlowingButton className="mt-auto">Select Plan</GlowingButton>
+    <Button className="mt-auto bg-green-600 hover:bg-green-700 text-white">Select Plan</Button>
   </motion.div>
 );
 
@@ -111,18 +111,7 @@ export const GlowingButton = ({ children, className, ...props }) => (
     {...props}
   >
     <span className="relative z-10">{children}</span>
-    <motion.div
-      className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-      animate={{
-        scale: [1, 1.5, 1],
-        rotate: [0, 360, 0],
-      }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        repeatType: 'loop',
-      }}
-    />
+    <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
   </Button>
 );
 
