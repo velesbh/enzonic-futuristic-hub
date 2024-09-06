@@ -6,11 +6,11 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, HeroText } from '../components/AnimatedComponents';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-green-400 relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -22,7 +22,7 @@ const Index = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-white"
+              className="text-7xl font-bold mb-4 text-green-400"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -31,7 +31,7 @@ const Index = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-gray-300 h-20"
+            className="text-2xl mb-8 text-green-300 h-20"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -76,6 +76,7 @@ const Index = () => {
             ))}
           </motion.div>
         </motion.div>
+        <HeroText />
       </main>
       <Services />
       <Team />
