@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowUpCircle } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export const AnimatedBackground = ({ additionalIcons = [] }) => (
   <div className="fixed inset-0 z-0 overflow-hidden">
@@ -164,5 +165,30 @@ export const AnimatedGrid = ({ children }) => (
         {child}
       </motion.div>
     ))}
+  </motion.div>
+);
+
+export const PlanCard = ({ title, description, price, features, isExtreme, icon: Icon }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col"
+  >
+    <div className="flex items-center mb-4">
+      <Icon className="w-8 h-8 text-white mr-2" />
+      <h3 className="text-xl font-semibold text-white">{title}</h3>
+    </div>
+    <p className="text-gray-300 mb-4">{description}</p>
+    <p className="text-2xl font-bold text-white mb-4">{price}</p>
+    <ul className="text-gray-300 mb-4">
+      {features.map((feature, index) => (
+        <li key={index} className="mb-2">• {feature}</li>
+      ))}
+    </ul>
+    {isExtreme && (
+      <p className="text-yellow-400 mb-4">This plan will take up to 24H to setup</p>
+    )}
+    <Button variant="outline" className="mt-auto text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200">
+      Select Plan
+    </Button>
   </motion.div>
 );
