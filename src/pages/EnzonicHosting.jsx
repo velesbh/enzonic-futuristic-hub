@@ -8,7 +8,7 @@ import 'react-tabs/style/react-tabs.css';
 import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server, Rocket, Mic } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
-import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, HeroText } from '../components/AnimatedComponents';
 
 const EnzonicHosting = () => {
   const [isComparisonPopupOpen, setIsComparisonPopupOpen] = useState(false);
@@ -16,7 +16,7 @@ const EnzonicHosting = () => {
   const additionalIcons = [Cpu, Server, Globe, HeadphonesIcon];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-green-400">
       <AnimatedBackground additionalIcons={additionalIcons} />
       <Header />
       <ScrollToTopButton />
@@ -29,7 +29,7 @@ const EnzonicHosting = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-white"
+              className="text-6xl font-bold mb-4 text-green-400"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -38,7 +38,7 @@ const EnzonicHosting = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-gray-300 h-20"
+            className="text-2xl mb-8 text-green-300 h-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -71,13 +71,15 @@ const EnzonicHosting = () => {
           </motion.div>
         </motion.section>
 
+        <HeroText />
+
         <motion.section 
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-white">Why Choose Enzonic Hosting?</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Why Choose Enzonic Hosting?</h2>
           <AnimatedGrid>
             <FeatureCard icon={Zap} title="Lightning Fast" description="Experience blazing fast speeds with our optimized infrastructure." />
             <FeatureCard icon={Shield} title="Ironclad Security" description="Your data is protected with state-of-the-art security measures." />
@@ -96,24 +98,24 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-white">Our Hosting Solutions</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Our Hosting Solutions</h2>
           <Tabs>
             <TabList className="flex justify-center mb-8">
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Minecraft</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Voice Servers</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Minecraft</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Voice Servers</Tab>
             </TabList>
 
             <TabPanel>
               <Tabs>
                 <TabList className="flex justify-center mb-8">
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Budget</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Normal</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Extreme</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Budget</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Normal</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Extreme</Tab>
                 </TabList>
 
                 {['budget', 'normal', 'extreme'].map((tier) => (
                   <TabPanel key={tier}>
-                    <p className="text-center text-xl mb-8 text-gray-300">{plans.minecraft[tier].description}</p>
+                    <p className="text-center text-xl mb-8 text-green-300">{plans.minecraft[tier].description}</p>
                     {tier === 'extreme' && (
                       <p className="text-center text-yellow-400 font-bold mb-8">{plans.minecraft[tier].disclaimer}</p>
                     )}
@@ -128,7 +130,7 @@ const EnzonicHosting = () => {
             </TabPanel>
 
             <TabPanel>
-              <p className="text-center text-xl mb-8 text-gray-300">{plans.voiceservers.description}</p>
+              <p className="text-center text-xl mb-8 text-green-300">{plans.voiceservers.description}</p>
               <AnimatedGrid>
                 {plans.voiceservers.plans.map((plan, index) => (
                   <PlanCard key={index} {...plan} />
@@ -144,8 +146,8 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h2 className="text-4xl font-bold mb-4 text-white">Ready to Get Started?</h2>
-          <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
+          <h2 className="text-4xl font-bold mb-4 text-green-400">Ready to Get Started?</h2>
+          <p className="text-xl text-green-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
           <GlowingButton>Sign Up Now</GlowingButton>
         </motion.section>
       </main>

@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement, GlowingButton, HeroText } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
 
 const Index = () => {
   return (
@@ -76,7 +76,19 @@ const Index = () => {
             ))}
           </motion.div>
         </motion.div>
-        <HeroText />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl font-bold text-green-400 mb-4">
+            Our Vision
+          </h2>
+          <p className="text-xl text-green-300">
+            Our goal is to bring cheap and reliable services to the world, empowering individuals and businesses with cutting-edge technology solutions.
+          </p>
+        </motion.div>
       </main>
       <Services />
       <Team />
