@@ -5,25 +5,18 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server, Rocket, Mic, Headphones } from 'lucide-react';
+import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server, Rocket, Mic } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
-import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, AnimatedQuote } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid } from '../components/AnimatedComponents';
 
 const EnzonicHosting = () => {
   const [isComparisonPopupOpen, setIsComparisonPopupOpen] = useState(false);
 
-  const quotes = [
-    { text: "Our goal is to bring the most affordable, simplest, and easiest hosting solutions to gamers worldwide.", name: "Steve", avatar: "/minecraft-steve.png" },
-    { text: "Empowering players with top-notch server performance for an unparalleled gaming experience.", name: "Rust Survivor", avatar: "/rust-player.png" },
-    { text: "Providing the backbone for epic battles and unforgettable moments in your favorite games.", name: "CS:GO Agent", avatar: "/csgo-player.png" },
-    { text: "Building worlds and fostering communities with reliable and powerful hosting.", name: "Garry's Mod Player", avatar: "/gmod-player.png" },
-  ];
-
-  const additionalIcons = [Cpu, Server, Globe, Headphones];
+  const additionalIcons = [Cpu, Server, Globe, HeadphonesIcon];
 
   return (
-    <div className="min-h-screen bg-black text-green-400">
+    <div className="min-h-screen bg-black text-white">
       <AnimatedBackground additionalIcons={additionalIcons} />
       <Header />
       <ScrollToTopButton />
@@ -36,7 +29,7 @@ const EnzonicHosting = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-green-500"
+              className="text-6xl font-bold mb-4 text-white"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -45,7 +38,7 @@ const EnzonicHosting = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-green-400 h-20"
+            className="text-2xl mb-8 text-gray-300 h-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -78,15 +71,13 @@ const EnzonicHosting = () => {
           </motion.div>
         </motion.section>
 
-        <AnimatedQuote quotes={quotes} />
-
         <motion.section 
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-green-500">Why Choose Enzonic Hosting?</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-white">Why Choose Enzonic Hosting?</h2>
           <AnimatedGrid>
             <FeatureCard icon={Zap} title="Lightning Fast" description="Experience blazing fast speeds with our optimized infrastructure." />
             <FeatureCard icon={Shield} title="Ironclad Security" description="Your data is protected with state-of-the-art security measures." />
@@ -96,7 +87,6 @@ const EnzonicHosting = () => {
             <FeatureCard icon={DollarSign} title="Competitive Pricing" description="Premium hosting at affordable rates to fit any budget." />
             <FeatureCard icon={Award} title="Reliability Guaranteed" description="99.9% uptime SLA for uninterrupted gaming sessions." />
             <FeatureCard icon={Server} title="Scalable Resources" description="Easily upgrade your plan as your needs grow." />
-            <FeatureCard icon={Rocket} title="One-Click Modpack Installation" description="Install popular modpacks with just a single click." />
           </AnimatedGrid>
         </motion.section>
 
@@ -106,19 +96,19 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-green-500">Our Hosting Solutions</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-white">Our Hosting Solutions</h2>
           <Tabs>
             <TabList className="flex justify-center mb-8">
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Minecraft</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Voice Servers</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Minecraft</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Voice Servers</Tab>
             </TabList>
 
             <TabPanel>
               <Tabs>
                 <TabList className="flex justify-center mb-8">
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Budget</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Normal</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Extreme</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Budget</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Normal</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300">Extreme</Tab>
                 </TabList>
 
                 {['budget', 'normal', 'extreme'].map((tier) => (
@@ -154,7 +144,7 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h2 className="text-4xl font-bold mb-4 text-green-500">Ready to Get Started?</h2>
+          <h2 className="text-4xl font-bold mb-4 text-white">Ready to Get Started?</h2>
           <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
           <GlowingButton>Sign Up Now</GlowingButton>
         </motion.section>

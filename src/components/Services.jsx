@@ -35,30 +35,30 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index }) => {
         });
       }}
     >
-      <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
+      <Card className="bg-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
         <CardHeader className="relative z-10">
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
           >
-            <Icon className="w-16 h-16 mb-4 text-purple-400" />
+            <Icon className="w-16 h-16 mb-4 text-white" />
           </motion.div>
           <CardTitle className="text-white text-2xl font-bold">{title}</CardTitle>
-          <CardDescription className="text-blue-300">{description}</CardDescription>
+          <CardDescription className="text-gray-300">{description}</CardDescription>
         </CardHeader>
         <CardContent className="relative z-10">
           <Link to={to}>
             <Button 
               variant="outline" 
-              className="w-full text-white border-purple-500 bg-transparent hover:bg-purple-900 hover:text-purple-300 transition-all duration-300"
+              className="w-full text-white border-white bg-transparent hover:bg-gray-800 hover:text-gray-200 transition-all duration-300"
             >
               {action}
             </Button>
           </Link>
         </CardContent>
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-400/5"
+          className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-gray-900/5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -82,13 +82,13 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-12 relative overflow-hidden">
+    <section className="py-12 relative overflow-hidden bg-black">
       <motion.div
         className="absolute inset-0 z-0"
         animate={{
           background: [
-            "linear-gradient(to right, #8e2de2, #4a00e0)",
-            "linear-gradient(to right, #4a00e0, #8e2de2)",
+            "linear-gradient(to right, #111, #222)",
+            "linear-gradient(to right, #222, #111)",
           ],
         }}
         transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}

@@ -36,14 +36,14 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
               y={`${Math.random() * 100}%`}
               width="24"
               height="24"
-              fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+              fill={`rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`}
             />
           ) : (
             <circle
               cx={`${Math.random() * 100}%`}
               cy={`${Math.random() * 100}%`}
               r={`${Math.random() * 2 + 0.5}%`}
-              fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+              fill={`rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`}
             />
           )}
         </motion.g>
@@ -70,16 +70,16 @@ export const FloatingElement = ({ children }) => (
 export const FeatureCard = ({ title, description, icon: Icon }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center border border-green-700"
+    className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center border border-gray-700"
   >
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
     >
-      <Icon className="w-16 h-16 text-green-500 mb-4" />
+      <Icon className="w-16 h-16 text-white mb-4" />
     </motion.div>
-    <h3 className="text-xl font-semibold text-green-400 mb-2">{title}</h3>
+    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
     <p className="text-gray-300 text-center">{description}</p>
   </motion.div>
 );
@@ -90,7 +90,7 @@ export const GlowingButton = ({ children, className, ...props }) => (
     {...props}
   >
     <span className="relative z-10 text-black">{children}</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-300 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
   </Button>
 );
 
@@ -139,7 +139,7 @@ export const ScrollToTopButton = () => {
     >
       <Button
         onClick={scrollToTop}
-        className="rounded-full p-3 bg-green-700 hover:bg-green-600 text-white"
+        className="rounded-full p-3 bg-white hover:bg-gray-200 text-black"
       >
         <ArrowUpCircle className="h-6 w-6" />
       </Button>
@@ -166,56 +166,3 @@ export const AnimatedGrid = ({ children }) => (
     ))}
   </motion.div>
 );
-
-export const PlanCard = ({ title, description, price, features, isExtreme, icon: Icon }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col border border-green-700"
-  >
-    <div className="flex items-center mb-4">
-      <Icon className="w-8 h-8 text-green-500 mr-2" />
-      <h3 className="text-xl font-semibold text-green-400">{title}</h3>
-    </div>
-    <p className="text-gray-300 mb-4">{description}</p>
-    <p className="text-2xl font-bold text-green-400 mb-4">{price}</p>
-    <ul className="text-gray-300 mb-4">
-      {features.map((feature, index) => (
-        <li key={index} className="mb-2">• {feature}</li>
-      ))}
-    </ul>
-    {isExtreme && (
-      <p className="text-yellow-400 mb-4">This plan will take up to 24H to setup</p>
-    )}
-    <Button variant="outline" className="mt-auto text-green-400 border-green-700 bg-gray-900 hover:bg-gray-800 hover:text-green-300">
-      Select Plan
-    </Button>
-  </motion.div>
-);
-
-export const AnimatedQuote = ({ quotes }) => {
-  const [currentQuote, setCurrentQuote] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentQuote((prev) => (prev + 1) % quotes.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [quotes.length]);
-
-  return (
-    <motion.div
-      key={currentQuote}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="bg-gray-900 p-6 rounded-lg shadow-lg mb-16 border border-green-700"
-    >
-      <p className="text-xl text-green-400 mb-4">"{quotes[currentQuote].text}"</p>
-      <div className="flex items-center">
-        <img src={quotes[currentQuote].avatar} alt={quotes[currentQuote].name} className="w-12 h-12 rounded-full mr-4" />
-        <p className="text-gray-300">- {quotes[currentQuote].name}</p>
-      </div>
-    </motion.div>
-  );
-};
