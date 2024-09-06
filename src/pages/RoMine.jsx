@@ -2,17 +2,17 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { GamepadIcon, ShoppingCartIcon, ServerIcon, InfoIcon } from 'lucide-react';
-import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton } from '../components/AnimatedComponents';
+import { GamepadIcon, ShoppingCartIcon, ServerIcon, InfoIcon, Cpu, Users, Code, Trophy, Zap, Shield } from 'lucide-react';
+import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton, ScrollToTopButton, AnimatedGrid } from '../components/AnimatedComponents';
 
 const RoMine = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-green-900 to-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
+      <ScrollToTopButton />
       <main className="container mx-auto px-4 py-32 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ const RoMine = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h2 className="text-4xl font-bold mb-8 text-center text-white">Server Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <AnimatedGrid>
             <FeatureCard 
               title="Create" 
               description="Design and build your own unique minigames" 
@@ -88,7 +88,37 @@ const RoMine = () => {
               description="Experience a wide variety of community-made games" 
               icon={ServerIcon} 
             />
-          </div>
+            <FeatureCard 
+              title="Optimize" 
+              description="Fine-tune your games for maximum performance" 
+              icon={Cpu} 
+            />
+            <FeatureCard 
+              title="Collaborate" 
+              description="Team up with other creators for epic projects" 
+              icon={Users} 
+            />
+            <FeatureCard 
+              title="Learn" 
+              description="Improve your coding skills as you create" 
+              icon={Code} 
+            />
+            <FeatureCard 
+              title="Compete" 
+              description="Join tournaments and climb the leaderboards" 
+              icon={Trophy} 
+            />
+            <FeatureCard 
+              title="Instant Deploy" 
+              description="Launch your games with just one click" 
+              icon={Zap} 
+            />
+            <FeatureCard 
+              title="Secure" 
+              description="Play in a safe, moderated environment" 
+              icon={Shield} 
+            />
+          </AnimatedGrid>
         </motion.section>
 
         <motion.section 
