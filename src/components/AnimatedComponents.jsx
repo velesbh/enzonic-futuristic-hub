@@ -14,7 +14,7 @@ export const AnimatedBackground = () => (
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
-      {[...Array(100)].map((_, i) => (
+      {[...Array(50)].map((_, i) => (
         <motion.circle
           key={i}
           cx={`${Math.random() * 100}%`}
@@ -42,7 +42,6 @@ export const FloatingElement = ({ children }) => (
   <motion.div
     animate={{
       y: [0, -10, 0],
-      rotate: [-1, 1, -1],
     }}
     transition={{
       duration: 5,
@@ -56,52 +55,18 @@ export const FloatingElement = ({ children }) => (
 
 export const FeatureCard = ({ title, description, icon: Icon }) => (
   <motion.div
-    whileHover={{ scale: 1.05, rotateY: 5 }}
-    className="bg-gradient-to-br from-green-800 to-green-900 p-6 rounded-lg shadow-lg flex flex-col items-center"
+    whileHover={{ scale: 1.05 }}
+    className="bg-secondary p-6 rounded-lg shadow-lg flex flex-col items-center"
   >
     <motion.div
-      initial={{ scale: 0, rotate: -180 }}
-      animate={{ scale: 1, rotate: 0 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
     >
-      <Icon className="w-16 h-16 text-green-400 mb-4" />
+      <Icon className="w-16 h-16 text-primary mb-4" />
     </motion.div>
-    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-    <p className="text-green-200 text-center">{description}</p>
-  </motion.div>
-);
-
-export const PlanCard = ({ title, price, features, icon: Icon, description }) => (
-  <motion.div
-    whileHover={{ scale: 1.05, rotateY: 5 }}
-    className="bg-gradient-to-br from-green-800 to-green-900 p-6 rounded-lg shadow-lg flex flex-col"
-  >
-    <div className="flex items-center mb-4">
-      <Icon className="w-12 h-12 text-green-400 mr-2" />
-      <h3 className="text-2xl font-semibold text-white">{title}</h3>
-    </div>
-    <p className="text-3xl font-bold text-white mb-4">{price}</p>
-    <p className="text-green-200 mb-4">{description}</p>
-    <ul className="text-green-200 mb-4 flex-grow">
-      {features.map((feature, index) => (
-        <motion.li
-          key={index}
-          className="mb-2 flex items-center"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <motion.div
-            className="w-4 h-4 bg-green-400 rounded-full mr-2"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: index * 0.1 }}
-          />
-          {feature}
-        </motion.li>
-      ))}
-    </ul>
-    <Button className="mt-auto bg-green-600 hover:bg-green-700 text-white">Select Plan</Button>
+    <h3 className="text-xl font-semibold text-primary mb-2">{title}</h3>
+    <p className="text-muted-foreground text-center">{description}</p>
   </motion.div>
 );
 
@@ -111,7 +76,7 @@ export const GlowingButton = ({ children, className, ...props }) => (
     {...props}
   >
     <span className="relative z-10">{children}</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="absolute inset-0 bg-gradient-to-r from-primary to-green-600 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
   </Button>
 );
 
@@ -160,7 +125,7 @@ export const ScrollToTopButton = () => {
     >
       <Button
         onClick={scrollToTop}
-        className="rounded-full p-3 bg-green-600 hover:bg-green-700 text-white"
+        className="rounded-full p-3 bg-primary hover:bg-primary/90 text-primary-foreground"
       >
         <ArrowUpCircle className="h-6 w-6" />
       </Button>
@@ -187,31 +152,3 @@ export const AnimatedGrid = ({ children }) => (
     ))}
   </motion.div>
 );
-
-export const AnimatedQuote = ({ quotes }) => {
-  const [currentQuote, setCurrentQuote] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentQuote((prev) => (prev + 1) % quotes.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [quotes.length]);
-
-  return (
-    <motion.div
-      key={currentQuote}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="text-center my-12 px-4"
-    >
-      <p className="text-2xl font-bold text-green-300 mb-4">{quotes[currentQuote].text}</p>
-      <div className="flex justify-center items-center">
-        <img src={quotes[currentQuote].avatar} alt={quotes[currentQuote].name} className="w-12 h-12 rounded-full mr-4" />
-        <p className="text-lg text-green-200">{quotes[currentQuote].name}</p>
-      </div>
-    </motion.div>
-  );
-};
