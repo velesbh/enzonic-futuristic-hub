@@ -9,9 +9,9 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#1a1a2e', stopOpacity: 1 }} />
-          <stop offset="50%" style={{ stopColor: '#16213e', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#0f3460', stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: '#000000', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#111111', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#222222', stopOpacity: 1 }} />
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
@@ -37,14 +37,14 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
               y={`${Math.random() * 100}%`}
               width="24"
               height="24"
-              fill={`rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 0.3 + 0.1})`}
+              fill={`rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`}
             />
           ) : (
             <circle
               cx={`${Math.random() * 100}%`}
               cy={`${Math.random() * 100}%`}
               r={`${Math.random() * 2 + 0.5}%`}
-              fill={`rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 0.3 + 0.1})`}
+              fill={`rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`}
             />
           )}
         </motion.g>
@@ -71,16 +71,16 @@ export const FloatingElement = ({ children }) => (
 export const FeatureCard = ({ title, description, icon: Icon }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center border border-gray-700 hover:border-purple-500 transition-all duration-300"
+    className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center border border-gray-700"
   >
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
     >
-      <Icon className="w-16 h-16 text-purple-400 mb-4" />
+      <Icon className="w-16 h-16 text-white mb-4" />
     </motion.div>
-    <h3 className="text-xl font-semibold text-purple-300 mb-2">{title}</h3>
+    <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
     <p className="text-gray-300 text-center">{description}</p>
   </motion.div>
 );
@@ -90,8 +90,8 @@ export const GlowingButton = ({ children, className, ...props }) => (
     className={`relative overflow-hidden group ${className}`}
     {...props}
   >
-    <span className="relative z-10 text-black font-bold">{children}</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+    <span className="relative z-10 text-black">{children}</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-300 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
   </Button>
 );
 
@@ -140,7 +140,7 @@ export const ScrollToTopButton = () => {
     >
       <Button
         onClick={scrollToTop}
-        className="rounded-full p-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+        className="rounded-full p-3 bg-white hover:bg-gray-200 text-black"
       >
         <ArrowUpCircle className="h-6 w-6" />
       </Button>
@@ -171,25 +171,23 @@ export const AnimatedGrid = ({ children }) => (
 export const PlanCard = ({ title, description, price, features, isExtreme, icon: Icon }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-lg shadow-lg flex flex-col border border-gray-700 hover:border-blue-500 transition-all duration-300"
+    className="bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col"
   >
     <div className="flex items-center mb-4">
-      <Icon className="w-8 h-8 text-blue-400 mr-2" />
-      <h3 className="text-xl font-semibold text-blue-300">{title}</h3>
+      <Icon className="w-8 h-8 text-white mr-2" />
+      <h3 className="text-xl font-semibold text-white">{title}</h3>
     </div>
     <p className="text-gray-300 mb-4">{description}</p>
-    <p className="text-2xl font-bold text-purple-300 mb-4">{price}</p>
+    <p className="text-2xl font-bold text-white mb-4">{price}</p>
     <ul className="text-gray-300 mb-4">
       {features.map((feature, index) => (
-        <li key={index} className="mb-2 flex items-center">
-          <span className="text-green-400 mr-2">•</span> {feature}
-        </li>
+        <li key={index} className="mb-2">• {feature}</li>
       ))}
     </ul>
     {isExtreme && (
       <p className="text-yellow-400 mb-4">This plan will take up to 24H to setup</p>
     )}
-    <Button variant="outline" className="mt-auto text-blue-300 border-blue-500 bg-transparent hover:bg-blue-900 hover:text-blue-200 transition-all duration-300">
+    <Button variant="outline" className="mt-auto text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200">
       Select Plan
     </Button>
   </motion.div>
