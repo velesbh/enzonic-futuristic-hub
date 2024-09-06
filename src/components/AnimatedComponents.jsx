@@ -3,24 +3,21 @@ import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowUpCircle } from 'lucide-react';
 
-export const AnimatedBackground = () => (
+export const AnimatedBackground = ({ additionalIcons = [] }) => (
   <div className="fixed inset-0 z-0 overflow-hidden">
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#001a0f', stopOpacity: 1 }} />
-          <stop offset="50%" style={{ stopColor: '#003319', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#004d26', stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: '#000000', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#111111', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#222222', stopOpacity: 1 }} />
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
-      {[...Array(50)].map((_, i) => (
-        <motion.circle
+      {[...Array(50), ...additionalIcons].map((Icon, i) => (
+        <motion.g
           key={i}
-          cx={`${Math.random() * 100}%`}
-          cy={`${Math.random() * 100}%`}
-          r={`${Math.random() * 2 + 0.5}%`}
-          fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+          initial={{ opacity: 0 }}
           animate={{
             opacity: [0.2, 0.5, 0.2],
             scale: [0.8, 1.2, 0.8],
@@ -32,7 +29,24 @@ export const AnimatedBackground = () => (
             repeat: Infinity,
             repeatType: 'reverse',
           }}
-        />
+        >
+          {Icon ? (
+            <Icon
+              x={`${Math.random() * 100}%`}
+              y={`${Math.random() * 100}%`}
+              width="24"
+              height="24"
+              fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+            />
+          ) : (
+            <circle
+              cx={`${Math.random() * 100}%`}
+              cy={`${Math.random() * 100}%`}
+              r={`${Math.random() * 2 + 0.5}%`}
+              fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+            />
+          )}
+        </motion.g>
       ))}
     </svg>
   </div>

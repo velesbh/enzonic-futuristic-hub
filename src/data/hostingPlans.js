@@ -1,4 +1,4 @@
-import { Server, Rocket, Music, Globe, Mic, Cloud, Gamepad } from 'lucide-react';
+import { Server, Rocket, Music, Globe, Mic, Cloud, Gamepad, Headphones } from 'lucide-react';
 
 export const plans = {
   minecraft: {
@@ -33,6 +33,14 @@ export const plans = {
       ]
     }
   },
+  voiceservers: {
+    description: "High-quality voice servers for crystal-clear communication in your gaming sessions or professional meetings.",
+    plans: [
+      { title: "Basic Voice", description: "Perfect for small teams or gaming groups", price: "$5/month", features: ["25 Slots", "Low Latency", "24/7 Uptime", "Web-based Control Panel"], icon: Headphones },
+      { title: "Pro Voice", description: "Ideal for medium-sized communities", price: "$10/month", features: ["50 Slots", "Ultra-Low Latency", "Custom Branding", "Advanced Permissions", "Priority Support"], icon: Headphones },
+      { title: "Enterprise Voice", description: "For large organizations and gaming communities", price: "$25/month", features: ["Unlimited Slots", "Dedicated Server", "API Access", "Custom Features", "24/7 Premium Support"], icon: Headphones },
+    ]
+  }
 };
 
 export const planComparison = {

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { Zap, Shield, HeadphonesIcon, Cpu, Globe, Clock, DollarSign, Award, Server, Rocket } from 'lucide-react';
+import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server, Rocket, Mic, Headphones } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
 import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, AnimatedQuote } from '../components/AnimatedComponents';
@@ -20,9 +20,11 @@ const EnzonicHosting = () => {
     { text: "Building worlds and fostering communities with reliable and powerful hosting.", name: "Garry's Mod Player", avatar: "/gmod-player.png" },
   ];
 
+  const additionalIcons = [Cpu, Server, Globe, Headphones];
+
   return (
-    <div className="min-h-screen bg-gray-900 text-green-400">
-      <AnimatedBackground />
+    <div className="min-h-screen bg-black text-green-400">
+      <AnimatedBackground additionalIcons={additionalIcons} />
       <Header />
       <ScrollToTopButton />
       <main className="container mx-auto px-4 py-16 relative z-10">
@@ -55,6 +57,8 @@ const EnzonicHosting = () => {
                 'Lightning-fast web hosting',
                 1000,
                 'Reliable VPS solutions',
+                1000,
+                'Crystal-clear voice servers',
                 1000,
               ]}
               wrapper="span"
@@ -89,7 +93,6 @@ const EnzonicHosting = () => {
             <FeatureCard icon={HeadphonesIcon} title="24/7 Support" description="Our expert team is always ready to assist you, anytime." />
             <FeatureCard icon={Cpu} title="High-Performance Hardware" description="Top-tier servers ensure smooth gameplay and minimal lag." />
             <FeatureCard icon={Globe} title="Global Network" description="Servers located worldwide for low-latency gaming experiences." />
-            <FeatureCard icon={Clock} title="Instant Setup" description="Get your server up and running in minutes, not hours." />
             <FeatureCard icon={DollarSign} title="Competitive Pricing" description="Premium hosting at affordable rates to fit any budget." />
             <FeatureCard icon={Award} title="Reliability Guaranteed" description="99.9% uptime SLA for uninterrupted gaming sessions." />
             <FeatureCard icon={Server} title="Scalable Resources" description="Easily upgrade your plan as your needs grow." />
@@ -103,27 +106,45 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-green-500">Our Minecraft Hosting Solutions</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-green-500">Our Hosting Solutions</h2>
           <Tabs>
             <TabList className="flex justify-center mb-8">
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Budget</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Normal</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Extreme</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Minecraft</Tab>
+              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Voice Servers</Tab>
             </TabList>
 
-            {['budget', 'normal', 'extreme'].map((tier) => (
-              <TabPanel key={tier}>
-                <p className="text-center text-xl mb-8 text-gray-300">{plans.minecraft[tier].description}</p>
-                {tier === 'extreme' && (
-                  <p className="text-center text-yellow-400 font-bold mb-8">{plans.minecraft[tier].disclaimer}</p>
-                )}
-                <AnimatedGrid>
-                  {plans.minecraft[tier].plans.map((plan, index) => (
-                    <PlanCard key={index} {...plan} />
-                  ))}
-                </AnimatedGrid>
-              </TabPanel>
-            ))}
+            <TabPanel>
+              <Tabs>
+                <TabList className="flex justify-center mb-8">
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Budget</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Normal</Tab>
+                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Extreme</Tab>
+                </TabList>
+
+                {['budget', 'normal', 'extreme'].map((tier) => (
+                  <TabPanel key={tier}>
+                    <p className="text-center text-xl mb-8 text-gray-300">{plans.minecraft[tier].description}</p>
+                    {tier === 'extreme' && (
+                      <p className="text-center text-yellow-400 font-bold mb-8">{plans.minecraft[tier].disclaimer}</p>
+                    )}
+                    <AnimatedGrid>
+                      {plans.minecraft[tier].plans.map((plan, index) => (
+                        <PlanCard key={index} {...plan} />
+                      ))}
+                    </AnimatedGrid>
+                  </TabPanel>
+                ))}
+              </Tabs>
+            </TabPanel>
+
+            <TabPanel>
+              <p className="text-center text-xl mb-8 text-gray-300">{plans.voiceservers.description}</p>
+              <AnimatedGrid>
+                {plans.voiceservers.plans.map((plan, index) => (
+                  <PlanCard key={index} {...plan} />
+                ))}
+              </AnimatedGrid>
+            </TabPanel>
           </Tabs>
         </motion.section>
 
