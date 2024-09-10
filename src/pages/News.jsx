@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
@@ -6,8 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
-import AdminLogin from '../components/AdminLogin';
-import NewsManager from '../components/NewsManager';
+import AdminPanel from '../components/AdminPanel';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const fetchNews = async () => {
@@ -59,7 +58,7 @@ const NewsCard = ({ title, date, author, content }) => (
 );
 
 const News = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: newsItems, isLoading, isError } = useQuery({
@@ -98,6 +97,10 @@ const News = () => {
       queryClient.invalidateQueries(['news']);
     },
   });
+
+  const toggleAdminPanel = () => {
+    setShowAdminPanel(!showAdminPanel);
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading news</div>;
@@ -145,12 +148,13 @@ const News = () => {
           </motion.div>
         </motion.div>
         
-        {isAdmin ? (
-          <NewsManager
+        {showAdminPanel ? (
+          <AdminPanel
             newsItems={newsItems}
             createNews={createNewsMutation.mutate}
             updateNews={updateNewsMutation.mutate}
             deleteNews={deleteNewsMutation.mutate}
+            onClose={toggleAdminPanel}
           />
         ) : (
           <motion.section 
@@ -186,7 +190,14 @@ const News = () => {
           </div>
         </motion.section>
 
-        <AdminLogin setIsAdmin={setIsAdmin} />
+        <div className="fixed bottom-4 right-4">
+          <button
+            onClick={toggleAdminPanel}
+            className="bg-transparent text-transparent hover:text-primary transition-colors duration-300"
+          >
+            Admin
+          </button>
+        </div>
       </main>
       <Footer />
     </div>
