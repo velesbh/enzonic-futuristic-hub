@@ -6,26 +6,126 @@ import { AnimatedBackground, GlowingButton } from '../components/AnimatedCompone
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from '@/components/ui/button';
 
-const MCTools = () => {
+const GiveCommandGenerator = () => {
+  const [item, setItem] = useState('');
+  const [amount, setAmount] = useState(1);
+  const [data, setData] = useState(0);
   const [giveCommand, setGiveCommand] = useState('');
-  const [motd, setMotd] = useState('');
-  const [ticks, setTicks] = useState('');
-  const [seconds, setSeconds] = useState('');
 
-  const generateGiveCommand = (item, amount, data) => {
+  const generateCommand = () => {
     setGiveCommand(`/give @p ${item} ${amount} ${data}`);
   };
 
-  const generateMOTD = (text) => {
-    setMotd(text.replace(/&/g, '§'));
+  return (
+    <div className="space-y-4">
+      <Input 
+        placeholder="Search for an item..." 
+        onChange={(e) => setItem(e.target.value)}
+      />
+      <Select onValueChange={setItem}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select an item" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="minecraft:diamond_sword">Diamond Sword</SelectItem>
+          <SelectItem value="minecraft:oak_planks">Oak Planks</SelectItem>
+          {/* Add more items as needed */}
+        </SelectContent>
+      </Select>
+      <Input 
+        type="number" 
+        placeholder="Amount" 
+        value={amount} 
+        onChange={(e) => setAmount(e.target.value)}
+      />
+      <Input 
+        type="number" 
+        placeholder="Data value" 
+        value={data} 
+        onChange={(e) => setData(e.target.value)}
+      />
+      <GlowingButton onClick={generateCommand}>Generate</GlowingButton>
+      <p className="mt-2">Command: {giveCommand}</p>
+    </div>
+  );
+};
+
+const MOTDGenerator = () => {
+  const [motd, setMotd] = useState('');
+  const [preview, setPreview] = useState('');
+
+  const generateMOTD = (text, color) => {
+    const coloredText = `§${color}${text}`;
+    setMotd(coloredText);
+    setPreview(coloredText.replace(/§/g, '&'));
   };
 
-  const convertTicksToSeconds = (ticks) => {
-    const secondsValue = ticks / 20;
+  return (
+    <div className="space-y-4">
+      <Input 
+        placeholder="Enter MOTD text" 
+        onChange={(e) => generateMOTD(e.target.value, 'f')}
+      />
+      <Select onValueChange={(color) => generateMOTD(motd.replace(/§./g, ''), color)}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select color" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="0">Black</SelectItem>
+          <SelectItem value="4">Dark Red</SelectItem>
+          <SelectItem value="a">Green</SelectItem>
+          {/* Add more color options */}
+        </SelectContent>
+      </Select>
+      <p className="mt-2">Preview: <span style={{ whiteSpace: 'pre-wrap' }}>{preview}</span></p>
+    </div>
+  );
+};
+
+const TimeConverter = () => {
+  const [ticks, setTicks] = useState('');
+  const [seconds, setSeconds] = useState('');
+
+  const convertTicksToSeconds = () => {
+    const secondsValue = parseInt(ticks) / 20;
     setSeconds(secondsValue.toFixed(2));
   };
 
+  const convertSecondsToTicks = () => {
+    const ticksValue = parseFloat(seconds) * 20;
+    setTicks(Math.round(ticksValue));
+  };
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <Label htmlFor="ticks">Ticks</Label>
+        <Input 
+          id="ticks" 
+          type="number" 
+          value={ticks} 
+          onChange={(e) => setTicks(e.target.value)}
+        />
+        <Button onClick={convertTicksToSeconds}>Convert to Seconds</Button>
+      </div>
+      <div>
+        <Label htmlFor="seconds">Seconds</Label>
+        <Input 
+          id="seconds" 
+          type="number" 
+          value={seconds} 
+          onChange={(e) => setSeconds(e.target.value)}
+        />
+        <Button onClick={convertSecondsToTicks}>Convert to Ticks</Button>
+      </div>
+    </div>
+  );
+};
+
+const MCTools = () => {
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <AnimatedBackground />
@@ -40,66 +140,22 @@ const MCTools = () => {
           Minecraft Tools
         </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            className="bg-secondary p-6 rounded-lg shadow-lg"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h2 className="text-2xl font-bold mb-4">Give Command Generator</h2>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="item">Item</Label>
-                <Input id="item" placeholder="minecraft:diamond_sword" />
-              </div>
-              <div>
-                <Label htmlFor="amount">Amount</Label>
-                <Input id="amount" type="number" placeholder="1" />
-              </div>
-              <div>
-                <Label htmlFor="data">Data</Label>
-                <Input id="data" placeholder="0" />
-              </div>
-              <GlowingButton onClick={() => generateGiveCommand('minecraft:diamond_sword', 1, 0)}>
-                Generate
-              </GlowingButton>
-              <p className="mt-2">Command: {giveCommand}</p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="bg-secondary p-6 rounded-lg shadow-lg"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <h2 className="text-2xl font-bold mb-4">MOTD Generator</h2>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="motd">MOTD Text</Label>
-                <Input id="motd" placeholder="Welcome to &aEnzonic &bServer!" onChange={(e) => generateMOTD(e.target.value)} />
-              </div>
-              <p className="mt-2">Preview: <span style={{ whiteSpace: 'pre-wrap' }}>{motd}</span></p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="bg-secondary p-6 rounded-lg shadow-lg"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h2 className="text-2xl font-bold mb-4">Ticks to Seconds Converter</h2>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="ticks">Ticks</Label>
-                <Input id="ticks" type="number" placeholder="100" onChange={(e) => convertTicksToSeconds(e.target.value)} />
-              </div>
-              <p className="mt-2">Seconds: {seconds}</p>
-            </div>
-          </motion.div>
-        </div>
+        <Tabs defaultValue="give">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="give">Give Command</TabsTrigger>
+            <TabsTrigger value="motd">MOTD Generator</TabsTrigger>
+            <TabsTrigger value="time">Time Converter</TabsTrigger>
+          </TabsList>
+          <TabsContent value="give">
+            <GiveCommandGenerator />
+          </TabsContent>
+          <TabsContent value="motd">
+            <MOTDGenerator />
+          </TabsContent>
+          <TabsContent value="time">
+            <TimeConverter />
+          </TabsContent>
+        </Tabs>
       </main>
       <Footer />
     </div>
