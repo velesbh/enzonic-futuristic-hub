@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { minecraftItems } from '../data/minecraft-items';
 
 const GiveCommandGenerator = () => {
@@ -128,7 +129,7 @@ const MOTDGenerator = () => {
             ))}
           </SelectContent>
         </Select>
-        <div className="mt-4 p-4 bg-gray-900 rounded font-minecraft" style={{ lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>
+        <div className="mt-4 p-4 bg-gray-900 rounded font-minecraft" style={{ lineHeight: '1.5', whiteSpace: 'pre-wrap', fontFamily: "'Minecraft', monospace" }}>
           {preview.split('').map((char, index) => {
             const colorCode = motd[index * 2 + 1];
             const color = colors.find(c => c.code === colorCode)?.hex || '#FFFFFF';
@@ -189,21 +190,6 @@ const TimeConverter = () => {
 };
 
 const MCTools = () => {
-  const [selectedTool, setSelectedTool] = useState(null);
-
-  const renderTool = () => {
-    switch (selectedTool) {
-      case 'give':
-        return <GiveCommandGenerator />;
-      case 'motd':
-        return <MOTDGenerator />;
-      case 'time':
-        return <TimeConverter />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
       <AnimatedBackground />
@@ -218,13 +204,22 @@ const MCTools = () => {
           Minecraft Tools
         </motion.h1>
 
-        <div className="flex justify-center space-x-4 mb-8">
-          <GlowingButton onClick={() => setSelectedTool('give')}>Give Command</GlowingButton>
-          <GlowingButton onClick={() => setSelectedTool('motd')}>MOTD Generator</GlowingButton>
-          <GlowingButton onClick={() => setSelectedTool('time')}>Time Converter</GlowingButton>
-        </div>
-
-        {renderTool()}
+        <Tabs defaultValue="give" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="give">Give Command</TabsTrigger>
+            <TabsTrigger value="motd">MOTD Generator</TabsTrigger>
+            <TabsTrigger value="time">Time Converter</TabsTrigger>
+          </TabsList>
+          <TabsContent value="give">
+            <GiveCommandGenerator />
+          </TabsContent>
+          <TabsContent value="motd">
+            <MOTDGenerator />
+          </TabsContent>
+          <TabsContent value="time">
+            <TimeConverter />
+          </TabsContent>
+        </Tabs>
       </main>
       <Footer />
     </div>
