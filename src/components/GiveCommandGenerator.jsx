@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -12,10 +12,13 @@ const GiveCommandGenerator = () => {
   const [giveCommand, setGiveCommand] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredItems = minecraftItems.filter(item => 
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredItems = useMemo(() => {
+    const lowercasedTerm = searchTerm.toLowerCase();
+    return minecraftItems.filter(item => 
+      item.name.toLowerCase().includes(lowercasedTerm) ||
+      item.id.toLowerCase().includes(lowercasedTerm)
+    );
+  }, [searchTerm]);
 
   const generateCommand = () => {
     setGiveCommand(`/give @p ${item} ${amount} ${data}`);
@@ -38,9 +41,13 @@ const GiveCommandGenerator = () => {
             <SelectValue placeholder="Select an item" />
           </SelectTrigger>
           <SelectContent className="bg-gray-700 text-white max-h-60 overflow-y-auto">
-            {filteredItems.map(item => (
-              <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
-            ))}
+            {filteredItems.length > 0 ? (
+              filteredItems.map(item => (
+                <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+              ))
+            ) : (
+              <SelectItem value="" disabled>No items found</SelectItem>
+            )}
           </SelectContent>
         </Select>
         <Input 
