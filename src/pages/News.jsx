@@ -37,10 +37,7 @@ const fetchNews = async () => {
 };
 
 const NewsCard = ({ title, date, author, content }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="mb-8"
-  >
+  <motion.div whileHover={{ scale: 1.05 }} className="mb-8">
     <Card className="bg-secondary text-foreground border-primary">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">{title}</CardTitle>
@@ -189,17 +186,8 @@ const News = () => {
             <GlowingButton className="rounded-l-none">Subscribe</GlowingButton>
           </div>
         </motion.section>
-
-        <div className="fixed bottom-4 right-4">
-          <button
-            onClick={toggleAdminPanel}
-            className="bg-transparent text-transparent hover:text-primary transition-colors duration-300"
-          >
-            Admin
-          </button>
-        </div>
       </main>
-      <Footer />
+      <Footer onAdminClick={toggleAdminPanel} />
     </div>
   );
 };
