@@ -6,7 +6,6 @@ import { AnimatedBackground, GlowingButton } from '../components/AnimatedCompone
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from '@/components/ui/button';
 
 const GiveCommandGenerator = () => {
@@ -14,6 +13,20 @@ const GiveCommandGenerator = () => {
   const [amount, setAmount] = useState(1);
   const [data, setData] = useState(0);
   const [giveCommand, setGiveCommand] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const items = [
+    { id: 'minecraft:diamond_sword', name: 'Diamond Sword' },
+    { id: 'minecraft:oak_planks', name: 'Oak Planks' },
+    { id: 'minecraft:stone', name: 'Stone' },
+    { id: 'minecraft:grass_block', name: 'Grass Block' },
+    // Add more items as needed
+  ];
+
+  const filteredItems = items.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const generateCommand = () => {
     setGiveCommand(`/give @p ${item} ${amount} ${data}`);
@@ -23,16 +36,17 @@ const GiveCommandGenerator = () => {
     <div className="space-y-4">
       <Input 
         placeholder="Search for an item..." 
-        onChange={(e) => setItem(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <Select onValueChange={setItem}>
         <SelectTrigger>
           <SelectValue placeholder="Select an item" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="minecraft:diamond_sword">Diamond Sword</SelectItem>
-          <SelectItem value="minecraft:oak_planks">Oak Planks</SelectItem>
-          {/* Add more items as needed */}
+          {filteredItems.map(item => (
+            <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+          ))}
         </SelectContent>
       </Select>
       <Input 
@@ -56,6 +70,26 @@ const GiveCommandGenerator = () => {
 const MOTDGenerator = () => {
   const [motd, setMotd] = useState('');
   const [preview, setPreview] = useState('');
+  const [selectedColor, setSelectedColor] = useState('f');
+
+  const colors = [
+    { code: '0', name: 'Black' },
+    { code: '1', name: 'Dark Blue' },
+    { code: '2', name: 'Dark Green' },
+    { code: '3', name: 'Dark Aqua' },
+    { code: '4', name: 'Dark Red' },
+    { code: '5', name: 'Dark Purple' },
+    { code: '6', name: 'Gold' },
+    { code: '7', name: 'Gray' },
+    { code: '8', name: 'Dark Gray' },
+    { code: '9', name: 'Blue' },
+    { code: 'a', name: 'Green' },
+    { code: 'b', name: 'Aqua' },
+    { code: 'c', name: 'Red' },
+    { code: 'd', name: 'Light Purple' },
+    { code: 'e', name: 'Yellow' },
+    { code: 'f', name: 'White' },
+  ];
 
   const generateMOTD = (text, color) => {
     const coloredText = `§${color}${text}`;
@@ -67,17 +101,19 @@ const MOTDGenerator = () => {
     <div className="space-y-4">
       <Input 
         placeholder="Enter MOTD text" 
-        onChange={(e) => generateMOTD(e.target.value, 'f')}
+        onChange={(e) => generateMOTD(e.target.value, selectedColor)}
       />
-      <Select onValueChange={(color) => generateMOTD(motd.replace(/§./g, ''), color)}>
+      <Select onValueChange={(color) => {
+        setSelectedColor(color);
+        generateMOTD(motd.replace(/§./g, ''), color);
+      }}>
         <SelectTrigger>
           <SelectValue placeholder="Select color" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="0">Black</SelectItem>
-          <SelectItem value="4">Dark Red</SelectItem>
-          <SelectItem value="a">Green</SelectItem>
-          {/* Add more color options */}
+          {colors.map((color) => (
+            <SelectItem key={color.code} value={color.code}>{color.name}</SelectItem>
+          ))}
         </SelectContent>
       </Select>
       <p className="mt-2">Preview: <span style={{ whiteSpace: 'pre-wrap' }}>{preview}</span></p>
@@ -126,6 +162,21 @@ const TimeConverter = () => {
 };
 
 const MCTools = () => {
+  const [selectedTool, setSelectedTool] = useState(null);
+
+  const renderTool = () => {
+    switch (selectedTool) {
+      case 'give':
+        return <GiveCommandGenerator />;
+      case 'motd':
+        return <MOTDGenerator />;
+      case 'time':
+        return <TimeConverter />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <AnimatedBackground />
@@ -140,22 +191,13 @@ const MCTools = () => {
           Minecraft Tools
         </motion.h1>
 
-        <Tabs defaultValue="give">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="give">Give Command</TabsTrigger>
-            <TabsTrigger value="motd">MOTD Generator</TabsTrigger>
-            <TabsTrigger value="time">Time Converter</TabsTrigger>
-          </TabsList>
-          <TabsContent value="give">
-            <GiveCommandGenerator />
-          </TabsContent>
-          <TabsContent value="motd">
-            <MOTDGenerator />
-          </TabsContent>
-          <TabsContent value="time">
-            <TimeConverter />
-          </TabsContent>
-        </Tabs>
+        <div className="flex justify-center space-x-4 mb-8">
+          <GlowingButton onClick={() => setSelectedTool('give')}>Give Command</GlowingButton>
+          <GlowingButton onClick={() => setSelectedTool('motd')}>MOTD Generator</GlowingButton>
+          <GlowingButton onClick={() => setSelectedTool('time')}>Time Converter</GlowingButton>
+        </div>
+
+        {renderTool()}
       </main>
       <Footer />
     </div>
