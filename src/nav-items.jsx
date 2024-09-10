@@ -1,4 +1,4 @@
-import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, ToolIcon } from "lucide-react";
+import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, WrenchIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import EnzonicHosting from "./pages/EnzonicHosting.jsx";
 import News from "./pages/News.jsx";
@@ -54,7 +54,7 @@ export const navItems = [
   {
     title: "MC Tools",
     to: "/mc-tools",
-    icon: <ToolIcon className="h-4 w-4" />,
+    icon: <WrenchIcon className="h-4 w-4" />,
     page: <MCTools />,
   },
 ];
