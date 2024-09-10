@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
-const NewsManager = ({ newsItems, createNews, updateNews, deleteNews }) => {
+const NewsManager = ({ newsItems, createNews, updateNews, deleteNews, onClose }) => {
   const [editingNews, setEditingNews] = useState(null);
   const [newNews, setNewNews] = useState({ title: '', author: '', content: '' });
 
@@ -26,6 +26,7 @@ const NewsManager = ({ newsItems, createNews, updateNews, deleteNews }) => {
 
   return (
     <div className="space-y-8">
+      <Button onClick={onClose}>Close Admin Panel</Button>
       <Card>
         <CardHeader>
           <CardTitle>Create News</CardTitle>

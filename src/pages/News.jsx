@@ -6,7 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
-import AdminPanel from '../components/AdminPanel';
+import NewsManager from '../components/NewsManager';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const fetchNews = async () => {
@@ -69,8 +69,8 @@ const News = () => {
       console.log('Creating news:', newNews);
       return { ...newNews, id: Date.now() };
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['news']);
+    onSuccess: (data) => {
+      queryClient.setQueryData(['news'], (oldData) => [...oldData, data]);
     },
   });
 
@@ -80,8 +80,10 @@ const News = () => {
       console.log('Updating news:', updatedNews);
       return updatedNews;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['news']);
+    onSuccess: (data) => {
+      queryClient.setQueryData(['news'], (oldData) =>
+        oldData.map((item) => (item.id === data.id ? data : item))
+      );
     },
   });
 
@@ -89,9 +91,12 @@ const News = () => {
     mutationFn: async (id) => {
       // Simulated API call
       console.log('Deleting news:', id);
+      return id;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['news']);
+    onSuccess: (deletedId) => {
+      queryClient.setQueryData(['news'], (oldData) =>
+        oldData.filter((item) => item.id !== deletedId)
+      );
     },
   });
 
@@ -146,7 +151,7 @@ const News = () => {
         </motion.div>
         
         {showAdminPanel ? (
-          <AdminPanel
+          <NewsManager
             newsItems={newsItems}
             createNews={createNewsMutation.mutate}
             updateNews={updateNewsMutation.mutate}
