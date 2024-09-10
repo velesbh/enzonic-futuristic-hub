@@ -44,11 +44,6 @@ const Header = () => {
     visible: { y: 0, transition: { type: 'spring', stiffness: 100, damping: 20 } },
   };
 
-  const navItemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
-  };
-
   return (
     <motion.header
       variants={headerVariants}
@@ -74,13 +69,13 @@ const Header = () => {
               <motion.li variants={navItemVariants}>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
+                    <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
                       Services <ChevronDownIcon className="ml-2 h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-gray-800 border-gray-700">
                     {services.map((service, index) => (
-                      <DropdownMenuItem key={index} className="text-purple-400 hover:bg-purple-700 transition-colors duration-300">
+                      <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
                         <Link to={service.path}>{service.name}</Link>
                       </DropdownMenuItem>
                     ))}
@@ -89,11 +84,12 @@ const Header = () => {
               </motion.li>
               <NavItem to="/team">Team</NavItem>
               <NavItem to="/contact">Contact</NavItem>
+              <NavItem to="/mc-tools">MC Tools</NavItem>
             </ul>
           </nav>
           <Button
             variant="ghost"
-            className="md:hidden text-purple-400"
+            className="md:hidden text-green-400"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <MenuIcon className="h-6 w-6" />
@@ -118,6 +114,7 @@ const Header = () => {
                 ))}
                 <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>Team</MobileNavItem>
                 <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavItem>
+                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>MC Tools</MobileNavItem>
               </ul>
             </nav>
           </motion.div>
@@ -130,7 +127,7 @@ const Header = () => {
 const NavItem = ({ children, to }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
+      <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>
@@ -144,7 +141,7 @@ const MobileNavItem = ({ children, to, onClick }) => (
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left text-purple-400 hover:text-purple-300 transition-colors duration-300">
+      <Button variant="ghost" className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>

@@ -1,8 +1,9 @@
-import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon } from "lucide-react";
+import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, ToolIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import EnzonicHosting from "./pages/EnzonicHosting.jsx";
 import News from "./pages/News.jsx";
 import RoMine from "./pages/RoMine.jsx";
+import MCTools from "./pages/MCTools.jsx";
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
@@ -49,5 +50,11 @@ export const navItems = [
     to: "/news",
     icon: <NewspaperIcon className="h-4 w-4" />,
     page: <News />,
+  },
+  {
+    title: "MC Tools",
+    to: "/mc-tools",
+    icon: <ToolIcon className="h-4 w-4" />,
+    page: <MCTools />,
   },
 ];
