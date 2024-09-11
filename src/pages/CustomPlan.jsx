@@ -7,13 +7,14 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useMutation } from '@tanstack/react-query';
+import { db } from '../lib/db';
 
 const CustomPlan = () => {
   const [formData, setFormData] = useState({
     serverType: '',
     ram: '',
     cpu: '',
-    tier: '',
     budget: '',
     usage: '',
     storage: '',
@@ -30,11 +31,16 @@ const CustomPlan = () => {
     }));
   };
 
+  const addRequestMutation = useMutation({
+    mutationFn: db.addRequest,
+    onSuccess: () => {
+      setIsSubmitted(true);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log(formData);
-    setIsSubmitted(true);
+    addRequestMutation.mutate(formData);
   };
 
   return (

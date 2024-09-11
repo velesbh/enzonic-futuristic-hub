@@ -8,33 +8,7 @@ import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
 import NewsManager from '../components/NewsManager';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
-const fetchNews = async () => {
-  // Simulated API call
-  return [
-    {
-      id: 1,
-      title: "Enzonic Launches New Cloud Services",
-      date: "March 15, 2024",
-      author: "John Doe",
-      content: "Enzonic is proud to announce the launch of our new cloud services, offering unparalleled performance and reliability for businesses of all sizes."
-    },
-    {
-      id: 2,
-      title: "Upcoming Minecraft Server Event",
-      date: "March 20, 2024",
-      author: "Jane Smith",
-      content: "Join us for an exciting Minecraft server event this weekend! Participate in challenges, win prizes, and explore new custom-built worlds."
-    },
-    {
-      id: 3,
-      title: "Enzonic VPN Now Available on Mobile",
-      date: "March 25, 2024",
-      author: "Mike Johnson",
-      content: "We're excited to announce that Enzonic VPN is now available on iOS and Android devices. Protect your privacy on-the-go with our secure and fast VPN service."
-    },
-  ];
-};
+import { db } from '../lib/db';
 
 const NewsCard = ({ title, date, author, content }) => (
   <motion.div whileHover={{ scale: 1.05 }} className="mb-8">
@@ -60,43 +34,27 @@ const News = () => {
 
   const { data: newsItems, isLoading, isError } = useQuery({
     queryKey: ['news'],
-    queryFn: fetchNews,
+    queryFn: db.getNews,
   });
 
   const createNewsMutation = useMutation({
-    mutationFn: async (newNews) => {
-      // Simulated API call
-      console.log('Creating news:', newNews);
-      return { ...newNews, id: Date.now() };
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['news'], (oldData) => [...oldData, data]);
+    mutationFn: db.addNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 
   const updateNewsMutation = useMutation({
-    mutationFn: async (updatedNews) => {
-      // Simulated API call
-      console.log('Updating news:', updatedNews);
-      return updatedNews;
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['news'], (oldData) =>
-        oldData.map((item) => (item.id === data.id ? data : item))
-      );
+    mutationFn: db.updateNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 
   const deleteNewsMutation = useMutation({
-    mutationFn: async (id) => {
-      // Simulated API call
-      console.log('Deleting news:', id);
-      return id;
-    },
-    onSuccess: (deletedId) => {
-      queryClient.setQueryData(['news'], (oldData) =>
-        oldData.filter((item) => item.id !== deletedId)
-      );
+    mutationFn: db.deleteNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 

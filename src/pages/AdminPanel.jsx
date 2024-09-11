@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,97 +7,53 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import NewsManager from '../components/NewsManager';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { db } from '../lib/db';
 
 const AdminPanel = () => {
   const queryClient = useQueryClient();
 
-  // Simulated API calls
-  const fetchNews = async () => {
-    // Replace with actual API call
-    return [
-      { id: 1, title: "News 1", content: "Content 1", author: "Author 1", date: "2024-03-15" },
-      { id: 2, title: "News 2", content: "Content 2", author: "Author 2", date: "2024-03-16" },
-    ];
-  };
-
-  const fetchRequests = async () => {
-    // Replace with actual API call
-    return [
-      { id: 1, serverType: "Minecraft", ram: "8GB", cpu: "Normal", budget: "$50", usage: "SMP server", storage: "50GB", email: "user1@example.com", status: "Pending" },
-      { id: 2, serverType: "Voice", ram: "4GB", cpu: "Budget", budget: "$20", usage: "Discord bot", storage: "20GB", email: "user2@example.com", status: "Claimed" },
-    ];
-  };
-
   const { data: newsItems, isLoading: isNewsLoading } = useQuery({
     queryKey: ['news'],
-    queryFn: fetchNews,
+    queryFn: db.getNews,
   });
 
   const { data: requests, isLoading: isRequestsLoading } = useQuery({
     queryKey: ['requests'],
-    queryFn: fetchRequests,
+    queryFn: db.getRequests,
   });
 
   const createNewsMutation = useMutation({
-    mutationFn: async (newNews) => {
-      // Simulated API call
-      console.log('Creating news:', newNews);
-      return { ...newNews, id: Date.now() };
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['news'], (oldData) => [...oldData, data]);
+    mutationFn: db.addNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 
   const updateNewsMutation = useMutation({
-    mutationFn: async (updatedNews) => {
-      // Simulated API call
-      console.log('Updating news:', updatedNews);
-      return updatedNews;
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(['news'], (oldData) =>
-        oldData.map((item) => (item.id === data.id ? data : item))
-      );
+    mutationFn: db.updateNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 
   const deleteNewsMutation = useMutation({
-    mutationFn: async (id) => {
-      // Simulated API call
-      console.log('Deleting news:', id);
-      return id;
-    },
-    onSuccess: (deletedId) => {
-      queryClient.setQueryData(['news'], (oldData) =>
-        oldData.filter((item) => item.id !== deletedId)
-      );
+    mutationFn: db.deleteNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['news']);
     },
   });
 
   const claimRequestMutation = useMutation({
-    mutationFn: async (id) => {
-      // Simulated API call
-      console.log('Claiming request:', id);
-      return id;
-    },
-    onSuccess: (claimedId) => {
-      queryClient.setQueryData(['requests'], (oldData) =>
-        oldData.map((item) => item.id === claimedId ? { ...item, status: 'Claimed' } : item)
-      );
+    mutationFn: (id) => db.updateRequest({ id, status: 'Claimed' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['requests']);
     },
   });
 
   const deleteRequestMutation = useMutation({
-    mutationFn: async (id) => {
-      // Simulated API call
-      console.log('Deleting request:', id);
-      return id;
-    },
-    onSuccess: (deletedId) => {
-      queryClient.setQueryData(['requests'], (oldData) =>
-        oldData.filter((item) => item.id !== deletedId)
-      );
+    mutationFn: db.deleteRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['requests']);
     },
   });
 
