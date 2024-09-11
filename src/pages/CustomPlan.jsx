@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { AnimatedBackground, GlowingButton } from '../components/AnimatedComponents';
@@ -11,6 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { db } from '../lib/db';
 
 const CustomPlan = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     serverType: '',
     ram: '',
@@ -41,6 +43,10 @@ const CustomPlan = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addRequestMutation.mutate(formData);
+  };
+
+  const handleExit = () => {
+    navigate('/');
   };
 
   return (
@@ -143,7 +149,10 @@ const CustomPlan = () => {
                     className="w-full bg-gray-700 text-white"
                   />
                 </div>
-                <GlowingButton type="submit" className="w-full">Send Request</GlowingButton>
+                <div className="flex justify-between">
+                  <GlowingButton type="submit" className="w-1/2 mr-2">Send Request</GlowingButton>
+                  <GlowingButton type="button" onClick={handleExit} className="w-1/2 ml-2">Exit</GlowingButton>
+                </div>
               </form>
             </CardContent>
           </Card>
@@ -152,7 +161,8 @@ const CustomPlan = () => {
             <CardContent className="py-8">
               <h2 className="text-2xl font-bold mb-4">Thank you for your request!</h2>
               <p className="mb-4">It might take from 1-48h for someone to respond. Please check your email frequently until you get a reply and a price.</p>
-              <p className="text-sm text-yellow-400">Disclaimer: The request may take 1-48h to get a reply.</p>
+              <p className="text-sm text-yellow-400 mb-4">Disclaimer: The request may take 1-48h to get a reply.</p>
+              <GlowingButton onClick={handleExit}>Exit</GlowingButton>
             </CardContent>
           </Card>
         )}
