@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { navItems } from "./nav-items";
 import MCTools from "./pages/MCTools";
+import CustomPlan from "./pages/CustomPlan";
+import AdminPanel from "./pages/AdminPanel";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,8 @@ const App = () => (
             <Route key={to} path={to} element={page} />
           ))}
           <Route path="/mc-tools" element={<MCTools />} />
+          <Route path="/custom-plan" element={<CustomPlan />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
