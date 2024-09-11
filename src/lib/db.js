@@ -1,97 +1,88 @@
-import mysql from 'mysql2/promise';
+// This is a mock database for client-side use
+// In a real application, these operations should be performed on the server
 
-const pool = mysql.createPool({
-  host: 'mysql-1fb1d300-velesbh0-ea0a.i.aivencloud.com',
-  port: 19755,
-  user: 'avnadmin',
-  password: 'AVNS_J8qG-tFqR5U-MrCVkrC',
-  database: 'defaultdb',
-  ssl: {
-    rejectUnauthorized: true
-  },
-  connectionLimit: 10
-});
+let newsItems = [];
+let customPlanRequests = [];
 
 export const db = {
   // News operations
   getNews: async () => {
-    const [rows] = await pool.query('SELECT * FROM news ORDER BY date DESC');
-    return rows;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    return newsItems;
   },
   addNews: async (news) => {
-    const [result] = await pool.query(
-      'INSERT INTO news (title, date, author, content) VALUES (?, ?, ?, ?)',
-      [news.title, new Date(), news.author, news.content]
-    );
-    return { id: result.insertId, ...news };
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const newNews = { id: Date.now(), ...news, date: new Date().toISOString() };
+    newsItems.push(newNews);
+    return newNews;
   },
   updateNews: async (updatedNews) => {
-    await pool.query(
-      'UPDATE news SET title = ?, author = ?, content = ? WHERE id = ?',
-      [updatedNews.title, updatedNews.author, updatedNews.content, updatedNews.id]
-    );
-    return updatedNews;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const index = newsItems.findIndex(item => item.id === updatedNews.id);
+    if (index !== -1) {
+      newsItems[index] = { ...newsItems[index], ...updatedNews };
+      return newsItems[index];
+    }
+    throw new Error('News item not found');
   },
   deleteNews: async (id) => {
-    await pool.query('DELETE FROM news WHERE id = ?', [id]);
-    return id;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const index = newsItems.findIndex(item => item.id === id);
+    if (index !== -1) {
+      newsItems.splice(index, 1);
+      return id;
+    }
+    throw new Error('News item not found');
   },
 
   // Custom plan request operations
   getRequests: async () => {
-    const [rows] = await pool.query('SELECT * FROM custom_plan_requests ORDER BY created_at DESC');
-    return rows;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    return customPlanRequests;
   },
   addRequest: async (request) => {
-    const [result] = await pool.query(
-      'INSERT INTO custom_plan_requests (server_type, ram, cpu, budget, usage, storage, email, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [request.serverType, request.ram, request.cpu, request.budget, request.usage, request.storage, request.email, 'Pending']
-    );
-    return { id: result.insertId, ...request, status: 'Pending' };
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const newRequest = { id: Date.now(), ...request, status: 'Pending', created_at: new Date().toISOString() };
+    customPlanRequests.push(newRequest);
+    return newRequest;
   },
   updateRequest: async (updatedRequest) => {
-    await pool.query(
-      'UPDATE custom_plan_requests SET status = ? WHERE id = ?',
-      [updatedRequest.status, updatedRequest.id]
-    );
-    return updatedRequest;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const index = customPlanRequests.findIndex(item => item.id === updatedRequest.id);
+    if (index !== -1) {
+      customPlanRequests[index] = { ...customPlanRequests[index], ...updatedRequest };
+      return customPlanRequests[index];
+    }
+    throw new Error('Request not found');
   },
   deleteRequest: async (id) => {
-    await pool.query('DELETE FROM custom_plan_requests WHERE id = ?', [id]);
-    return id;
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const index = customPlanRequests.findIndex(item => item.id === id);
+    if (index !== -1) {
+      customPlanRequests.splice(index, 1);
+      return id;
+    }
+    throw new Error('Request not found');
   },
 };
 
-// Initialize database tables
-(async () => {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS news (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        date DATETIME NOT NULL,
-        author VARCHAR(100) NOT NULL,
-        content TEXT NOT NULL
-      )
-    `);
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS custom_plan_requests (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        server_type VARCHAR(100) NOT NULL,
-        ram INT NOT NULL,
-        cpu VARCHAR(50) NOT NULL,
-        budget DECIMAL(10, 2) NOT NULL,
-        usage TEXT NOT NULL,
-        storage INT NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        status VARCHAR(50) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    console.log('Database tables initialized successfully');
-  } catch (error) {
-    console.error('Error initializing database tables:', error);
-  }
-})();
+// Note: In a real application, you would implement server-side code here
+// to connect to the MySQL database using the provided credentials:
+//
+// Database name: defaultdb
+// Host: mysql-1fb1d300-velesbh0-ea0a.i.aivencloud.com
+// Port: 19755
+// User: avnadmin
+// Password: AVNS_J8qG-tFqR5U-MrCVkrC
+// SSL mode: REQUIRED
+//
+// The server-side implementation would handle database operations and
+// expose these operations through an API that the client-side code can call.
