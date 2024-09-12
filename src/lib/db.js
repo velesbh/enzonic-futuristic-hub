@@ -1,90 +1,71 @@
-import mysql from 'mysql2/promise';
+// Mock data for frontend development
+const mockNews = [
+  { id: 1, title: "New Server Launch", author: "Admin", content: "We're excited to announce our new server launch!", date: "2024-03-15" },
+  { id: 2, title: "Maintenance Update", author: "Tech Team", content: "Scheduled maintenance will occur this weekend.", date: "2024-03-14" },
+];
 
-const pool = mysql.createPool({
-  host: 'mysql-1fb1d300-velesbh0-ea0a.i.aivencloud.com',
-  user: 'avnadmin',
-  password: 'AVNS_J8qG-tFqR5U-MrCVkrC',
-  database: 'defaultdb',
-  port: 19755,
-  ssl: {
-    rejectUnauthorized: true
-  }
-});
+const mockRequests = [
+  { id: 1, serverType: "Minecraft", ram: "4GB", cpu: "2 cores", budget: "$20", usage: "Small SMP server", storage: "20GB", email: "user1@example.com", status: "Pending", created_at: "2024-03-13" },
+  { id: 2, serverType: "Voice Server", ram: "2GB", cpu: "1 core", budget: "$10", usage: "Discord bot hosting", storage: "10GB", email: "user2@example.com", status: "Approved", created_at: "2024-03-12" },
+];
 
 export const db = {
   // News operations
   getNews: async () => {
-    const [rows] = await pool.query('SELECT * FROM news ORDER BY date DESC');
-    return rows;
+    // In a real application, this would be an API call to the backend
+    return Promise.resolve(mockNews);
   },
   addNews: async (news) => {
-    const [result] = await pool.query(
-      'INSERT INTO news (title, author, content, date) VALUES (?, ?, ?, ?)',
-      [news.title, news.author, news.content, new Date()]
-    );
-    return { id: result.insertId, ...news };
+    // In a real application, this would be an API call to the backend
+    const newNews = { id: mockNews.length + 1, ...news, date: new Date().toISOString().split('T')[0] };
+    mockNews.push(newNews);
+    return Promise.resolve(newNews);
   },
   updateNews: async (updatedNews) => {
-    await pool.query(
-      'UPDATE news SET title = ?, author = ?, content = ? WHERE id = ?',
-      [updatedNews.title, updatedNews.author, updatedNews.content, updatedNews.id]
-    );
-    return updatedNews;
+    // In a real application, this would be an API call to the backend
+    const index = mockNews.findIndex(news => news.id === updatedNews.id);
+    if (index !== -1) {
+      mockNews[index] = { ...mockNews[index], ...updatedNews };
+    }
+    return Promise.resolve(updatedNews);
   },
   deleteNews: async (id) => {
-    await pool.query('DELETE FROM news WHERE id = ?', [id]);
-    return id;
+    // In a real application, this would be an API call to the backend
+    const index = mockNews.findIndex(news => news.id === id);
+    if (index !== -1) {
+      mockNews.splice(index, 1);
+    }
+    return Promise.resolve(id);
   },
 
   // Custom plan request operations
   getRequests: async () => {
-    const [rows] = await pool.query('SELECT * FROM custom_plan_requests ORDER BY created_at DESC');
-    return rows;
+    // In a real application, this would be an API call to the backend
+    return Promise.resolve(mockRequests);
   },
   addRequest: async (request) => {
-    const [result] = await pool.query(
-      'INSERT INTO custom_plan_requests (serverType, ram, cpu, budget, usage, storage, email, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [request.serverType, request.ram, request.cpu, request.budget, request.usage, request.storage, request.email, 'Pending', new Date()]
-    );
-    return { id: result.insertId, ...request, status: 'Pending' };
+    // In a real application, this would be an API call to the backend
+    const newRequest = { id: mockRequests.length + 1, ...request, status: 'Pending', created_at: new Date().toISOString().split('T')[0] };
+    mockRequests.push(newRequest);
+    return Promise.resolve(newRequest);
   },
   updateRequest: async (updatedRequest) => {
-    await pool.query(
-      'UPDATE custom_plan_requests SET status = ? WHERE id = ?',
-      [updatedRequest.status, updatedRequest.id]
-    );
-    return updatedRequest;
+    // In a real application, this would be an API call to the backend
+    const index = mockRequests.findIndex(request => request.id === updatedRequest.id);
+    if (index !== -1) {
+      mockRequests[index] = { ...mockRequests[index], ...updatedRequest };
+    }
+    return Promise.resolve(updatedRequest);
   },
   deleteRequest: async (id) => {
-    await pool.query('DELETE FROM custom_plan_requests WHERE id = ?', [id]);
-    return id;
+    // In a real application, this would be an API call to the backend
+    const index = mockRequests.findIndex(request => request.id === id);
+    if (index !== -1) {
+      mockRequests.splice(index, 1);
+    }
+    return Promise.resolve(id);
   },
 };
 
-// Create tables if they don't exist
-(async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS news (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      author VARCHAR(100) NOT NULL,
-      content TEXT NOT NULL,
-      date DATETIME NOT NULL
-    )
-  `);
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS custom_plan_requests (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      serverType VARCHAR(100) NOT NULL,
-      ram VARCHAR(50) NOT NULL,
-      cpu VARCHAR(50) NOT NULL,
-      budget VARCHAR(50) NOT NULL,
-      usage TEXT NOT NULL,
-      storage VARCHAR(50) NOT NULL,
-      email VARCHAR(255) NOT NULL,
-      status VARCHAR(50) NOT NULL,
-      created_at DATETIME NOT NULL
-    )
-  `);
-})();
+// Note: In a real application, you would implement proper API endpoints on the server-side
+// and make HTTP requests from the frontend to interact with the database.
