@@ -6,6 +6,7 @@ import { navItems } from "./nav-items";
 import MCTools from "./pages/MCTools";
 import CustomPlan from "./pages/CustomPlan";
 import AdminPanel from "./pages/AdminPanel";
+import EnzonicMods from "./pages/EnzonicMods";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/mc-tools" element={<MCTools />} />
           <Route path="/custom-plan" element={<CustomPlan />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/enzonic-mods" element={<EnzonicMods />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

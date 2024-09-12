@@ -68,7 +68,8 @@ const Index = () => {
               { text: 'DISCORD', path: '/' },
               { text: 'NEWS', path: '/news' },
               { text: 'CLOUD', path: '/' },
-              { text: 'VPN', path: '/' }
+              { text: 'VPN', path: '/' },
+              { text: 'ENZONIC MODS', path: '/enzonic-mods' }
             ].map(({ text, path }) => (
               <Link key={text} to={path}>
                 <GlowingButton>{text}</GlowingButton>

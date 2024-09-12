@@ -1,88 +1,90 @@
-// This is a mock database for client-side use
-// In a real application, these operations should be performed on the server
+import mysql from 'mysql2/promise';
 
-let newsItems = [];
-let customPlanRequests = [];
+const pool = mysql.createPool({
+  host: 'mysql-1fb1d300-velesbh0-ea0a.i.aivencloud.com',
+  user: 'avnadmin',
+  password: 'AVNS_J8qG-tFqR5U-MrCVkrC',
+  database: 'defaultdb',
+  port: 19755,
+  ssl: {
+    rejectUnauthorized: true
+  }
+});
 
 export const db = {
   // News operations
   getNews: async () => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return newsItems;
+    const [rows] = await pool.query('SELECT * FROM news ORDER BY date DESC');
+    return rows;
   },
   addNews: async (news) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const newNews = { id: Date.now(), ...news, date: new Date().toISOString() };
-    newsItems.push(newNews);
-    return newNews;
+    const [result] = await pool.query(
+      'INSERT INTO news (title, author, content, date) VALUES (?, ?, ?, ?)',
+      [news.title, news.author, news.content, new Date()]
+    );
+    return { id: result.insertId, ...news };
   },
   updateNews: async (updatedNews) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const index = newsItems.findIndex(item => item.id === updatedNews.id);
-    if (index !== -1) {
-      newsItems[index] = { ...newsItems[index], ...updatedNews };
-      return newsItems[index];
-    }
-    throw new Error('News item not found');
+    await pool.query(
+      'UPDATE news SET title = ?, author = ?, content = ? WHERE id = ?',
+      [updatedNews.title, updatedNews.author, updatedNews.content, updatedNews.id]
+    );
+    return updatedNews;
   },
   deleteNews: async (id) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const index = newsItems.findIndex(item => item.id === id);
-    if (index !== -1) {
-      newsItems.splice(index, 1);
-      return id;
-    }
-    throw new Error('News item not found');
+    await pool.query('DELETE FROM news WHERE id = ?', [id]);
+    return id;
   },
 
   // Custom plan request operations
   getRequests: async () => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return customPlanRequests;
+    const [rows] = await pool.query('SELECT * FROM custom_plan_requests ORDER BY created_at DESC');
+    return rows;
   },
   addRequest: async (request) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const newRequest = { id: Date.now(), ...request, status: 'Pending', created_at: new Date().toISOString() };
-    customPlanRequests.push(newRequest);
-    return newRequest;
+    const [result] = await pool.query(
+      'INSERT INTO custom_plan_requests (serverType, ram, cpu, budget, usage, storage, email, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [request.serverType, request.ram, request.cpu, request.budget, request.usage, request.storage, request.email, 'Pending', new Date()]
+    );
+    return { id: result.insertId, ...request, status: 'Pending' };
   },
   updateRequest: async (updatedRequest) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const index = customPlanRequests.findIndex(item => item.id === updatedRequest.id);
-    if (index !== -1) {
-      customPlanRequests[index] = { ...customPlanRequests[index], ...updatedRequest };
-      return customPlanRequests[index];
-    }
-    throw new Error('Request not found');
+    await pool.query(
+      'UPDATE custom_plan_requests SET status = ? WHERE id = ?',
+      [updatedRequest.status, updatedRequest.id]
+    );
+    return updatedRequest;
   },
   deleteRequest: async (id) => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const index = customPlanRequests.findIndex(item => item.id === id);
-    if (index !== -1) {
-      customPlanRequests.splice(index, 1);
-      return id;
-    }
-    throw new Error('Request not found');
+    await pool.query('DELETE FROM custom_plan_requests WHERE id = ?', [id]);
+    return id;
   },
 };
 
-// Note: In a real application, you would implement server-side code here
-// to connect to the MySQL database using the provided credentials:
-//
-// Database name: defaultdb
-// Host: mysql-1fb1d300-velesbh0-ea0a.i.aivencloud.com
-// Port: 19755
-// User: avnadmin
-// Password: AVNS_J8qG-tFqR5U-MrCVkrC
-// SSL mode: REQUIRED
-//
-// The server-side implementation would handle database operations and
-// expose these operations through an API that the client-side code can call.
+// Create tables if they don't exist
+(async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS news (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      author VARCHAR(100) NOT NULL,
+      content TEXT NOT NULL,
+      date DATETIME NOT NULL
+    )
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS custom_plan_requests (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      serverType VARCHAR(100) NOT NULL,
+      ram VARCHAR(50) NOT NULL,
+      cpu VARCHAR(50) NOT NULL,
+      budget VARCHAR(50) NOT NULL,
+      usage TEXT NOT NULL,
+      storage VARCHAR(50) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      status VARCHAR(50) NOT NULL,
+      created_at DATETIME NOT NULL
+    )
+  `);
+})();
