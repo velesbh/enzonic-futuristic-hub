@@ -18,12 +18,43 @@ export const plans = {
           ], 
           icon: Server 
         },
-        // ... (keep other existing plans)
       ]
     },
-    // ... (keep normal and extreme plans as they were)
+    normal: {
+      description: "Suitable for medium-sized servers with more players and mods.",
+      plans: [
+        // Add normal plans here
+      ]
+    },
+    extreme: {
+      description: "For large servers with heavy modpacks and high player counts.",
+      plans: [
+        // Add extreme plans here
+      ]
+    }
   },
-  // ... (keep other plan categories as they were)
+  voiceservers: {
+    description: "High-quality voice servers for seamless communication.",
+    plans: [
+      // Add voice server plans here
+    ]
+  }
 };
 
-// ... (keep planComparison as it was)
+export const planComparison = {
+  budget: {
+    pricePerGB: "$0.90",
+    cpu: "Shared",
+    dedicatedIP: "-"
+  },
+  normal: {
+    pricePerGB: "$1.10",
+    cpu: "AMD EPYC 7R17",
+    dedicatedIP: "-"
+  },
+  extreme: {
+    pricePerGB: "$3.00",
+    cpu: "i9-9900K",
+    dedicatedIP: "$5/month"
+  }
+};
