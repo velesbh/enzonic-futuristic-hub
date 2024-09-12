@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server, Rocket, Mic } from 'lucide-react';
+import { Zap, Shield, HeadphonesIcon, Cpu, Globe, DollarSign, Award, Server } from 'lucide-react';
 import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
-import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, HeroText } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton, ScrollToTopButton, AnimatedGrid, HeroText } from '../components/AnimatedComponents';
 import { Link } from 'react-router-dom';
 import PlanSelector from '../components/PlanSelector';
 
@@ -21,7 +21,7 @@ const EnzonicHosting = () => {
   const additionalIcons = [Cpu, Server, Globe, HeadphonesIcon];
 
   return (
-    <div className="min-h-screen bg-black text-green-400">
+    <div className="min-h-screen bg-gray-900 text-white">
       <AnimatedBackground additionalIcons={additionalIcons} />
       <Header />
       <ScrollToTopButton />
@@ -110,50 +110,11 @@ const EnzonicHosting = () => {
             selectedTier={selectedTier}
             setSelectedTier={setSelectedTier}
           />
-          <Tabs>
-            <TabList className="flex justify-center mb-8">
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300" onClick={() => setSelectedCategory('minecraft')}>Minecraft</Tab>
-              <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300" onClick={() => setSelectedCategory('voice')}>Voice Servers</Tab>
-            </TabList>
-
-            <TabPanel>
-              <Tabs>
-                <TabList className="flex justify-center mb-8">
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Budget</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Normal</Tab>
-                  <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300">Extreme</Tab>
-                </TabList>
-
-                {['budget', 'normal', 'extreme'].map((tier) => (
-                  <TabPanel key={tier}>
-                    <p className="text-center text-xl mb-8 text-green-300">{plans.minecraft[tier].description}</p>
-                    {tier === 'extreme' && (
-                      <p className="text-center text-yellow-400 font-bold mb-8">{plans.minecraft[tier].disclaimer}</p>
-                    )}
-                    <AnimatedGrid>
-                      {plans.minecraft[tier].plans.map((plan, index) => (
-                        <PlanCard key={index} {...plan} />
-                      ))}
-                    </AnimatedGrid>
-                  </TabPanel>
-                ))}
-              </Tabs>
-              <div className="mt-8 text-center">
-                <GlowingButton variant="outline" onClick={() => setIsComparisonPopupOpen(true)}>
-                  Compare Plans
-                </GlowingButton>
-              </div>
-            </TabPanel>
-
-            <TabPanel>
-              <p className="text-center text-xl mb-8 text-green-300">{plans.voiceservers.description}</p>
-              <AnimatedGrid>
-                {plans.voiceservers.plans.map((plan, index) => (
-                  <PlanCard key={index} {...plan} />
-                ))}
-              </AnimatedGrid>
-            </TabPanel>
-          </Tabs>
+          <div className="mt-8 text-center">
+            <GlowingButton variant="outline" onClick={() => setIsComparisonPopupOpen(true)}>
+              Compare All Plans
+            </GlowingButton>
+          </div>
         </motion.section>
 
         <motion.section 
@@ -168,9 +129,7 @@ const EnzonicHosting = () => {
         </motion.section>
       </main>
       <Footer />
-      {selectedCategory === 'minecraft' && (
-        <PlanComparisonPopup isOpen={isComparisonPopupOpen} onClose={() => setIsComparisonPopupOpen(false)} planComparison={planComparison} />
-      )}
+      <PlanComparisonPopup isOpen={isComparisonPopupOpen} onClose={() => setIsComparisonPopupOpen(false)} planComparison={planComparison} />
     </div>
   );
 };
