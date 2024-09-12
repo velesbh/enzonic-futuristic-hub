@@ -8,6 +8,7 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showWizard, setShowWizard] = useState(false);
   const [showLocationSelector, setShowLocationSelector] = useState(false);
+  const [currentPlan, setCurrentPlan] = useState(null);
   const navigate = useNavigate();
 
   const categories = [
@@ -42,21 +43,30 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
     setSelectedPlan(planId);
     setSelectedTier('budget');
     if (planId === 'minecraft') {
-      setShowWizard(true);
+      setShowWizard(false);
     } else {
       setShowWizard(false);
     }
   };
 
-  const handleProxyPlanSelect = () => {
+  const handleProxyPlanSelect = (plan) => {
+    setCurrentPlan(plan);
     setShowLocationSelector(true);
   };
 
   const handleLocationSelect = (location) => {
-    if (location === 'europe') {
-      window.location.href = 'https://billing.enzonic.xyz/checkout/config/1';
-    } else if (location === 'usa') {
-      window.location.href = 'https://billing.enzonic.xyz/checkout/config/2';
+    if (currentPlan === 'proxy') {
+      if (location === 'europe') {
+        window.location.href = 'https://billing.enzonic.xyz/checkout/config/1';
+      } else if (location === 'usa') {
+        window.location.href = 'https://billing.enzonic.xyz/checkout/config/2';
+      }
+    } else if (currentPlan === 'coal') {
+      if (location === 'europe') {
+        window.location.href = 'https://billing.enzonic.xyz/checkout/config/3';
+      } else if (location === 'usa') {
+        window.location.href = 'https://billing.enzonic.xyz/checkout/config/4';
+      }
     }
   };
 
@@ -86,7 +96,7 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
                 <Button
                   variant={selectedPlan === planId ? "default" : "outline"}
                   className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
-                  onClick={() => planId === 'minecraft' ? handlePlanSelect(planId) : handleProxyPlanSelect()}
+                  onClick={() => handlePlanSelect(planId)}
                 >
                   {planNames[planId]}
                 </Button>

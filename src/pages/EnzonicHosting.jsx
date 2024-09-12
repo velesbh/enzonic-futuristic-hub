@@ -10,10 +10,13 @@ import { plans, planComparison } from '../data/hostingPlans';
 import PlanComparisonPopup from '../components/PlanComparisonPopup';
 import { AnimatedBackground, FloatingElement, FeatureCard, PlanCard, GlowingButton, ScrollToTopButton, AnimatedGrid, HeroText } from '../components/AnimatedComponents';
 import { Link } from 'react-router-dom';
+import PlanSelector from '../components/PlanSelector';
 
 const EnzonicHosting = () => {
   const [isComparisonPopupOpen, setIsComparisonPopupOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('minecraft');
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedTier, setSelectedTier] = useState('budget');
 
   const additionalIcons = [Cpu, Server, Globe, HeadphonesIcon];
 
@@ -101,6 +104,12 @@ const EnzonicHosting = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Our Hosting Solutions</h2>
+          <PlanSelector
+            selectedPlan={selectedPlan}
+            setSelectedPlan={setSelectedPlan}
+            selectedTier={selectedTier}
+            setSelectedTier={setSelectedTier}
+          />
           <Tabs>
             <TabList className="flex justify-center mb-8">
               <Tab className="px-4 py-2 text-lg cursor-pointer hover:text-green-300 transition-colors duration-300" onClick={() => setSelectedCategory('minecraft')}>Minecraft</Tab>

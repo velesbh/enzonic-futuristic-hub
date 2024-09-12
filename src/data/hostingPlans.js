@@ -19,6 +19,20 @@ export const plans = {
           icon: Server 
         },
         {
+          title: "Coal Plan",
+          description: "Good for testing servers or solo gameplay or invite 1-2 friends on vanilla",
+          price: "$1.80/month",
+          features: [
+            "2GB RAM",
+            "250% CPU",
+            "5GB Storage",
+            "2 Ports",
+            "1 Backup",
+            "USA and Europe Locations"
+          ],
+          icon: Server
+        },
+        {
           title: "Budget 1GB",
           description: "Ideal for small vanilla servers",
           price: "$2/month",
