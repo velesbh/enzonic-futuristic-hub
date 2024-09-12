@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import PlanWizard from './PlanWizard';
 
 const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelectedTier }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showWizard, setShowWizard] = useState(false);
+  const [showLocationSelector, setShowLocationSelector] = useState(false);
+  const navigate = useNavigate();
 
   const categories = [
     { id: 'games', name: 'Game Servers', plans: ['minecraft', 'rust', 'csgo', 'garrysMod', 'arkSurvivalEvolved'] },
@@ -30,11 +35,29 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
     setSelectedCategory(categoryId);
     setSelectedPlan(null);
     setSelectedTier('budget');
+    setShowWizard(false);
   };
 
   const handlePlanSelect = (planId) => {
     setSelectedPlan(planId);
     setSelectedTier('budget');
+    if (planId === 'minecraft') {
+      setShowWizard(true);
+    } else {
+      setShowWizard(false);
+    }
+  };
+
+  const handleProxyPlanSelect = () => {
+    setShowLocationSelector(true);
+  };
+
+  const handleLocationSelect = (location) => {
+    if (location === 'europe') {
+      window.location.href = 'https://billing.enzonic.xyz/checkout/config/1';
+    } else if (location === 'usa') {
+      window.location.href = 'https://billing.enzonic.xyz/checkout/config/2';
+    }
   };
 
   return (
@@ -63,7 +86,7 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
                 <Button
                   variant={selectedPlan === planId ? "default" : "outline"}
                   className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
-                  onClick={() => handlePlanSelect(planId)}
+                  onClick={() => planId === 'minecraft' ? handlePlanSelect(planId) : handleProxyPlanSelect()}
                 >
                   {planNames[planId]}
                 </Button>
@@ -89,8 +112,29 @@ const PlanSelector = ({ selectedPlan, setSelectedPlan, selectedTier, setSelected
               </motion.div>
             ))}
           </div>
+          <div className="mt-4">
+            <Button
+              variant="outline"
+              className="text-white border-white bg-gray-800 hover:bg-gray-700 hover:text-gray-200"
+              onClick={() => setShowWizard(true)}
+            >
+              Help me choose a plan
+            </Button>
+          </div>
         </>
       )}
+
+      {showLocationSelector && (
+        <div className="mt-8">
+          <h3 className="text-2xl font-bold mb-4 text-white">Select Server Location</h3>
+          <div className="flex gap-4">
+            <Button onClick={() => handleLocationSelect('europe')}>Europe</Button>
+            <Button onClick={() => handleLocationSelect('usa')}>USA</Button>
+          </div>
+        </div>
+      )}
+
+      {showWizard && <PlanWizard onClose={() => setShowWizard(false)} />}
     </div>
   );
 };

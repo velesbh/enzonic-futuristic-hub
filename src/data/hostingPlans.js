@@ -18,6 +18,45 @@ export const plans = {
           ], 
           icon: Server 
         },
+        {
+          title: "Budget 1GB",
+          description: "Ideal for small vanilla servers",
+          price: "$2/month",
+          features: [
+            "1GB RAM",
+            "Shared CPU",
+            "10GB SSD",
+            "DDoS Protection",
+            "Unlimited Slots"
+          ],
+          icon: Server
+        },
+        {
+          title: "Budget 2GB",
+          description: "Great for small modded servers",
+          price: "$4/month",
+          features: [
+            "2GB RAM",
+            "Shared CPU",
+            "20GB SSD",
+            "DDoS Protection",
+            "Unlimited Slots"
+          ],
+          icon: Server
+        },
+        {
+          title: "Budget 3GB",
+          description: "Perfect for medium-sized vanilla servers",
+          price: "$6/month",
+          features: [
+            "3GB RAM",
+            "Shared CPU",
+            "30GB SSD",
+            "DDoS Protection",
+            "Unlimited Slots"
+          ],
+          icon: Server
+        },
       ]
     },
     normal: {
