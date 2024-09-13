@@ -187,3 +187,53 @@ export const PulsingIcon = ({ icon: Icon, size = 24, color = "text-green-500" })
     <Icon className={`w-${size} h-${size} ${color}`} />
   </motion.div>
 );
+
+export const SlideInText = ({ children, direction = "left" }) => (
+  <motion.div
+    initial={{ opacity: 0, x: direction === "left" ? -50 : 50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.8, ease: "easeOut" }}
+  >
+    {children}
+  </motion.div>
+);
+
+export const FadeInScale = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
+
+export const BouncingIcon = ({ icon: Icon, size = 24, color = "text-green-500" }) => (
+  <motion.div
+    animate={{
+      y: [0, -10, 0],
+    }}
+    transition={{
+      duration: 1,
+      repeat: Infinity,
+      repeatType: 'reverse',
+    }}
+  >
+    <Icon className={`w-${size} h-${size} ${color}`} />
+  </motion.div>
+);
+
+export const RotatingIcon = ({ icon: Icon, size = 24, color = "text-green-500" }) => (
+  <motion.div
+    animate={{
+      rotate: 360,
+    }}
+    transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: "linear",
+    }}
+  >
+    <Icon className={`w-${size} h-${size} ${color}`} />
+  </motion.div>
+);

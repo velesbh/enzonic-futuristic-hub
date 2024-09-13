@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale, BouncingIcon, RotatingIcon } from '../components/AnimatedComponents';
 import { ArrowRight, Server, Cpu, Cloud, Shield, Gamepad } from 'lucide-react';
 
 const Index = () => {
@@ -71,12 +71,16 @@ const Index = () => {
         
         <SmoothFadeIn delay={0.4}>
           <div className="text-center mb-16 max-w-2xl mx-auto mt-16">
-            <h2 className="text-3xl font-bold text-green-400 mb-4">
-              Our Vision
-            </h2>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Empowering individuals and businesses with innovative, affordable, and reliable technology solutions.
-            </p>
+            <SlideInText>
+              <h2 className="text-3xl font-bold text-green-400 mb-4">
+                Our Vision
+              </h2>
+            </SlideInText>
+            <FadeInScale>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                Empowering individuals and businesses with innovative, affordable, and reliable technology solutions.
+              </p>
+            </FadeInScale>
           </div>
         </SmoothFadeIn>
 
@@ -87,9 +91,13 @@ const Index = () => {
               { icon: Shield, text: 'Security' },
               { icon: Cpu, text: 'High Performance' },
               { icon: Server, text: 'Reliable Hosting' },
-            ].map(({ icon: Icon, text }) => (
+            ].map(({ icon: Icon, text }, index) => (
               <div key={text} className="text-center">
-                <PulsingIcon icon={Icon} size={12} />
+                {index % 2 === 0 ? (
+                  <BouncingIcon icon={Icon} size={12} />
+                ) : (
+                  <RotatingIcon icon={Icon} size={12} />
+                )}
                 <p className="text-sm text-gray-300 mt-2">{text}</p>
               </div>
             ))}
