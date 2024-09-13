@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { GamepadIcon, ShoppingCartIcon, ServerIcon, InfoIcon, Cpu, Users, Code, Trophy, Zap, Shield } from 'lucide-react';
-import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton, ScrollToTopButton, AnimatedGrid } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, ScrollToTopButton, AnimatedGrid, SmoothFadeIn, PulsingIcon } from '../components/AnimatedComponents';
+import FeatureCard from '../components/FeatureCard';
 
 const RoMine = () => {
   return (
@@ -65,12 +66,7 @@ const RoMine = () => {
           </motion.div>
         </motion.div>
         
-        <motion.section 
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
+        <SmoothFadeIn delay={0.2}>
           <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Ro-Mine Features</h2>
           <AnimatedGrid>
             <FeatureCard title="Create" description="Design and build your own unique minigames" icon={GamepadIcon} />
@@ -83,35 +79,27 @@ const RoMine = () => {
             <FeatureCard title="Instant Deploy" description="Launch your games with just one click" icon={Zap} />
             <FeatureCard title="Secure" description="Play in a safe, moderated environment" icon={Shield} />
           </AnimatedGrid>
-        </motion.section>
+        </SmoothFadeIn>
 
-        <motion.section 
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
+        <SmoothFadeIn delay={0.4}>
           <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Server Information</h2>
           <div className="bg-indigo-800 p-8 rounded-lg shadow-lg">
             <p className="text-2xl mb-4"><strong>IP Address:</strong> ro-mine.enzonic.xyz</p>
             <p className="text-2xl mb-4"><strong>Minecraft Versions:</strong> 1.8.9 - 1.21.1</p>
             <p className="text-xl flex items-center bg-yellow-500 text-black p-4 rounded-lg">
-              <InfoIcon className="mr-2" />
-              <span>Ro-Mine is currently in development. Stay tuned for exciting updates!</span>
+              <PulsingIcon icon={InfoIcon} />
+              <span className="ml-2">Ro-Mine is currently in development. Stay tuned for exciting updates!</span>
             </p>
           </div>
-        </motion.section>
+        </SmoothFadeIn>
 
-        <motion.section 
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
+        <SmoothFadeIn delay={0.6}>
           <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Join the Ro-Mine Community</h2>
           <p className="text-xl mb-6 text-gray-300">Be part of an exciting world of creativity and gaming. Start your journey today!</p>
-          <GlowingButton>Get Started Now</GlowingButton>
-        </motion.section>
+          <div className="text-center">
+            <GlowingButton>Get Started Now</GlowingButton>
+          </div>
+        </SmoothFadeIn>
       </main>
       <Footer />
     </div>
