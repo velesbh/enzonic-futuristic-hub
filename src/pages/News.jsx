@@ -4,25 +4,28 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { NewspaperIcon, CalendarIcon, UserIcon } from 'lucide-react';
+import { NewspaperIcon, CalendarIcon, UserIcon, ArrowRightIcon } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, GlowingButton } from '../components/AnimatedComponents';
 import NewsManager from '../components/NewsManager';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { db } from '../lib/db';
 
 const NewsCard = ({ title, date, author, content }) => (
-  <motion.div whileHover={{ scale: 1.05 }} className="mb-8">
-    <Card className="bg-secondary text-foreground border-primary">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
-        <CardDescription className="text-muted-foreground">
+  <motion.div whileHover={{ scale: 1.03 }} className="mb-8">
+    <Card className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white border-blue-500 overflow-hidden">
+      <CardHeader className="bg-blue-800 bg-opacity-50">
+        <CardTitle className="text-2xl font-bold text-blue-300">{title}</CardTitle>
+        <CardDescription className="text-blue-200">
           <span className="flex items-center"><CalendarIcon className="w-4 h-4 mr-2" />{date}</span>
           <span className="flex items-center mt-1"><UserIcon className="w-4 h-4 mr-2" />{author}</span>
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground">{content}</p>
-        <GlowingButton className="mt-4">Read More</GlowingButton>
+      <CardContent className="mt-4">
+        <p className="text-gray-300 mb-4">{content.substring(0, 150)}...</p>
+        <GlowingButton className="group">
+          Read More
+          <ArrowRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </GlowingButton>
       </CardContent>
     </Card>
   </motion.div>
@@ -62,11 +65,11 @@ const News = () => {
     setShowAdminPanel(!showAdminPanel);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading news</div>;
+  if (isLoading) return <div className="text-center text-2xl text-white">Loading...</div>;
+  if (isError) return <div className="text-center text-2xl text-red-500">Error loading news</div>;
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-black text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-32 relative z-10">
@@ -78,7 +81,7 @@ const News = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-primary"
+              className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -87,18 +90,18 @@ const News = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-primary h-20"
+            className="text-3xl mb-8 text-gray-300 h-20"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <TypeAnimation
               sequence={[
-                'Stay updated with Enzonic',
+                'Stay Updated with Enzonic',
                 1000,
-                'Latest news and announcements',
+                'Latest News and Announcements',
                 1000,
-                'Exciting updates and events',
+                'Exciting Updates and Events',
                 1000,
               ]}
               wrapper="span"
@@ -123,7 +126,7 @@ const News = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className="text-4xl font-bold mb-8 text-center text-primary">Latest News</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center text-blue-400">Latest News</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {newsItems.map((item) => (
                 <NewsCard key={item.id} {...item} />
@@ -138,13 +141,13 @@ const News = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-3xl font-bold mb-4 text-primary">Subscribe to Our Newsletter</h2>
-          <p className="text-muted-foreground mb-6">Stay up to date with the latest news and updates from Enzonic.</p>
+          <h2 className="text-3xl font-bold mb-4 text-blue-400">Stay Informed</h2>
+          <p className="text-xl text-gray-300 mb-6">Subscribe to our newsletter for the latest updates and exclusive offers.</p>
           <div className="flex justify-center">
             <input
               type="email"
               placeholder="Enter your email"
-              className="px-4 py-2 rounded-l-md bg-secondary text-foreground border-2 border-primary focus:outline-none focus:border-primary"
+              className="px-4 py-2 rounded-l-md bg-blue-900 text-white border-2 border-blue-500 focus:outline-none focus:border-blue-400 w-64"
             />
             <GlowingButton className="rounded-l-none">Subscribe</GlowingButton>
           </div>

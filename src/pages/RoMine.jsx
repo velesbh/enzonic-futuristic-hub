@@ -9,7 +9,7 @@ import { AnimatedBackground, FloatingElement, FeatureCard, GlowingButton, Scroll
 
 const RoMine = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <ScrollToTopButton />
@@ -22,7 +22,7 @@ const RoMine = () => {
         >
           <FloatingElement>
             <motion.h1 
-              className="text-7xl font-bold mb-4 text-primary"
+              className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-600"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -31,20 +31,20 @@ const RoMine = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 text-primary h-20"
+            className="text-3xl mb-8 h-20 text-gray-300"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <TypeAnimation
               sequence={[
-                'Create your own games',
+                'Create Your Own Games',
                 1000,
-                'Share with the community',
+                'Share with the Community',
                 1000,
-                'Play amazing minigames',
+                'Play Amazing Minigames',
                 1000,
-                'Create, Share, Play!',
+                'Unleash Your Creativity',
                 1000,
               ]}
               wrapper="span"
@@ -53,15 +53,15 @@ const RoMine = () => {
             />
           </motion.div>
           <motion.div 
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Link to="/">
-              <GlowingButton>Home</GlowingButton>
+              <GlowingButton>Explore Ro-Mine</GlowingButton>
             </Link>
-            <GlowingButton>Shop</GlowingButton>
+            <GlowingButton>Minebucks Shop</GlowingButton>
           </motion.div>
         </motion.div>
         
@@ -71,7 +71,7 @@ const RoMine = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-primary">Server Features</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Ro-Mine Features</h2>
           <AnimatedGrid>
             <FeatureCard title="Create" description="Design and build your own unique minigames" icon={GamepadIcon} />
             <FeatureCard title="Share" description="Publish your creations for others to enjoy" icon={ShoppingCartIcon} />
@@ -91,28 +91,26 @@ const RoMine = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-primary">Server Information</h2>
-          <div className="bg-secondary p-6 rounded-lg shadow-lg">
-            <p className="text-xl mb-4"><strong>IP Address:</strong> ro-mine.enzonic.xyz</p>
-            <p className="text-xl mb-4"><strong>Minecraft Versions:</strong> 1.8.9 - 1.21.1</p>
-            <p className="text-xl mb-4 flex items-center">
-              <InfoIcon className="mr-2 text-yellow-400" />
-              <span>Ro-Mine is currently in development and not yet complete. Stay tuned for updates!</span>
+          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Server Information</h2>
+          <div className="bg-indigo-800 p-8 rounded-lg shadow-lg">
+            <p className="text-2xl mb-4"><strong>IP Address:</strong> ro-mine.enzonic.xyz</p>
+            <p className="text-2xl mb-4"><strong>Minecraft Versions:</strong> 1.8.9 - 1.21.1</p>
+            <p className="text-xl flex items-center bg-yellow-500 text-black p-4 rounded-lg">
+              <InfoIcon className="mr-2" />
+              <span>Ro-Mine is currently in development. Stay tuned for exciting updates!</span>
             </p>
           </div>
         </motion.section>
 
         <motion.section 
-          className="mb-16"
+          className="text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-primary">Minebucks Shop</h2>
-          <div className="bg-secondary p-6 rounded-lg shadow-lg text-center">
-            <p className="text-xl mb-4">Enhance your Ro-Mine experience with Minebucks!</p>
-            <GlowingButton>Buy Minebucks</GlowingButton>
-          </div>
+          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Join the Ro-Mine Community</h2>
+          <p className="text-xl mb-6 text-gray-300">Be part of an exciting world of creativity and gaming. Start your journey today!</p>
+          <GlowingButton>Get Started Now</GlowingButton>
         </motion.section>
       </main>
       <Footer />
