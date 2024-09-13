@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale, BouncingIcon, RotatingIcon } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale } from '../components/AnimatedComponents';
 import { ArrowRight, Server, Cpu, Cloud, Shield, Gamepad } from 'lucide-react';
 
 const Index = () => {
@@ -59,9 +59,9 @@ const Index = () => {
               { text: 'MC Tools', path: '/mc-tools', icon: Cpu },
             ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="group flex items-center px-6 py-3 text-lg">
-                  <PulsingIcon icon={Icon} size={5} />
-                  <span className="ml-2">{text}</span>
+                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-48 justify-center">
+                  <Icon className="w-5 h-5 mr-2" />
+                  <span>{text}</span>
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </GlowingButton>
               </Link>
@@ -91,14 +91,10 @@ const Index = () => {
               { icon: Shield, text: 'Security' },
               { icon: Cpu, text: 'High Performance' },
               { icon: Server, text: 'Reliable Hosting' },
-            ].map(({ icon: Icon, text }, index) => (
-              <div key={text} className="text-center">
-                {index % 2 === 0 ? (
-                  <BouncingIcon icon={Icon} size={12} />
-                ) : (
-                  <RotatingIcon icon={Icon} size={12} />
-                )}
-                <p className="text-sm text-gray-300 mt-2">{text}</p>
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} className="text-center flex flex-col items-center">
+                <Icon className="w-12 h-12 text-green-400 mb-2" />
+                <p className="text-sm text-gray-300">{text}</p>
               </div>
             ))}
           </div>
