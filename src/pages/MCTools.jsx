@@ -7,7 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GiveCommandGenerator from '../components/GiveCommandGenerator';
 import MOTDGenerator from '../components/MOTDGenerator';
 import TimeConverter from '../components/TimeConverter';
-import { Wand2, MessageSquare, Clock } from 'lucide-react';
+import TitleGenerator from '../components/TitleGenerator';
+import SummonGenerator from '../components/SummonGenerator';
+import { Wand2, MessageSquare, Clock, Type, Rabbit } from 'lucide-react';
 
 const ToolTab = ({ icon: Icon, label, value }) => (
   <TabsTrigger value={value} className="flex items-center space-x-2">
@@ -17,6 +19,10 @@ const ToolTab = ({ icon: Icon, label, value }) => (
 );
 
 const MCTools = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-900 to-blue-900 text-white relative overflow-hidden">
       <AnimatedBackground />
@@ -41,10 +47,12 @@ const MCTools = () => {
         </motion.p>
 
         <Tabs defaultValue="give" className="w-full max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-green-800 rounded-lg p-2">
+          <TabsList className="grid w-full grid-cols-5 mb-8 bg-green-800 rounded-lg p-2">
             <ToolTab icon={Wand2} label="Give Command" value="give" />
             <ToolTab icon={MessageSquare} label="MOTD Generator" value="motd" />
             <ToolTab icon={Clock} label="Time Converter" value="time" />
+            <ToolTab icon={Type} label="Title Generator" value="title" />
+            <ToolTab icon={Rabbit} label="Summon Generator" value="summon" />
           </TabsList>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -59,6 +67,12 @@ const MCTools = () => {
             </TabsContent>
             <TabsContent value="time">
               <TimeConverter />
+            </TabsContent>
+            <TabsContent value="title">
+              <TitleGenerator />
+            </TabsContent>
+            <TabsContent value="summon">
+              <SummonGenerator />
             </TabsContent>
           </motion.div>
         </Tabs>

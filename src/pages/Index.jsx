@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Services from '../components/Services';
 import Team from '../components/Team';
@@ -10,6 +10,10 @@ import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, Pulsi
 import { ArrowRight, Server, Cpu, Cloud, Shield, Gamepad } from 'lucide-react';
 
 const Index = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
       <AnimatedBackground />
@@ -34,11 +38,23 @@ const Index = () => {
           >
             <TypeAnimation
               sequence={[
-                'Innovative Solutions',
+                'Enzonic Hosting',
                 1000,
-                'Cutting-Edge Technology',
+                'Enzonic Games',
                 1000,
-                'Reliable Services',
+                'Enzonic Events',
+                1000,
+                'Enzonic Translate',
+                1000,
+                'Enzonic AI',
+                1000,
+                'Enzonic Web Designer',
+                1000,
+                'Enzonic Cloud',
+                1000,
+                'Enzonic VPN',
+                1000,
+                'Enzonic Productions',
                 1000,
               ]}
               wrapper="span"
@@ -59,10 +75,10 @@ const Index = () => {
               { text: 'MC Tools', path: '/mc-tools', icon: Cpu },
             ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-48 justify-center">
-                  <Icon className="w-5 h-5 mr-2" />
+                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-64 justify-center">
+                  <Icon className="w-6 h-6 mr-2" />
                   <span>{text}</span>
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </GlowingButton>
               </Link>
             ))}
@@ -93,7 +109,7 @@ const Index = () => {
               { icon: Server, text: 'Reliable Hosting' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="text-center flex flex-col items-center">
-                <Icon className="w-12 h-12 text-green-400 mb-2" />
+                <Icon className="w-16 h-16 text-green-400 mb-2" />
                 <p className="text-sm text-gray-300">{text}</p>
               </div>
             ))}
