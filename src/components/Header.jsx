@@ -6,9 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon, MenuIcon } from 'lucide-react';
+import { ChevronDownIcon, MenuIcon, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../utils/languageUtils';
 
 const navItemVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -18,6 +19,7 @@ const navItemVariants = {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const services = [
     { name: "Enzonic Hosting", path: "/hosting" },
@@ -63,29 +65,43 @@ const Header = () => {
               <img src="/enzonic-logo.png" alt="Enzonic Logo" className="h-16 w-16" />
             </motion.div>
           </Link>
-          <nav className="hidden md:block">
-            <ul className="flex space-x-4 items-center">
-              <NavItem to="/">Home</NavItem>
-              <motion.li variants={navItemVariants}>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
-                      Services <ChevronDownIcon className="ml-2 h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-gray-800 border-gray-700">
-                    {services.map((service, index) => (
-                      <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
-                        <Link to={service.path}>{service.name}</Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </motion.li>
-              <NavItem to="/team">Team</NavItem>
-              <NavItem to="/contact">Contact</NavItem>
-              <NavItem to="/mc-tools">MC Tools</NavItem>
-            </ul>
+          <nav className="hidden md:flex items-center space-x-4">
+            <NavItem to="/">{t('home')}</NavItem>
+            <motion.div variants={navItemVariants}>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+                    {t('services')} <ChevronDownIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-gray-800 border-gray-700">
+                  {services.map((service, index) => (
+                    <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
+                      <Link to={service.path}>{service.name}</Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </motion.div>
+            <NavItem to="/team">{t('team')}</NavItem>
+            <NavItem to="/contact">{t('contact')}</NavItem>
+            <NavItem to="/mc-tools">{t('mcTools')}</NavItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+                  <Globe className="mr-2 h-4 w-4" />
+                  {language.toUpperCase()}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-gray-800 border-gray-700">
+                <DropdownMenuItem onClick={() => setLanguage('en')} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
+                  English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('es')} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
+                  Español
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
           <Button
             variant="ghost"
@@ -106,15 +122,25 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
-                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</MobileNavItem>
+                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)}>{t('home')}</MobileNavItem>
                 {services.map((service, index) => (
                   <MobileNavItem key={index} to={service.path} onClick={() => setIsMobileMenuOpen(false)}>
                     {service.name}
                   </MobileNavItem>
                 ))}
-                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>Team</MobileNavItem>
-                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavItem>
-                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>MC Tools</MobileNavItem>
+                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>{t('team')}</MobileNavItem>
+                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>{t('contact')}</MobileNavItem>
+                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>{t('mcTools')}</MobileNavItem>
+                <li>
+                  <Button variant="ghost" onClick={() => setLanguage('en')} className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
+                    English
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="ghost" onClick={() => setLanguage('es')} className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
+                    Español
+                  </Button>
+                </li>
               </ul>
             </nav>
           </motion.div>

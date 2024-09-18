@@ -7,12 +7,27 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale } from '../components/AnimatedComponents';
-import { ArrowRight, Server, Cpu, Cloud, Shield, Gamepad } from 'lucide-react';
+import { ArrowRight, Server, Cpu, Cloud, Shield } from 'lucide-react';
+import { useLanguage } from '../utils/languageUtils';
 
 const Index = () => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const services = [
+    'Enzonic Hosting',
+    'Enzonic Games',
+    'Enzonic Events',
+    'Enzonic Translate',
+    'Enzonic AI',
+    'Enzonic Web Designer',
+    'Enzonic Cloud',
+    'Enzonic VPN',
+    'Enzonic Productions',
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
@@ -27,7 +42,7 @@ const Index = () => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Welcome to Enzonic
+              {t('welcome')}
             </motion.h1>
           </FloatingElement>
           <motion.div 
@@ -37,26 +52,7 @@ const Index = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <TypeAnimation
-              sequence={[
-                'Enzonic Hosting',
-                1000,
-                'Enzonic Games',
-                1000,
-                'Enzonic Events',
-                1000,
-                'Enzonic Translate',
-                1000,
-                'Enzonic AI',
-                1000,
-                'Enzonic Web Designer',
-                1000,
-                'Enzonic Cloud',
-                1000,
-                'Enzonic VPN',
-                1000,
-                'Enzonic Productions',
-                1000,
-              ]}
+              sequence={services.map(service => [service, 1000]).flat()}
               wrapper="span"
               speed={50}
               repeat={Infinity}
@@ -69,13 +65,13 @@ const Index = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
-              { text: 'Explore Hosting', path: '/hosting', icon: Server },
-              { text: 'Discover Ro-Mine', path: '/ro-mine', icon: Gamepad },
-              { text: 'Latest News', path: '/news', icon: ArrowRight },
-              { text: 'MC Tools', path: '/mc-tools', icon: Cpu },
+              { text: t('explore') + ' Hosting', path: '/hosting', icon: Server },
+              { text: t('discover') + ' Ro-Mine', path: '/ro-mine', icon: Cpu },
+              { text: t('latest'), path: '/news', icon: ArrowRight },
+              { text: t('mcTools'), path: '/mc-tools', icon: Cpu },
             ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-64 justify-center">
+                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-72 justify-center">
                   <Icon className="w-6 h-6 mr-2" />
                   <span>{text}</span>
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -109,7 +105,7 @@ const Index = () => {
               { icon: Server, text: 'Reliable Hosting' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="text-center flex flex-col items-center">
-                <Icon className="w-16 h-16 text-green-400 mb-2" />
+                <Icon className="w-20 h-20 text-green-400 mb-2" />
                 <p className="text-sm text-gray-300">{text}</p>
               </div>
             ))}
