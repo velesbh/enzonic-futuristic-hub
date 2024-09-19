@@ -6,68 +6,80 @@ export const plans = {
       description: "Perfect for running testing servers, vanilla or lightly modded, with plugins or even small SMPs. Ideal for those on a tight budget or just starting out.",
       plans: [
         { 
-          title: "Budget Proxy", 
-          description: "Perfect for proxy servers", 
-          price: "$3/quarter", 
+          title: "Minecraft Proxy Plan EU", 
+          description: "Perfect for an average proxy", 
+          price: "$3.00/month", 
           features: [
             "1GB RAM", 
             "100% CPU", 
-            "500MB SSD", 
-            "DDoS Protection",
-            "Europe and USA Locations"
+            "512MB Storage", 
+            "3 Ports",
+            "Europe Location"
           ], 
           icon: Server 
         },
         {
-          title: "Coal Plan",
-          description: "Good for testing servers or solo gameplay or invite 1-2 friends on vanilla",
+          title: "Minecraft Dirt Plan EU",
+          description: "Perfect for a small amount of players, not big modpacks and just not very resource intensive tasks",
           price: "$1.80/month",
           features: [
             "2GB RAM",
-            "250% CPU",
-            "5GB Storage",
+            "200% CPU",
+            "2GB Storage",
             "2 Ports",
-            "1 Backup",
-            "USA and Europe Locations"
+            "Europe Location"
           ],
           icon: Server
         },
         {
-          title: "Budget 1GB",
-          description: "Ideal for small vanilla servers",
-          price: "$2/month",
+          title: "Minecraft Iron Plan EU",
+          description: "Perfect for about 10 players, not really big modpacks and just average resource tasks",
+          price: "$3.60/month",
           features: [
-            "1GB RAM",
-            "Shared CPU",
-            "10GB SSD",
-            "DDoS Protection",
-            "Unlimited Slots"
+            "4GB RAM",
+            "400% CPU",
+            "10GB Storage",
+            "4 Ports",
+            "Europe Location"
           ],
           icon: Server
         },
         {
-          title: "Budget 2GB",
-          description: "Great for small modded servers",
-          price: "$4/month",
+          title: "Minecraft Copper Plan EU",
+          description: "Perfect for an SMP with plugins or mods",
+          price: "$5.40/month",
           features: [
-            "2GB RAM",
-            "Shared CPU",
-            "20GB SSD",
-            "DDoS Protection",
-            "Unlimited Slots"
+            "6GB RAM",
+            "500% CPU",
+            "10GB Storage",
+            "3 Ports",
+            "Europe Location"
           ],
           icon: Server
         },
         {
-          title: "Budget 3GB",
-          description: "Perfect for medium-sized vanilla servers",
-          price: "$6/month",
+          title: "Minecraft Gold Plan EU",
+          description: "Perfect for a big SMP with more plugins or mods",
+          price: "$7.20/month",
           features: [
-            "3GB RAM",
-            "Shared CPU",
-            "30GB SSD",
-            "DDoS Protection",
-            "Unlimited Slots"
+            "8GB RAM",
+            "500% CPU",
+            "20GB Storage",
+            "5 Ports",
+            "Europe Location"
+          ],
+          icon: Server
+        },
+        {
+          title: "Minecraft Diamond Plan EU",
+          description: "Perfect for most servers with around 50 players, or even big modpacks or plugins",
+          price: "$9.00/month",
+          features: [
+            "10GB RAM",
+            "800% CPU",
+            "20GB Storage",
+            "5 Ports",
+            "Europe Location"
           ],
           icon: Server
         },
