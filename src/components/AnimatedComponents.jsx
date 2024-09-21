@@ -133,3 +133,23 @@ export const PulsingIcon = ({ icon: Icon, size = 24, color = "text-green-500" })
     <Icon className={`w-${size} h-${size} ${color}`} />
   </motion.div>
 );
+
+export const SlideInText = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
+
+export const FadeInScale = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
