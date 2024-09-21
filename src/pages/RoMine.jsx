@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
@@ -10,7 +10,7 @@ import FeatureCard from '../components/FeatureCard';
 import PlanWizard from '../components/PlanWizard';
 
 const EnzonicNetwork = () => {
-  const [showPlanWizard, setShowPlanWizard] = React.useState(false);
+  const [showPlanWizard, setShowPlanWizard] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white relative overflow-hidden">
@@ -65,7 +65,9 @@ const EnzonicNetwork = () => {
             <Link to="/">
               <GlowingButton>Explore Enzonic Network</GlowingButton>
             </Link>
-            <GlowingButton>Minebucks Shop</GlowingButton>
+            <Link to="/minebucks-shop">
+              <GlowingButton>Minebucks Shop</GlowingButton>
+            </Link>
             <GlowingButton onClick={() => setShowPlanWizard(true)}>Find Perfect Plan</GlowingButton>
           </motion.div>
         </motion.div>
