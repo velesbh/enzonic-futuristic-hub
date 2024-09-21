@@ -20,69 +20,69 @@ const EnzonicHosting = () => {
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-16">
-        <motion.section 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <FloatingElement>
-            <h1 className="text-6xl font-bold mb-4 text-green-400">Enzonic Hosting</h1>
-          </FloatingElement>
-          <motion.div 
-            className="text-2xl mb-8 h-20 text-gray-300"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <TypeAnimation
-              sequence={[
-                'Powerful, Reliable, and Affordable Game Servers',
-                1000,
-                'High-Performance Minecraft Hosting',
-                1000,
-                'Customizable Server Solutions',
-                1000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-            />
-          </motion.div>
-          <div className="flex justify-center space-x-4">
-            <Button 
-              as="a" 
-              href="https://panel.enzonic.xyz/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-blue-500 hover:bg-blue-600 text-white"
-            >
-              <Server className="mr-2 h-4 w-4" /> Panel
-            </Button>
-            <Button 
-              as="a" 
-              href="https://billing.enzonic.xyz/home" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-600 text-white"
-            >
-              <CreditCard className="mr-2 h-4 w-4" /> Billing
-            </Button>
-          </div>
-        </motion.section>
-
+        <HeroSection />
         <Features />
-
         <MinecraftHosting setShowPlanWizard={setShowPlanWizard} />
-
         <CustomPlanSection />
-
       </main>
       {showPlanWizard && <PlanWizard onClose={() => setShowPlanWizard(false)} />}
       <Footer />
     </div>
   );
 };
+
+const HeroSection = () => (
+  <motion.section 
+    className="text-center mb-16"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+  >
+    <FloatingElement>
+      <h1 className="text-6xl font-bold mb-4 text-green-400">Enzonic Hosting</h1>
+    </FloatingElement>
+    <motion.div 
+      className="text-2xl mb-8 h-20 text-gray-300"
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      <TypeAnimation
+        sequence={[
+          'Powerful, Reliable, and Affordable Game Servers',
+          1000,
+          'High-Performance Minecraft Hosting',
+          1000,
+          'Customizable Server Solutions',
+          1000,
+        ]}
+        wrapper="span"
+        speed={50}
+        repeat={Infinity}
+      />
+    </motion.div>
+    <div className="flex justify-center space-x-4">
+      <Button 
+        as="a" 
+        href="https://panel.enzonic.xyz/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="bg-blue-500 hover:bg-blue-600 text-white"
+      >
+        <Server className="mr-2 h-4 w-4" /> Panel
+      </Button>
+      <Button 
+        as="a" 
+        href="https://billing.enzonic.xyz/home" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="bg-green-500 hover:bg-green-600 text-white"
+      >
+        <CreditCard className="mr-2 h-4 w-4" /> Billing
+      </Button>
+    </div>
+  </motion.section>
+);
 
 const Features = () => (
   <motion.section 
