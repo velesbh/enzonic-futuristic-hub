@@ -1,4 +1,4 @@
-import { Server, Rocket, Music, Globe, Mic, Cloud, Gamepad, Headphones } from 'lucide-react';
+import { Server, Rocket, Cpu, Database, Zap, Shield } from 'lucide-react';
 
 export const plans = {
   minecraft: {
@@ -6,7 +6,7 @@ export const plans = {
       description: "Perfect for running testing servers, vanilla or lightly modded, with plugins or even small SMPs. Ideal for those on a tight budget or just starting out.",
       plans: [
         { 
-          title: "Minecraft Proxy Plan EU", 
+          title: "Minecraft Proxy Plan", 
           description: "Perfect for an average proxy", 
           price: "$3.00/month", 
           features: [
@@ -19,7 +19,7 @@ export const plans = {
           icon: Server 
         },
         {
-          title: "Minecraft Dirt Plan EU",
+          title: "Minecraft Dirt Plan",
           description: "Perfect for a small amount of players, not big modpacks and just not very resource intensive tasks",
           price: "$1.80/month",
           features: [
@@ -29,10 +29,10 @@ export const plans = {
             "2 Ports",
             "Europe Location"
           ],
-          icon: Server
+          icon: Cpu
         },
         {
-          title: "Minecraft Iron Plan EU",
+          title: "Minecraft Iron Plan",
           description: "Perfect for about 10 players, not really big modpacks and just average resource tasks",
           price: "$3.60/month",
           features: [
@@ -42,10 +42,10 @@ export const plans = {
             "4 Ports",
             "Europe Location"
           ],
-          icon: Server
+          icon: Rocket
         },
         {
-          title: "Minecraft Copper Plan EU",
+          title: "Minecraft Copper Plan",
           description: "Perfect for an SMP with plugins or mods",
           price: "$5.40/month",
           features: [
@@ -55,10 +55,10 @@ export const plans = {
             "3 Ports",
             "Europe Location"
           ],
-          icon: Server
+          icon: Database
         },
         {
-          title: "Minecraft Gold Plan EU",
+          title: "Minecraft Gold Plan",
           description: "Perfect for a big SMP with more plugins or mods",
           price: "$7.20/month",
           features: [
@@ -68,10 +68,10 @@ export const plans = {
             "5 Ports",
             "Europe Location"
           ],
-          icon: Server
+          icon: Zap
         },
         {
-          title: "Minecraft Diamond Plan EU",
+          title: "Minecraft Diamond Plan",
           description: "Perfect for most servers with around 50 players, or even big modpacks or plugins",
           price: "$9.00/month",
           features: [
@@ -81,7 +81,7 @@ export const plans = {
             "5 Ports",
             "Europe Location"
           ],
-          icon: Server
+          icon: Shield
         },
       ]
     },

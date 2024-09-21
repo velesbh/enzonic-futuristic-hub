@@ -2,50 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
-const questions = [
-  {
-    question: "How many players do you expect on your server?",
-    options: ["1-5", "6-20", "21-50", "50+"]
-  },
-  {
-    question: "What type of Minecraft server are you planning to run?",
-    options: ["Vanilla", "Modded", "Plugin-based", "Custom"]
-  },
-  {
-    question: "How much RAM do you think you'll need?",
-    options: ["1-2GB", "3-4GB", "5-8GB", "8GB+"]
-  }
-];
+const PlanWizard = ({ onClose, selectedPlan, onOrder }) => {
+  const [location, setLocation] = useState('');
 
-const PlanWizard = ({ onClose }) => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState([]);
-
-  const handleAnswer = (answer) => {
-    const newAnswers = [...answers, answer];
-    setAnswers(newAnswers);
-
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      // Process answers and suggest a plan
-      const suggestedPlan = getSuggestedPlan(newAnswers);
-      alert(`Based on your answers, we recommend the ${suggestedPlan} plan.`);
-      onClose();
+  const handleOrder = () => {
+    if (!location) {
+      alert('Please select a location');
+      return;
     }
-  };
-
-  const getSuggestedPlan = (answers) => {
-    const [players, serverType, ram] = answers;
-    
-    if (players === "50+" || serverType === "Custom" || ram === "8GB+") {
-      return "Extreme";
-    } else if (players === "21-50" || serverType === "Modded" || ram === "5-8GB") {
-      return "Normal";
-    } else {
-      return "Budget";
-    }
+    onOrder(location);
   };
 
   return (
@@ -56,20 +24,22 @@ const PlanWizard = ({ onClose }) => {
     >
       <Card className="bg-gray-800 text-white">
         <CardHeader>
-          <CardTitle>Plan Wizard</CardTitle>
+          <CardTitle>Select Server Location</CardTitle>
         </CardHeader>
         <CardContent>
-          <h3 className="text-xl mb-4">{questions[currentQuestion].question}</h3>
-          <div className="space-y-2">
-            {questions[currentQuestion].options.map((option, index) => (
-              <Button
-                key={index}
-                onClick={() => handleAnswer(option)}
-                className="w-full text-left justify-start"
-              >
-                {option}
-              </Button>
-            ))}
+          <RadioGroup onValueChange={setLocation} className="space-y-4 mb-4">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="europe" id="europe" />
+              <Label htmlFor="europe">Europe</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="usa" id="usa" />
+              <Label htmlFor="usa">USA</Label>
+            </div>
+          </RadioGroup>
+          <div className="flex justify-between mt-4">
+            <Button onClick={onClose} variant="outline">Exit</Button>
+            <Button onClick={handleOrder} disabled={!location}>Order Now</Button>
           </div>
         </CardContent>
       </Card>

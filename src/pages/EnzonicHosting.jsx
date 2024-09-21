@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Shield, HeadphonesIcon, Cpu } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Zap, Shield, HeadphonesIcon, Cpu, Server, CreditCard } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '../components/Header';
@@ -21,30 +20,58 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
   </Card>
 );
 
-const PlanCard = ({ title, price, features, description }) => (
-  <Card className="bg-gray-800 border-2 border-gray-700 hover:border-green-400 transition-all transform hover:scale-105">
-    <CardHeader>
-      <CardTitle className="text-2xl font-bold text-green-400">{title}</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <p className="text-4xl font-bold text-white mb-6">${price}<span className="text-lg text-gray-400">/month</span></p>
-      <ul className="space-y-2 mb-6">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center text-gray-300">
-            <Zap className="w-5 h-5 text-green-400 mr-2" />
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <p className="text-sm text-gray-300 mb-4">{description}</p>
-      <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold">Add to Cart</Button>
-    </CardContent>
-  </Card>
-);
+const PlanCard = ({ title, price, features, description, icon: Icon }) => {
+  const [showWizard, setShowWizard] = useState(false);
+
+  const handleOrder = (location) => {
+    const planLinks = {
+      'Minecraft Proxy Plan': 'https://billing.enzonic.xyz/checkout/config/1',
+      'Minecraft Dirt Plan': 'https://billing.enzonic.xyz/checkout/config/2',
+      'Minecraft Iron Plan': 'https://billing.enzonic.xyz/checkout/config/3',
+      'Minecraft Copper Plan': 'https://billing.enzonic.xyz/checkout/config/4',
+      'Minecraft Gold Plan': 'https://billing.enzonic.xyz/checkout/config/5',
+      'Minecraft Diamond Plan': 'https://billing.enzonic.xyz/checkout/config/6',
+    };
+
+    if (location === 'europe') {
+      window.location.href = planLinks[title];
+    } else {
+      // Handle USA location or show a message
+      alert('USA location is not available at the moment.');
+    }
+  };
+
+  return (
+    <Card className="bg-gray-800 border-2 border-gray-700 hover:border-green-400 transition-all transform hover:scale-105">
+      <CardHeader>
+        <Icon className="w-12 h-12 text-green-400 mb-4" />
+        <CardTitle className="text-2xl font-bold text-green-400">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-4xl font-bold text-white mb-6">${price}<span className="text-lg text-gray-400">/month</span></p>
+        <ul className="space-y-2 mb-6">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-center text-gray-300">
+              <Zap className="w-5 h-5 text-green-400 mr-2" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+        <p className="text-sm text-gray-300 mb-4">{description}</p>
+        <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold" onClick={() => setShowWizard(true)}>Order Now</Button>
+      </CardContent>
+      {showWizard && (
+        <PlanWizard
+          onClose={() => setShowWizard(false)}
+          selectedPlan={title}
+          onOrder={handleOrder}
+        />
+      )}
+    </Card>
+  );
+};
 
 const EnzonicHosting = () => {
-  const [showPlanWizard, setShowPlanWizard] = useState(false);
-
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
@@ -58,17 +85,23 @@ const EnzonicHosting = () => {
           <h1 className="text-6xl font-bold mb-4 text-green-400">Enzonic Hosting</h1>
           <p className="text-2xl text-gray-300 mb-8">Powerful, Reliable, and Affordable Game Servers</p>
           <div className="flex justify-center space-x-4">
-            <Link to="/custom-plan">
-              <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-black">
-                Request Custom Plan
-              </Button>
-            </Link>
             <Button 
-              variant="outline" 
-              className="text-green-400 border-green-400 hover:bg-green-400 hover:text-black"
-              onClick={() => setShowPlanWizard(true)}
+              as="a" 
+              href="https://panel.enzonic.xyz/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-500 hover:bg-blue-600 text-white"
             >
-              Find Perfect Plan
+              <Server className="mr-2 h-4 w-4" /> Panel
+            </Button>
+            <Button 
+              as="a" 
+              href="https://billing.enzonic.xyz/home" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-green-500 hover:bg-green-600 text-white"
+            >
+              <CreditCard className="mr-2 h-4 w-4" /> Billing
             </Button>
           </div>
         </motion.section>
@@ -101,14 +134,9 @@ const EnzonicHosting = () => {
                 key={index}
                 title={plan.title}
                 price={plan.price.replace('$', '').replace('/month', '')}
-                features={[
-                  `RAM: ${plan.features[0]}`,
-                  `CPU: ${plan.features[1]}`,
-                  `Storage: ${plan.features[2]}`,
-                  `Ports: ${plan.features[3]}`,
-                  plan.features[4]
-                ]}
+                features={plan.features}
                 description={plan.description}
+                icon={plan.icon}
               />
             ))}
           </div>
@@ -124,8 +152,6 @@ const EnzonicHosting = () => {
           <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
           <Button className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8 py-3">Sign Up Now</Button>
         </motion.section>
-
-        {showPlanWizard && <PlanWizard onClose={() => setShowPlanWizard(false)} />}
       </main>
       <Footer />
     </div>
