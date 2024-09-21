@@ -2,7 +2,7 @@ import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, WrenchIcon }
 import Index from "./pages/Index.jsx";
 import EnzonicHosting from "./pages/EnzonicHosting.jsx";
 import News from "./pages/News.jsx";
-import RoMine from "./pages/RoMine.jsx";
+import EnzonicNetwork from "./pages/RoMine.jsx";
 import MCTools from "./pages/MCTools.jsx";
 
 /**
@@ -22,10 +22,10 @@ export const navItems = [
     page: <Index />,
   },
   {
-    title: "Ro-Mine",
-    to: "/ro-mine",
+    title: "Enzonic Network",
+    to: "/enzonic-network",
     icon: <ServerIcon className="h-4 w-4" />,
-    page: <RoMine />,
+    page: <EnzonicNetwork />,
   },
   {
     title: "Team",

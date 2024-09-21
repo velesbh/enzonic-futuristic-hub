@@ -7,8 +7,11 @@ import { Link } from 'react-router-dom';
 import { GamepadIcon, ShoppingCartIcon, ServerIcon, InfoIcon, Cpu, Users, Code, Trophy, Zap, Shield } from 'lucide-react';
 import { AnimatedBackground, FloatingElement, GlowingButton, ScrollToTopButton, AnimatedGrid, SmoothFadeIn, PulsingIcon } from '../components/AnimatedComponents';
 import FeatureCard from '../components/FeatureCard';
+import PlanWizard from '../components/PlanWizard';
 
-const RoMine = () => {
+const EnzonicNetwork = () => {
+  const [showPlanWizard, setShowPlanWizard] = React.useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white relative overflow-hidden">
       <AnimatedBackground />
@@ -28,7 +31,7 @@ const RoMine = () => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Ro-Mine
+              Enzonic Network
             </motion.h1>
           </FloatingElement>
           <motion.div 
@@ -60,14 +63,15 @@ const RoMine = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Link to="/">
-              <GlowingButton>Explore Ro-Mine</GlowingButton>
+              <GlowingButton>Explore Enzonic Network</GlowingButton>
             </Link>
             <GlowingButton>Minebucks Shop</GlowingButton>
+            <GlowingButton onClick={() => setShowPlanWizard(true)}>Find Perfect Plan</GlowingButton>
           </motion.div>
         </motion.div>
         
         <SmoothFadeIn delay={0.2}>
-          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Ro-Mine Features</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Enzonic Network Features</h2>
           <AnimatedGrid>
             <FeatureCard title="Create" description="Design and build your own unique minigames" icon={GamepadIcon} />
             <FeatureCard title="Share" description="Publish your creations for others to enjoy" icon={ShoppingCartIcon} />
@@ -84,26 +88,27 @@ const RoMine = () => {
         <SmoothFadeIn delay={0.4}>
           <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Server Information</h2>
           <div className="bg-indigo-800 p-8 rounded-lg shadow-lg">
-            <p className="text-2xl mb-4"><strong>IP Address:</strong> ro-mine.enzonic.xyz</p>
+            <p className="text-2xl mb-4"><strong>IP Address:</strong> network.enzonic.xyz</p>
             <p className="text-2xl mb-4"><strong>Minecraft Versions:</strong> 1.8.9 - 1.21.1</p>
             <p className="text-xl flex items-center bg-yellow-500 text-black p-4 rounded-lg">
               <PulsingIcon icon={InfoIcon} />
-              <span className="ml-2">Ro-Mine is currently in development. Stay tuned for exciting updates!</span>
+              <span className="ml-2">Enzonic Network is currently in development. Stay tuned for exciting updates!</span>
             </p>
           </div>
         </SmoothFadeIn>
 
         <SmoothFadeIn delay={0.6}>
-          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Join the Ro-Mine Community</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center text-pink-400">Join the Enzonic Network Community</h2>
           <p className="text-xl mb-6 text-gray-300">Be part of an exciting world of creativity and gaming. Start your journey today!</p>
           <div className="text-center">
             <GlowingButton>Get Started Now</GlowingButton>
           </div>
         </SmoothFadeIn>
       </main>
+      {showPlanWizard && <PlanWizard onClose={() => setShowPlanWizard(false)} />}
       <Footer />
     </div>
   );
 };
 
-export default RoMine;
+export default EnzonicNetwork;

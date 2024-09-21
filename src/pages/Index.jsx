@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale } from '../components/AnimatedComponents';
-import { ArrowRight, Server, Cpu, Cloud, Shield } from 'lucide-react';
+import { Server, Cpu, Cloud, Shield } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 
 const Index = () => {
@@ -66,14 +66,13 @@ const Index = () => {
           >
             {[
               { text: t('explore') + ' Hosting', path: '/hosting' },
-              { text: t('discover') + ' Ro-Mine', path: '/ro-mine' },
+              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network' },
               { text: t('latest'), path: '/news' },
               { text: t('mcTools'), path: '/mc-tools' },
             ].map(({ text, path }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="group flex items-center px-6 py-3 text-lg w-72 justify-center">
-                  <span>{text}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <GlowingButton className="px-6 py-3 text-lg w-72 justify-center">
+                  {text}
                 </GlowingButton>
               </Link>
             ))}
