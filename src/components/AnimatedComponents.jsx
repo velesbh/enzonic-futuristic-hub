@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowUpCircle } from 'lucide-react';
 
@@ -14,40 +14,6 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
-      {[...Array(50), ...additionalIcons].map((Icon, i) => (
-        <motion.g
-          key={i}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0.2, 0.5, 0.2],
-            scale: [0.8, 1.2, 0.8],
-            x: ['-2%', '2%', '-2%'],
-            y: ['-2%', '2%', '-2%'],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        >
-          {Icon ? (
-            <Icon
-              x={`${Math.random() * 100}%`}
-              y={`${Math.random() * 100}%`}
-              width="24"
-              height="24"
-              fill={`rgba(0, 255, 0, ${Math.random() * 0.2 + 0.1})`}
-            />
-          ) : (
-            <circle
-              cx={`${Math.random() * 100}%`}
-              cy={`${Math.random() * 100}%`}
-              r={`${Math.random() * 2 + 0.5}%`}
-              fill={`rgba(0, 255, 0, ${Math.random() * 0.2 + 0.1})`}
-            />
-          )}
-        </motion.g>
-      ))}
     </svg>
   </div>
 );
@@ -90,10 +56,10 @@ export const GlowingButton = ({ children, className, ...props }) => (
 );
 
 export const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const controls = useAnimation();
+  const [isVisible, setIsVisible] = React.useState(false);
+  const controls = motion.useAnimation();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true);
@@ -114,7 +80,7 @@ export const ScrollToTopButton = () => {
     });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isVisible) {
       controls.start({
         opacity: 1,
@@ -142,26 +108,6 @@ export const ScrollToTopButton = () => {
   );
 };
 
-export const AnimatedGrid = ({ children }) => (
-  <motion.div
-    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5, staggerChildren: 0.1 }}
-  >
-    {React.Children.map(children, (child, index) => (
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1 }}
-      >
-        {child}
-      </motion.div>
-    ))}
-  </motion.div>
-);
-
 export const SmoothFadeIn = ({ children, delay = 0 }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -182,56 +128,6 @@ export const PulsingIcon = ({ icon: Icon, size = 24, color = "text-green-500" })
       duration: 2,
       repeat: Infinity,
       repeatType: 'reverse',
-    }}
-  >
-    <Icon className={`w-${size} h-${size} ${color}`} />
-  </motion.div>
-);
-
-export const SlideInText = ({ children, direction = "left" }) => (
-  <motion.div
-    initial={{ opacity: 0, x: direction === "left" ? -50 : 50 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.8, ease: "easeOut" }}
-  >
-    {children}
-  </motion.div>
-);
-
-export const FadeInScale = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-);
-
-export const BouncingIcon = ({ icon: Icon, size = 24, color = "text-green-500" }) => (
-  <motion.div
-    animate={{
-      y: [0, -10, 0],
-    }}
-    transition={{
-      duration: 1,
-      repeat: Infinity,
-      repeatType: 'reverse',
-    }}
-  >
-    <Icon className={`w-${size} h-${size} ${color}`} />
-  </motion.div>
-);
-
-export const RotatingIcon = ({ icon: Icon, size = 24, color = "text-green-500" }) => (
-  <motion.div
-    animate={{
-      rotate: 360,
-    }}
-    transition={{
-      duration: 4,
-      repeat: Infinity,
-      ease: "linear",
     }}
   >
     <Icon className={`w-${size} h-${size} ${color}`} />
