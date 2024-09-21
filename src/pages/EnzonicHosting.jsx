@@ -7,7 +7,7 @@ import PlanWizard from '../components/PlanWizard';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { AnimatedBackground, GlowingButton } from '../components/AnimatedComponents';
+import { AnimatedBackground } from '../components/AnimatedComponents';
 
 const EnzonicHosting = () => {
   const [showPlanWizard, setShowPlanWizard] = useState(false);
@@ -92,7 +92,7 @@ const PlanCard = ({ title, price, features, description }) => (
         <CardTitle className="text-2xl font-bold text-green-400">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-4xl font-bold text-white mb-6">{price}<span className="text-lg text-gray-400">/month</span></p>
+        <p className="text-4xl font-bold text-white mb-6">${price}<span className="text-lg text-gray-400">/month</span></p>
         <ul className="space-y-2 mb-6">
           {features.map((feature, index) => (
             <li key={index} className="flex items-center text-gray-300">
