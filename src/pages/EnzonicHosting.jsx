@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { plans } from '../data/hostingPlans';
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <Card className="bg-gray-800 border-green-500 hover:border-green-400 transition-colors">
@@ -19,14 +20,13 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
   </Card>
 );
 
-const PlanCard = ({ title, price, features, isPopular }) => (
-  <Card className={`bg-gray-800 border-2 ${isPopular ? 'border-green-500' : 'border-gray-700'} hover:border-green-400 transition-all transform hover:scale-105`}>
+const PlanCard = ({ title, price, features, description }) => (
+  <Card className="bg-gray-800 border-2 border-gray-700 hover:border-green-400 transition-all transform hover:scale-105">
     <CardHeader>
       <CardTitle className="text-2xl font-bold text-green-400">{title}</CardTitle>
-      {isPopular && <span className="bg-green-500 text-black px-2 py-1 rounded-full text-sm font-bold">Most Popular</span>}
     </CardHeader>
     <CardContent>
-      <p className="text-4xl font-bold text-white mb-6">{price}<span className="text-lg text-gray-400">/month</span></p>
+      <p className="text-4xl font-bold text-white mb-6">${price}<span className="text-lg text-gray-400">/month</span></p>
       <ul className="space-y-2 mb-6">
         {features.map((feature, index) => (
           <li key={index} className="flex items-center text-gray-300">
@@ -35,7 +35,8 @@ const PlanCard = ({ title, price, features, isPopular }) => (
           </li>
         ))}
       </ul>
-      <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold">Select Plan</Button>
+      <p className="text-sm text-gray-300 mb-4">{description}</p>
+      <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold">Add to Cart</Button>
     </CardContent>
   </Card>
 );
@@ -81,45 +82,23 @@ const EnzonicHosting = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Our Hosting Plans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PlanCard
-              title="Budget"
-              price="$4.99"
-              features={[
-                "2GB RAM",
-                "1 vCPU Core",
-                "20GB SSD Storage",
-                "Unlimited Slots",
-                "DDoS Protection"
-              ]}
-            />
-            <PlanCard
-              title="Standard"
-              price="$9.99"
-              features={[
-                "4GB RAM",
-                "2 vCPU Cores",
-                "50GB SSD Storage",
-                "Unlimited Slots",
-                "DDoS Protection",
-                "Daily Backups"
-              ]}
-              isPopular={true}
-            />
-            <PlanCard
-              title="Premium"
-              price="$19.99"
-              features={[
-                "8GB RAM",
-                "4 vCPU Cores",
-                "100GB SSD Storage",
-                "Unlimited Slots",
-                "DDoS Protection",
-                "Daily Backups",
-                "Priority Support"
-              ]}
-            />
+          <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Our Minecraft Hosting Plans</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {plans.minecraft.budget.plans.map((plan, index) => (
+              <PlanCard
+                key={index}
+                title={plan.title}
+                price={plan.price.replace('$', '').replace('/month', '')}
+                features={[
+                  `RAM: ${plan.features[0]}`,
+                  `CPU: ${plan.features[1]}`,
+                  `Storage: ${plan.features[2]}`,
+                  `Ports: ${plan.features[3]}`,
+                  plan.features[4]
+                ]}
+                description={plan.description}
+              />
+            ))}
           </div>
         </motion.section>
 
