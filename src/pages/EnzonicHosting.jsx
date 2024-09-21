@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Shield, HeadphonesIcon, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { plans } from '../data/hostingPlans';
+import PlanWizard from '../components/PlanWizard';
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <Card className="bg-gray-800 border-green-500 hover:border-green-400 transition-colors">
@@ -42,6 +43,8 @@ const PlanCard = ({ title, price, features, description }) => (
 );
 
 const EnzonicHosting = () => {
+  const [showPlanWizard, setShowPlanWizard] = useState(false);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
@@ -54,11 +57,20 @@ const EnzonicHosting = () => {
         >
           <h1 className="text-6xl font-bold mb-4 text-green-400">Enzonic Hosting</h1>
           <p className="text-2xl text-gray-300 mb-8">Powerful, Reliable, and Affordable Game Servers</p>
-          <Link to="/custom-plan">
-            <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-black">
-              Request Custom Plan
+          <div className="flex justify-center space-x-4">
+            <Link to="/custom-plan">
+              <Button variant="outline" className="text-green-400 border-green-400 hover:bg-green-400 hover:text-black">
+                Request Custom Plan
+              </Button>
+            </Link>
+            <Button 
+              variant="outline" 
+              className="text-green-400 border-green-400 hover:bg-green-400 hover:text-black"
+              onClick={() => setShowPlanWizard(true)}
+            >
+              Find Perfect Plan
             </Button>
-          </Link>
+          </div>
         </motion.section>
 
         <motion.section 
@@ -112,6 +124,8 @@ const EnzonicHosting = () => {
           <p className="text-xl text-gray-300 mb-8">Join thousands of satisfied customers and experience the Enzonic difference today!</p>
           <Button className="bg-green-500 hover:bg-green-600 text-black font-bold text-lg px-8 py-3">Sign Up Now</Button>
         </motion.section>
+
+        {showPlanWizard && <PlanWizard onClose={() => setShowPlanWizard(false)} />}
       </main>
       <Footer />
     </div>
