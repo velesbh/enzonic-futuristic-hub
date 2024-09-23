@@ -8,7 +8,7 @@ export const plans = {
         { 
           title: "Minecraft Proxy Plan", 
           description: "Perfect for an average proxy", 
-          price: "$3.00/month", 
+          price: "3.00", 
           features: [
             "1GB RAM", 
             "100% CPU", 
@@ -21,7 +21,7 @@ export const plans = {
         {
           title: "Minecraft Dirt Plan",
           description: "Perfect for a small amount of players, not big modpacks and just not very resource intensive tasks",
-          price: "$1.80/month",
+          price: "1.80",
           features: [
             "2GB RAM",
             "200% CPU",
@@ -34,7 +34,7 @@ export const plans = {
         {
           title: "Minecraft Iron Plan",
           description: "Perfect for about 10 players, not really big modpacks and just average resource tasks",
-          price: "$3.60/month",
+          price: "3.60",
           features: [
             "4GB RAM",
             "400% CPU",
@@ -47,7 +47,7 @@ export const plans = {
         {
           title: "Minecraft Copper Plan",
           description: "Perfect for an SMP with plugins or mods",
-          price: "$5.40/month",
+          price: "5.40",
           features: [
             "6GB RAM",
             "500% CPU",
@@ -60,7 +60,7 @@ export const plans = {
         {
           title: "Minecraft Gold Plan",
           description: "Perfect for a big SMP with more plugins or mods",
-          price: "$7.20/month",
+          price: "7.20",
           features: [
             "8GB RAM",
             "500% CPU",
@@ -73,7 +73,7 @@ export const plans = {
         {
           title: "Minecraft Diamond Plan",
           description: "Perfect for most servers with around 50 players, or even big modpacks or plugins",
-          price: "$9.00/month",
+          price: "9.00",
           features: [
             "10GB RAM",
             "800% CPU",
