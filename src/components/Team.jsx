@@ -44,25 +44,25 @@ const Team = () => {
       name: "Veles BH",
       role: "Main Developer & Owner",
       description: "Hi, I'm Veles BH. My favorite color is blue and I like coding, playing Minecraft, editing, recording, talking to people, owning Enzonic, and judging people.",
-      avatarUrl: "/placeholder.svg"
+      avatarUrl: "https://i.postimg.cc/K865cZvn/unnamed.jpg"
     },
     {
       name: "Sawyer Plaz",
       role: "CO-OWNER",
       description: "Hello, my name is Sawyer. I have a YT (SawyerPlaz). Don't upload much. Voice actor, co-owner, Director, programmer (Not too good though).",
-      avatarUrl: "/placeholder.svg"
+      avatarUrl: "https://i.postimg.cc/RFLDk3ms/saywer.png"
     },
     {
       name: "MATIASS (CAT WITH CHIPS)",
       role: "CO-OWNER",
       description: "Hey there, I'm cat with chips or you can call me Matiass or cat for short. I'm British, I love chips and crisps. I love Hazbin Hotel and anime, especially Jujutsu Kaisen. I have depression. My favorite color is purple and I'm single. Bye bye!",
-      avatarUrl: "/placeholder.svg"
+      avatarUrl: "https://i.postimg.cc/j51sJkwY/cat-with-chips.png"
     },
     {
       name: "LUKE",
       role: "CO-OWNER",
-      description: "Hi, I'm Luke. Voice Actor, Script Writer, and Actor for Enzonic Productions. My favorite things: Hazbin Hotel, Helluva Boss, Jujutsu Kaisen, and Technical Stuff. My favorite color is Red. I'm single.",
-      avatarUrl: "/placeholder.svg"
+      description: "Hi, I'm Luke. Voice Actor, Script Writer, and Actor for Enzonic Productions. My favorite things: Hazbin Hotel, Jujutsu Kaisen, and Technical Stuff. My favorite color is Red. I'm single.",
+      avatarUrl: "https://i.postimg.cc/90pzwBhd/luke.png"
     }
   ];
 

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale } from '../components/AnimatedComponents';
-import { Server, Cpu, Cloud, Shield } from 'lucide-react';
+import { Server, Network, Newspaper, Wrench } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 
 const Index = () => {
@@ -62,20 +62,20 @@ const Index = () => {
             />
           </motion.div>
           <motion.div 
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
               { text: t('explore') + ' Hosting', path: '/hosting', icon: Server },
-              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network', icon: Cloud },
-              { text: t('latest'), path: '/news', icon: Shield },
-              { text: t('mcTools'), path: '/mc-tools', icon: Cpu },
+              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network', icon: Network },
+              { text: t('latest'), path: '/news', icon: Newspaper },
+              { text: t('mcTools'), path: '/mc-tools', icon: Wrench },
             ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="px-6 py-3 text-lg w-72 justify-center flex items-center space-x-2 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Icon className="w-5 h-5" />
+                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center space-x-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+                  <Icon className="w-6 h-6" />
                   <span>{text}</span>
                 </GlowingButton>
               </Link>
@@ -101,9 +101,9 @@ const Index = () => {
         <SmoothFadeIn delay={0.6}>
           <div className="flex justify-center space-x-8 mb-16">
             {[
-              { icon: Cloud, text: 'Cloud Services' },
-              { icon: Shield, text: 'Security' },
-              { icon: Cpu, text: 'High Performance' },
+              { icon: Server, text: 'Cloud Services' },
+              { icon: Network, text: 'Networking' },
+              { icon: Wrench, text: 'Tools' },
               { icon: Server, text: 'Reliable Hosting' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="text-center flex flex-col items-center">
@@ -111,6 +111,15 @@ const Index = () => {
                 <p className="text-sm text-gray-300">{text}</p>
               </div>
             ))}
+          </div>
+        </SmoothFadeIn>
+
+        <SmoothFadeIn delay={0.8}>
+          <div className="text-center mb-16 max-w-2xl mx-auto mt-16 bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-400 mb-2">Disclaimer</h3>
+            <p className="text-gray-300">
+              Enzonic.xyz is still a work in progress and will receive updates very frequently. We appreciate your patience and support as we continue to improve our services.
+            </p>
           </div>
         </SmoothFadeIn>
       </main>
