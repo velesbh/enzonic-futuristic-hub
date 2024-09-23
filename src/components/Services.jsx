@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle } from 'lucide-react';
 
