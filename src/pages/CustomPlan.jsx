@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useMutation } from '@tanstack/react-query';
 import { db } from '../lib/db';
+import emailjs from '@emailjs/browser';
 
 const CustomPlan = () => {
   const navigate = useNavigate();
@@ -37,8 +38,29 @@ const CustomPlan = () => {
     mutationFn: db.addRequest,
     onSuccess: () => {
       setIsSubmitted(true);
+      sendEmail();
     },
   });
+
+  const sendEmail = () => {
+    const templateParams = {
+      to_email: 'velesbh0@gmail.com',
+      from_name: formData.email,
+      server_type: formData.serverType,
+      ram: formData.ram,
+      cpu: formData.cpu,
+      budget: formData.budget,
+      usage: formData.usage,
+      storage: formData.storage,
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY')
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+      }, (error) => {
+        console.error('Error sending email:', error);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
