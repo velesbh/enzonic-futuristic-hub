@@ -90,7 +90,7 @@ const Services = () => {
     { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/", comingSoon: true },
     { title: "Enzonic Workspace", description: "Collaborative tools for teams", action: "GET STARTED", to: "/", comingSoon: true },
-    { title: "Enzonic Connect", description: "Social platform for gamers", action: "JOIN NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Connect", description: "Social kinda like zoom", action: "JOIN NOW", to: "/", comingSoon: true },
     { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
     { title: "Enzonic News", description: "Stay updated with the latest Enzonic news", action: "READ NOW", to: "/news" },
     { title: "Enzonic MC Tools", description: "Useful tools for Minecraft players and server admins", action: "USE TOOLS", to: "/mc-tools" },
