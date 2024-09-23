@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion, useAnimation } from 'framer-motion';
-import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle } from 'lucide-react';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -15,9 +15,11 @@ const iconMap = {
   "Enzonic Cloud": CloudIcon,
   "Enzonic VPN": ShieldCheckIcon,
   "Enzonic Productions": VideoIcon,
+  "Enzonic Workspace": Briefcase,
+  "Enzonic Connect": Users,
 };
 
-const ServiceCard = ({ title, description, action, icon: Icon, to, index }) => {
+const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => {
   const controls = useAnimation();
 
   return (
@@ -48,14 +50,28 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index }) => {
           <CardDescription className="text-gray-300">{description}</CardDescription>
         </CardHeader>
         <CardContent className="relative z-10">
-          <Link to={to}>
-            <Button 
-              variant="outline" 
-              className="w-full text-white border-white bg-transparent hover:bg-gray-800 hover:text-gray-200 transition-all duration-300"
-            >
-              {action}
-            </Button>
-          </Link>
+          {comingSoon ? (
+            <div>
+              <p className="text-yellow-400 mb-4">Coming Soon</p>
+              <a href="https://discord.gg/M4Dz3Gj5tR" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  variant="outline" 
+                  className="w-full text-white border-white bg-transparent hover:bg-gray-800 hover:text-gray-200 transition-all duration-300"
+                >
+                  Join Discord for Updates
+                </Button>
+              </a>
+            </div>
+          ) : (
+            <Link to={to}>
+              <Button 
+                variant="outline" 
+                className="w-full text-white border-white bg-transparent hover:bg-gray-800 hover:text-gray-200 transition-all duration-300"
+              >
+                {action}
+              </Button>
+            </Link>
+          )}
         </CardContent>
         <motion.div 
           className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-gray-900/5"
@@ -71,14 +87,16 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index }) => {
 const Services = () => {
   const services = [
     { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER", to: "/hosting" },
-    { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS", to: "/" },
-    { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD", to: "/" },
-    { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW", to: "/" },
-    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/" },
-    { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW", to: "/" },
-    { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW", to: "/" },
-    { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/" },
-    { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/" },
+    { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS", to: "/", comingSoon: true },
+    { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD", to: "/", comingSoon: true },
+    { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Workspace", description: "Collaborative tools for teams", action: "GET STARTED", to: "/", comingSoon: true },
+    { title: "Enzonic Connect", description: "Social platform for gamers", action: "JOIN NOW", to: "/", comingSoon: true },
   ];
 
   return (
