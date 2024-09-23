@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle } from 'lucide-react';
+import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench } from 'lucide-react';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -17,25 +17,19 @@ const iconMap = {
   "Enzonic Productions": VideoIcon,
   "Enzonic Workspace": Briefcase,
   "Enzonic Connect": Users,
+  "Enzonic Network": Network,
+  "Enzonic News": Newspaper,
+  "Enzonic MC Tools": Wrench,
 };
 
 const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => {
-  const controls = useAnimation();
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
-      animate={controls}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
       whileHover={{ scale: 1.05, rotateY: 10 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      onViewportEnter={() => {
-        controls.start({
-          opacity: 1,
-          y: 0,
-          transition: { delay: index * 0.1, duration: 0.5 }
-        });
-      }}
     >
       <Card className="bg-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
         <CardHeader className="relative z-10">
@@ -44,7 +38,7 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
           >
-            <Icon className="w-16 h-16 mb-4 text-white" />
+            <Icon className="w-16 h-16 mb-4 text-green-400" />
           </motion.div>
           <CardTitle className="text-white text-2xl font-bold">{title}</CardTitle>
           <CardDescription className="text-gray-300">{description}</CardDescription>
@@ -97,6 +91,9 @@ const Services = () => {
     { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/", comingSoon: true },
     { title: "Enzonic Workspace", description: "Collaborative tools for teams", action: "GET STARTED", to: "/", comingSoon: true },
     { title: "Enzonic Connect", description: "Social platform for gamers", action: "JOIN NOW", to: "/", comingSoon: true },
+    { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
+    { title: "Enzonic News", description: "Stay updated with the latest Enzonic news", action: "READ NOW", to: "/news" },
+    { title: "Enzonic MC Tools", description: "Useful tools for Minecraft players and server admins", action: "USE TOOLS", to: "/mc-tools" },
   ];
 
   return (
@@ -116,12 +113,12 @@ const Services = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl font-bold mb-12 text-center text-white"
+          className="text-5xl font-bold mb-12 text-center text-green-400"
         >
           Our Services
         </motion.h2>
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
