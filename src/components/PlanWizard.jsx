@@ -21,10 +21,11 @@ const PlanWizard = ({ onClose, selectedPlan, onOrder }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     >
-      <Card className="bg-gray-800 text-white">
+      <Card className="bg-gray-800 text-white max-w-md w-full">
         <CardHeader>
-          <CardTitle>Select Server Location</CardTitle>
+          <CardTitle>Select Server Location for {selectedPlan}</CardTitle>
         </CardHeader>
         <CardContent>
           <RadioGroup onValueChange={setLocation} className="space-y-4 mb-4">

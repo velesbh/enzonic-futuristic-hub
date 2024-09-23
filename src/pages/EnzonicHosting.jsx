@@ -11,6 +11,29 @@ import { AnimatedBackground } from '../components/AnimatedComponents';
 
 const EnzonicHosting = () => {
   const [showPlanWizard, setShowPlanWizard] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+
+  const handlePlanSelect = (plan) => {
+    setSelectedPlan(plan);
+    setShowPlanWizard(true);
+  };
+
+  const handleOrder = (location) => {
+    const planLinks = {
+      'Minecraft Proxy Plan': 'https://billing.enzonic.xyz/checkout/config/1',
+      'Minecraft Dirt Plan': 'https://billing.enzonic.xyz/checkout/config/2',
+      'Minecraft Iron Plan': 'https://billing.enzonic.xyz/checkout/config/3',
+      'Minecraft Copper Plan': 'https://billing.enzonic.xyz/checkout/config/4',
+      'Minecraft Gold Plan': 'https://billing.enzonic.xyz/checkout/config/5',
+      'Minecraft Diamond Plan': 'https://billing.enzonic.xyz/checkout/config/6',
+    };
+
+    if (location === 'europe' && selectedPlan && planLinks[selectedPlan.title]) {
+      window.location.href = planLinks[selectedPlan.title];
+    } else if (location === 'usa') {
+      alert('USA location is not available at the moment.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
@@ -19,10 +42,16 @@ const EnzonicHosting = () => {
       <main className="container mx-auto px-4 py-16 relative z-10">
         <HeroSection />
         <Features />
-        <MinecraftHosting setShowPlanWizard={setShowPlanWizard} />
+        <MinecraftHosting handlePlanSelect={handlePlanSelect} />
         <CustomPlanSection />
       </main>
-      {showPlanWizard && <PlanWizard onClose={() => setShowPlanWizard(false)} />}
+      {showPlanWizard && (
+        <PlanWizard
+          onClose={() => setShowPlanWizard(false)}
+          selectedPlan={selectedPlan?.title}
+          onOrder={handleOrder}
+        />
+      )}
       <Footer />
     </div>
   );
@@ -82,42 +111,37 @@ const Features = () => (
   </section>
 );
 
-const PlanCard = ({ title, price, features, description }) => (
+const PlanCard = ({ plan, onSelect }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     transition={{ type: "spring", stiffness: 300 }}
   >
     <Card className="bg-gray-800 border-2 border-gray-700 hover:border-green-400 transition-all h-full">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-green-400">{title}</CardTitle>
+        <CardTitle className="text-2xl font-bold text-green-400">{plan.title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-4xl font-bold text-white mb-6">${price}<span className="text-lg text-gray-400">/month</span></p>
+        <p className="text-4xl font-bold text-white mb-6">${plan.price}<span className="text-lg text-gray-400">/month</span></p>
         <ul className="space-y-2 mb-6">
-          {features.map((feature, index) => (
+          {plan.features.map((feature, index) => (
             <li key={index} className="flex items-center text-gray-300">
               {feature}
             </li>
           ))}
         </ul>
-        <p className="text-sm text-gray-300 mb-4">{description}</p>
-        <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold">Order Now</Button>
+        <p className="text-sm text-gray-300 mb-4">{plan.description}</p>
+        <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold" onClick={() => onSelect(plan)}>Order Now</Button>
       </CardContent>
     </Card>
   </motion.div>
 );
 
-const MinecraftHosting = ({ setShowPlanWizard }) => (
+const MinecraftHosting = ({ handlePlanSelect }) => (
   <section className="mb-16">
     <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Our Minecraft Hosting Plans</h2>
-    <div className="text-center mb-8">
-      <Button onClick={() => setShowPlanWizard(true)} className="bg-green-500 hover:bg-green-600 text-white">
-        Find Your Perfect Plan
-      </Button>
-    </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {plans.minecraft.budget.plans.map((plan, index) => (
-        <PlanCard key={index} {...plan} />
+        <PlanCard key={index} plan={plan} onSelect={handlePlanSelect} />
       ))}
     </div>
   </section>
