@@ -27,6 +27,9 @@ const Index = () => {
     'Enzonic Cloud',
     'Enzonic VPN',
     'Enzonic Productions',
+    'Enzonic Network',
+    'Enzonic News',
+    'Enzonic MC Tools',
   ];
 
   return (
@@ -65,14 +68,15 @@ const Index = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
-              { text: t('explore') + ' Hosting', path: '/hosting' },
-              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network' },
-              { text: t('latest'), path: '/news' },
-              { text: t('mcTools'), path: '/mc-tools' },
-            ].map(({ text, path }) => (
+              { text: t('explore') + ' Hosting', path: '/hosting', icon: Server },
+              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network', icon: Cloud },
+              { text: t('latest'), path: '/news', icon: Shield },
+              { text: t('mcTools'), path: '/mc-tools', icon: Cpu },
+            ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="px-6 py-3 text-lg w-72 justify-center">
-                  {text}
+                <GlowingButton className="px-6 py-3 text-lg w-72 justify-center flex items-center space-x-2 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+                  <Icon className="w-5 h-5" />
+                  <span>{text}</span>
                 </GlowingButton>
               </Link>
             ))}

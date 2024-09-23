@@ -31,7 +31,7 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
       whileHover={{ scale: 1.05, rotateY: 10 }}
       whileTap={{ scale: 0.95 }}
     >
-      <Card className="bg-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
+      <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 h-full overflow-hidden relative shadow-xl">
         <CardHeader className="relative z-10">
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -60,7 +60,7 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
             <Link to={to}>
               <Button 
                 variant="outline" 
-                className="w-full text-white border-white bg-transparent hover:bg-gray-800 hover:text-gray-200 transition-all duration-300"
+                className="w-full text-white border-white bg-transparent hover:bg-green-700 hover:text-white transition-all duration-300"
               >
                 {action}
               </Button>
@@ -68,7 +68,7 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
           )}
         </CardContent>
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-gray-800/20 to-gray-900/5"
+          className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -97,7 +97,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-12 relative overflow-hidden bg-black">
+    <section className="py-12 relative overflow-hidden bg-gradient-to-b from-black to-gray-900">
       <motion.div
         className="absolute inset-0 z-0"
         animate={{

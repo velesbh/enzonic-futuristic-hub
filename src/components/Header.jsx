@@ -31,6 +31,9 @@ const Header = () => {
     { name: "Enzonic Cloud", path: "/" },
     { name: "Enzonic VPN", path: "/" },
     { name: "Enzonic Productions", path: "/" },
+    { name: "Enzonic Network", path: "/enzonic-network" },
+    { name: "Enzonic News", path: "/news" },
+    { name: "Enzonic MC Tools", path: "/mc-tools" },
   ];
 
   useEffect(() => {
@@ -62,7 +65,7 @@ const Header = () => {
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
-              <img src="/enzonic-logo.png" alt="Enzonic Logo" className="h-16 w-16" />
+              <img src="https://i.postimg.cc/9XDjPXxj/logo-for-Enzonic-productions-modified.png" alt="Enzonic Logo" className="h-16 w-16" />
             </motion.div>
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
