@@ -1,7 +1,7 @@
 // Mock data for frontend development
 const mockNews = [
-  { id: 1, title: "New Server Launch", author: "Admin", content: "We're excited to announce our new server launch!", date: "2024-03-15" },
-  { id: 2, title: "Maintenance Update", author: "Tech Team", content: "Scheduled maintenance will occur this weekend.", date: "2024-03-14" },
+  { id: 1, title: "We just entered beta!", author: "Veles BH", content: "We're excited to announce that enzonic is now in beta!", date: "2024-09-24" },
+  { id: 2, title: "Hosting Updates", author: "Veles BH", content: "We have now opened more minecraft plans, and more server hosting types will be comming very soon.", date: "2024-09-24" },
 ];
 
 const mockRequests = [
