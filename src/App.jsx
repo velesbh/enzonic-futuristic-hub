@@ -7,6 +7,8 @@ import MCTools from "./pages/MCTools";
 import CustomPlan from "./pages/CustomPlan";
 import AdminPanel from "./pages/AdminPanel";
 import EnzonicMods from "./pages/EnzonicMods";
+import ImageVideoTools from "./pages/ImageVideoTools";
+import Team from "./pages/Team";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
           <Route path="/custom-plan" element={<CustomPlan />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/enzonic-mods" element={<EnzonicMods />} />
+          <Route path="/image-video-tools" element={<ImageVideoTools />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

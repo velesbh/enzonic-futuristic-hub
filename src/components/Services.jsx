@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench } from 'lucide-react';
+import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench, Image } from 'lucide-react';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -20,6 +20,7 @@ const iconMap = {
   "Enzonic Network": Network,
   "Enzonic News": Newspaper,
   "Enzonic MC Tools": Wrench,
+  "Image and Video Tools": Image,
 };
 
 const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => {
@@ -94,6 +95,7 @@ const Services = () => {
     { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
     { title: "Enzonic News", description: "Stay updated with the latest Enzonic news", action: "READ NOW", to: "/news" },
     { title: "Enzonic MC Tools", description: "Useful tools for Minecraft players and server admins", action: "USE TOOLS", to: "/mc-tools" },
+    { title: "Image and Video Tools", description: "Powerful tools for image and video editing", action: "EDIT NOW", to: "/image-video-tools" },
   ];
 
   return (
