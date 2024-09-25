@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { AnimatedBackground, GlowingButton } from '../components/AnimatedComponents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Image, Video } from 'lucide-react';
+import AchievementGenerator from '../components/AchievementGenerator';
 
 const ImageVideoTools = () => {
   return (
@@ -30,7 +31,7 @@ const ImageVideoTools = () => {
           Powerful tools for editing and enhancing your images and videos.
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <Card className="bg-gray-800">
             <CardHeader>
               <CardTitle className="flex items-center text-2xl font-bold">
@@ -57,6 +58,8 @@ const ImageVideoTools = () => {
             </CardContent>
           </Card>
         </div>
+
+        <AchievementGenerator />
 
         <motion.div
           className="text-center mt-16"
