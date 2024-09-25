@@ -11,7 +11,7 @@ const achievements = [
   { id: 'story/smelt_iron', name: 'Acquire Hardware' },
   { id: 'story/obtain_armor', name: 'Suit Up' },
   { id: 'story/lava_bucket', name: 'Hot Stuff' },
-  { id: 'story/iron_tools', name: 'Isn't It Iron Pick' },
+  { id: 'story/iron_tools', name: "Isn't It Iron Pick" },
   { id: 'story/deflect_arrow', name: 'Not Today, Thank You' },
   { id: 'story/form_obsidian', name: 'Ice Bucket Challenge' },
   { id: 'story/mine_diamond', name: 'Diamonds!' },
