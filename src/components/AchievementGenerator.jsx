@@ -16,7 +16,8 @@ const achievements = [
 
 const AchievementGenerator = () => {
   const [selectedAchievement, setSelectedAchievement] = useState('');
-  const [customText, setCustomText] = useState('');
+  const [topText, setTopText] = useState('Achievement Get!');
+  const [bottomText, setBottomText] = useState('Your achievement here');
   const achievementRef = useRef(null);
 
   const generateImage = () => {
@@ -48,9 +49,15 @@ const AchievementGenerator = () => {
           </SelectContent>
         </Select>
         <Input
-          placeholder="Custom text"
-          value={customText}
-          onChange={(e) => setCustomText(e.target.value)}
+          placeholder="Top text"
+          value={topText}
+          onChange={(e) => setTopText(e.target.value)}
+          className="bg-gray-700 text-white"
+        />
+        <Input
+          placeholder="Bottom text"
+          value={bottomText}
+          onChange={(e) => setBottomText(e.target.value)}
           className="bg-gray-700 text-white"
         />
         <div
@@ -60,8 +67,8 @@ const AchievementGenerator = () => {
         >
           <img src="/achievement-background.png" alt="Achievement background" className="w-12 h-12" />
           <div>
-            <p className="text-yellow-400">Achievement Get!</p>
-            <p className="text-white">{customText || 'Your achievement here'}</p>
+            <p className="text-yellow-400">{topText}</p>
+            <p className="text-white">{bottomText}</p>
           </div>
         </div>
         <Button onClick={generateImage} className="w-full bg-green-600 hover:bg-green-700">Generate Image</Button>

@@ -3,8 +3,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { AnimatedBackground, GlowingButton } from '../components/AnimatedComponents';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Image, Video } from 'lucide-react';
 import AchievementGenerator from '../components/AchievementGenerator';
 
 const ImageVideoTools = () => {
@@ -28,36 +26,8 @@ const ImageVideoTools = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Powerful tools for editing and enhancing your images and videos.
+          Create custom Minecraft achievements with our generator.
         </motion.p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <Card className="bg-gray-800">
-            <CardHeader>
-              <CardTitle className="flex items-center text-2xl font-bold">
-                <Image className="w-8 h-8 mr-2 text-pink-400" />
-                Image Editing
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4">Edit, resize, and enhance your images with our powerful tools.</p>
-              <GlowingButton>Start Editing Images</GlowingButton>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gray-800">
-            <CardHeader>
-              <CardTitle className="flex items-center text-2xl font-bold">
-                <Video className="w-8 h-8 mr-2 text-purple-400" />
-                Video Editing
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4">Cut, trim, and add effects to your videos with ease.</p>
-              <GlowingButton>Start Editing Videos</GlowingButton>
-            </CardContent>
-          </Card>
-        </div>
 
         <AchievementGenerator />
 
