@@ -9,7 +9,8 @@ import MOTDGenerator from '../components/MOTDGenerator';
 import TimeConverter from '../components/TimeConverter';
 import TitleGenerator from '../components/TitleGenerator';
 import SummonGenerator from '../components/SummonGenerator';
-import { Wand2, MessageSquare, Clock, Type, Rabbit } from 'lucide-react';
+import AchievementGenerator from '../components/AchievementGenerator';
+import { Wand2, MessageSquare, Clock, Type, Rabbit, Trophy } from 'lucide-react';
 
 const ToolTab = ({ icon: Icon, label, value }) => (
   <TabsTrigger value={value} className="flex items-center space-x-2">
@@ -47,12 +48,13 @@ const MCTools = () => {
         </motion.p>
 
         <Tabs defaultValue="give" className="w-full max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-5 mb-8 bg-green-800 rounded-lg p-2">
+          <TabsList className="grid w-full grid-cols-6 mb-8 bg-green-800 rounded-lg p-2">
             <ToolTab icon={Wand2} label="Give Command" value="give" />
             <ToolTab icon={MessageSquare} label="MOTD Generator" value="motd" />
             <ToolTab icon={Clock} label="Time Converter" value="time" />
             <ToolTab icon={Type} label="Title Generator" value="title" />
             <ToolTab icon={Rabbit} label="Summon Generator" value="summon" />
+            <ToolTab icon={Trophy} label="Achievement Generator" value="achievement" />
           </TabsList>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -73,6 +75,9 @@ const MCTools = () => {
             </TabsContent>
             <TabsContent value="summon">
               <SummonGenerator />
+            </TabsContent>
+            <TabsContent value="achievement">
+              <AchievementGenerator />
             </TabsContent>
           </motion.div>
         </Tabs>
