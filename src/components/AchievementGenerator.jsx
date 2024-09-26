@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,10 +11,30 @@ const AchievementGenerator = () => {
   const [topText, setTopText] = useState('Achievement Get!');
   const [bottomText, setBottomText] = useState('Your achievement here');
   const achievementRef = useRef(null);
+  const [iconImage, setIconImage] = useState(null);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = minecraftTextures[selectedIcon];
+    img.onload = () => setIconImage(img);
+  }, [selectedIcon]);
 
   const generateImage = () => {
-    if (achievementRef.current) {
-      html2canvas(achievementRef.current).then((canvas) => {
+    if (achievementRef.current && iconImage) {
+      html2canvas(achievementRef.current, {
+        backgroundColor: null,
+        scale: 2,
+      }).then((canvas) => {
+        const ctx = canvas.getContext('2d');
+        
+        // Draw the achievement outline
+        ctx.strokeStyle = '#2c2c2c';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw the icon
+        ctx.drawImage(iconImage, 8, (canvas.height - 32) / 2, 32, 32);
+
         const image = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = image;
@@ -57,7 +77,7 @@ const AchievementGenerator = () => {
           className="bg-gray-900 p-4 rounded-lg flex items-center space-x-4 border-2 border-gray-700"
           style={{ fontFamily: 'Minecraft, monospace' }}
         >
-          <img src={minecraftTextures[selectedIcon]} alt="Achievement icon" className="w-12 h-12" />
+          {iconImage && <img src={iconImage.src} alt="Achievement icon" className="w-8 h-8" />}
           <div>
             <p className="text-yellow-400">{topText}</p>
             <p className="text-white">{bottomText}</p>
