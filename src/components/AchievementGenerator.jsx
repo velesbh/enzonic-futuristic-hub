@@ -4,18 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import html2canvas from 'html2canvas';
-
-const achievements = [
-  { id: 'story/root', name: 'Minecraft' },
-  { id: 'story/mine_stone', name: 'Stone Age' },
-  { id: 'story/upgrade_tools', name: 'Getting an Upgrade' },
-  { id: 'story/smelt_iron', name: 'Acquire Hardware' },
-  { id: 'story/obtain_armor', name: 'Suit Up' },
-  // Add more achievements as needed
-];
+import { minecraftTextures } from '../utils/minecraftTextures';
 
 const AchievementGenerator = () => {
-  const [selectedAchievement, setSelectedAchievement] = useState('');
+  const [selectedIcon, setSelectedIcon] = useState('diamond');
   const [topText, setTopText] = useState('Achievement Get!');
   const [bottomText, setBottomText] = useState('Your achievement here');
   const achievementRef = useRef(null);
@@ -38,13 +30,13 @@ const AchievementGenerator = () => {
         <CardTitle>Minecraft Achievement Generator</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Select onValueChange={setSelectedAchievement}>
+        <Select onValueChange={setSelectedIcon}>
           <SelectTrigger className="bg-gray-700 text-white">
-            <SelectValue placeholder="Select an achievement" />
+            <SelectValue placeholder="Select an icon" />
           </SelectTrigger>
-          <SelectContent className="bg-gray-700 text-white max-h-60 overflow-y-auto">
-            {achievements.map((achievement) => (
-              <SelectItem key={achievement.id} value={achievement.id}>{achievement.name}</SelectItem>
+          <SelectContent className="bg-gray-700 text-white">
+            {Object.keys(minecraftTextures).map((texture) => (
+              <SelectItem key={texture} value={texture}>{texture}</SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -62,10 +54,10 @@ const AchievementGenerator = () => {
         />
         <div
           ref={achievementRef}
-          className="bg-gray-900 p-4 rounded-lg flex items-center space-x-4"
+          className="bg-gray-900 p-4 rounded-lg flex items-center space-x-4 border-2 border-gray-700"
           style={{ fontFamily: 'Minecraft, monospace' }}
         >
-          <img src="/achievement-background.png" alt="Achievement background" className="w-12 h-12" />
+          <img src={minecraftTextures[selectedIcon]} alt="Achievement icon" className="w-12 h-12" />
           <div>
             <p className="text-yellow-400">{topText}</p>
             <p className="text-white">{bottomText}</p>

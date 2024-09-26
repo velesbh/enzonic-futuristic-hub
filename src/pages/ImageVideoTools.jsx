@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
-import { AnimatedBackground, GlowingButton } from '../components/AnimatedComponents';
+import { AnimatedBackground } from '../components/AnimatedComponents';
 import AchievementGenerator from '../components/AchievementGenerator';
 
 const ImageVideoTools = () => {
@@ -17,7 +17,7 @@ const ImageVideoTools = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Image and Video Tools
+          Minecraft Achievement Generator
         </motion.h1>
 
         <motion.p
@@ -30,17 +30,6 @@ const ImageVideoTools = () => {
         </motion.p>
 
         <AchievementGenerator />
-
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <h2 className="text-3xl font-bold mb-4 text-pink-400">Coming Soon</h2>
-          <p className="text-xl text-gray-300 mb-6">We're working on more amazing features. Stay tuned!</p>
-          <GlowingButton>Get Notified</GlowingButton>
-        </motion.div>
       </main>
       <Footer />
     </div>
