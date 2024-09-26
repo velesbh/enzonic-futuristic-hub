@@ -15,8 +15,13 @@ const AchievementGenerator = () => {
 
   useEffect(() => {
     const img = new Image();
+    img.crossOrigin = "anonymous";
     img.src = minecraftTextures[selectedIcon];
     img.onload = () => setIconImage(img);
+    img.onerror = () => {
+      console.error("Error loading image:", minecraftTextures[selectedIcon]);
+      setIconImage(null);
+    };
   }, [selectedIcon]);
 
   const generateImage = () => {
@@ -24,6 +29,8 @@ const AchievementGenerator = () => {
       html2canvas(achievementRef.current, {
         backgroundColor: null,
         scale: 2,
+        useCORS: true,
+        allowTaint: true,
       }).then((canvas) => {
         const ctx = canvas.getContext('2d');
         
@@ -35,11 +42,14 @@ const AchievementGenerator = () => {
         // Draw the icon
         ctx.drawImage(iconImage, 8, (canvas.height - 32) / 2, 32, 32);
 
-        const image = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = image;
-        link.download = 'minecraft-achievement.png';
-        link.click();
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'minecraft-achievement.png';
+          link.click();
+          URL.revokeObjectURL(url);
+        });
       });
     }
   };
@@ -77,7 +87,7 @@ const AchievementGenerator = () => {
           className="bg-gray-900 p-4 rounded-lg flex items-center space-x-4 border-2 border-gray-700"
           style={{ fontFamily: 'Minecraft, monospace' }}
         >
-          {iconImage && <img src={iconImage.src} alt="Achievement icon" className="w-8 h-8" />}
+          {iconImage && <img src={iconImage.src} alt="Achievement icon" className="w-8 h-8" crossOrigin="anonymous" />}
           <div>
             <p className="text-yellow-400">{topText}</p>
             <p className="text-white">{bottomText}</p>
