@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import html2canvas from 'html2canvas';
-import { minecraftTextures } from '../utils/minecraftTextures';
+import { minecraftTextures } from '../data/minecraftTextures';
 
 const AchievementGenerator = () => {
   const [selectedIcon, setSelectedIcon] = useState('diamond');
