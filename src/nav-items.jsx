@@ -6,6 +6,7 @@ import EnzonicNetwork from "./pages/RoMine.jsx";
 import MCTools from "./pages/MCTools.jsx";
 import ImageVideoTools from "./pages/ImageVideoTools.jsx";
 import Team from "./pages/Team.jsx";
+import EnzonicAI from "./pages/EnzonicAI.jsx";
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
@@ -64,5 +65,11 @@ export const navItems = [
     to: "/image-video-tools",
     icon: <ImageIcon className="h-4 w-4" />,
     page: <ImageVideoTools />,
+  },
+  {
+    title: "Enzonic AI",
+    to: "/enzonic-ai",
+    icon: <ServerIcon className="h-4 w-4" />,
+    page: <EnzonicAI />,
   },
 ];
