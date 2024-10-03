@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, SlideInText, FadeInScale } from '../components/AnimatedComponents';
 import { Server, Network, Newspaper, Wrench } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 
@@ -68,14 +68,13 @@ const Index = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
-              { text: t('explore') + ' Hosting', path: '/hosting', icon: Server },
-              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network', icon: Network },
-              { text: t('latest'), path: '/news', icon: Newspaper },
-              { text: t('mcTools'), path: '/mc-tools', icon: Wrench },
-            ].map(({ text, path, icon: Icon }) => (
+              { text: t('explore') + ' Hosting', path: '/hosting' },
+              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network' },
+              { text: t('latest'), path: '/news' },
+              { text: t('mcTools'), path: '/mc-tools' },
+            ].map(({ text, path }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center space-x-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
-                  <Icon className="w-6 h-6" />
+                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
                   <span>{text}</span>
                 </GlowingButton>
               </Link>
