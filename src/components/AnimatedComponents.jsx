@@ -253,6 +253,3 @@ export const AbstractShapes = () => (
     ))}
   </div>
 );
-
-// Export all components
-export { AnimatedBackground, FloatingElement, GlowingButton, ScrollToTopButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale, AnimatedGrid, EnzonicLogo, ImageCard, AbstractShapes };
