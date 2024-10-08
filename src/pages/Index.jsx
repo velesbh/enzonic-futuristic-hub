@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { AnimatedBackground, FloatingElement, GlowingButton, EnzonicLogo, ImageCard, AbstractShapes } from '../components/AnimatedComponents';
 import { FeaturedServices } from '../components/FeaturedServices';
+import { Card, CardContent } from '@/components/ui/card';
 
 const Index = () => {
   const { t } = useLanguage();
