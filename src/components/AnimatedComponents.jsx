@@ -3,38 +3,40 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowUpCircle } from 'lucide-react';
 
-export const AnimatedBackground = ({ additionalIcons = [] }) => (
+export const AnimatedBackground = () => (
   <div className="fixed inset-0 z-0 overflow-hidden">
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#0a0a0a', stopOpacity: 1 }} />
-          <stop offset="50%" style={{ stopColor: '#1a1a1a', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#2a2a2a', stopOpacity: 1 }} />
-        </linearGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grad1)" />
-      {[...Array(50)].map((_, i) => (
-        <motion.circle
-          key={i}
-          cx={`${Math.random() * 100}%`}
-          cy={`${Math.random() * 100}%`}
-          r={`${Math.random() * 2 + 0.5}%`}
-          fill={`rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`}
-          animate={{
-            opacity: [0.2, 0.5, 0.2],
-            scale: [0.8, 1.2, 0.8],
-            x: ['-2%', '2%', '-2%'],
-            y: ['-2%', '2%', '-2%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        />
-      ))}
-    </svg>
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"
+      animate={{
+        background: [
+          'linear-gradient(to bottom right, #1a365d, #4a148c, #1e3a8a)',
+          'linear-gradient(to bottom right, #4a148c, #1e3a8a, #1a365d)',
+          'linear-gradient(to bottom right, #1e3a8a, #1a365d, #4a148c)',
+        ],
+      }}
+      transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse' }}
+    />
+    {[...Array(50)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full bg-white opacity-20"
+        style={{
+          width: Math.random() * 3 + 1,
+          height: Math.random() * 3 + 1,
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -1000],
+          opacity: [0, 0.5, 0],
+        }}
+        transition={{
+          duration: Math.random() * 10 + 10,
+          repeat: Infinity,
+          repeatType: 'loop',
+        }}
+      />
+    ))}
   </div>
 );
 
@@ -191,5 +193,35 @@ export const AnimatedGrid = ({ children }) => (
         {child}
       </motion.div>
     ))}
+  </motion.div>
+);
+
+export const EnzonicLogo = () => (
+  <motion.img
+    src="/enzonic-logo.png"
+    alt="Enzonic Logo"
+    className="w-32 h-32 mx-auto mb-8"
+    animate={{
+      y: [0, -10, 0],
+      rotate: [-5, 5, -5],
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      repeatType: 'reverse',
+    }}
+  />
+);
+
+export const ImageCard = ({ src, alt, text }) => (
+  <motion.div
+    className="relative overflow-hidden rounded-lg shadow-lg"
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <img src={src} alt={alt} className="w-full h-48 object-cover" />
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <p className="text-white text-lg font-bold">{text}</p>
+    </div>
   </motion.div>
 );
