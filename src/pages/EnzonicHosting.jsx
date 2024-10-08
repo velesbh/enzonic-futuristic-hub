@@ -7,7 +7,8 @@ import PlanWizard from '../components/PlanWizard';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { AnimatedBackground } from '../components/AnimatedComponents';
+import { AnimatedBackground, GlowingButton, FloatingElement } from '../components/AnimatedComponents';
+import { Server, Shield, Zap, Clock } from 'lucide-react';
 
 const EnzonicHosting = () => {
   const [showPlanWizard, setShowPlanWizard] = useState(false);
@@ -39,7 +40,7 @@ const EnzonicHosting = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
-      <main className="container mx-auto px-4 py-16 relative z-10">
+      <main className="container mx-auto px-4 py-32 relative z-10">
         <HeroSection />
         <Features />
         <MinecraftHosting handlePlanSelect={handlePlanSelect} />
@@ -64,32 +65,35 @@ const HeroSection = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
   >
-    <h1 className="text-6xl font-bold mb-4 text-green-400">Enzonic Hosting</h1>
+    <FloatingElement>
+      <h1 className="text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">Enzonic Hosting</h1>
+    </FloatingElement>
     <p className="text-2xl mb-8 text-gray-300">
       Powerful, Reliable, and Affordable Game Servers
     </p>
     <div className="flex justify-center space-x-4">
       <a href="https://panel.enzonic.xyz/" target="_blank" rel="noopener noreferrer">
-        <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+        <GlowingButton className="bg-blue-500 hover:bg-blue-600 text-white">
           Panel
-        </Button>
+        </GlowingButton>
       </a>
       <a href="https://billing.enzonic.xyz/home" target="_blank" rel="noopener noreferrer">
-        <Button className="bg-green-500 hover:bg-green-600 text-white">
+        <GlowingButton className="bg-green-500 hover:bg-green-600 text-white">
           Billing
-        </Button>
+        </GlowingButton>
       </a>
     </div>
   </motion.section>
 );
 
-const FeatureCard = ({ title, description }) => (
+const FeatureCard = ({ icon: Icon, title, description }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     transition={{ type: "spring", stiffness: 300 }}
   >
-    <Card className="bg-gray-800 border-green-500 h-full">
+    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-green-500 h-full">
       <CardHeader>
+        <Icon className="w-12 h-12 text-green-400 mb-4" />
         <CardTitle className="text-green-300">{title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -103,10 +107,26 @@ const Features = () => (
   <section className="mb-16">
     <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Why Choose Enzonic Hosting?</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <FeatureCard title="Lightning Fast" description="Experience blazing fast speeds with our optimized infrastructure." />
-      <FeatureCard title="Ironclad Security" description="Your data is protected with state-of-the-art security measures." />
-      <FeatureCard title="24/7 Support" description="Our expert team is always ready to assist you, anytime." />
-      <FeatureCard title="High-Performance Hardware" description="Top-tier servers ensure smooth gameplay and minimal lag." />
+      <FeatureCard 
+        icon={Zap} 
+        title="Lightning Fast" 
+        description="Experience blazing fast speeds with our optimized infrastructure." 
+      />
+      <FeatureCard 
+        icon={Shield} 
+        title="Ironclad Security" 
+        description="Your data is protected with state-of-the-art security measures." 
+      />
+      <FeatureCard 
+        icon={Clock} 
+        title="24/7 Support" 
+        description="Our expert team is always ready to assist you, anytime." 
+      />
+      <FeatureCard 
+        icon={Server} 
+        title="High-Performance Hardware" 
+        description="Top-tier servers ensure smooth gameplay and minimal lag." 
+      />
     </div>
   </section>
 );
@@ -116,7 +136,7 @@ const PlanCard = ({ plan, onSelect }) => (
     whileHover={{ scale: 1.05 }}
     transition={{ type: "spring", stiffness: 300 }}
   >
-    <Card className="bg-gray-800 border-2 border-gray-700 hover:border-green-400 transition-all h-full">
+    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-green-500 transition-all h-full">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-green-400">{plan.title}</CardTitle>
       </CardHeader>
@@ -125,12 +145,13 @@ const PlanCard = ({ plan, onSelect }) => (
         <ul className="space-y-2 mb-6">
           {plan.features.map((feature, index) => (
             <li key={index} className="flex items-center text-gray-300">
+              <Zap className="w-5 h-5 text-green-400 mr-2" />
               {feature}
             </li>
           ))}
         </ul>
         <p className="text-sm text-gray-300 mb-4">{plan.description}</p>
-        <Button className="w-full bg-green-500 hover:bg-green-600 text-black font-bold" onClick={() => onSelect(plan)}>Order Now</Button>
+        <GlowingButton className="w-full bg-green-500 hover:bg-green-600 text-black font-bold" onClick={() => onSelect(plan)}>Order Now</GlowingButton>
       </CardContent>
     </Card>
   </motion.div>
@@ -157,7 +178,7 @@ const CustomPlanSection = () => (
     <h2 className="text-4xl font-bold mb-4 text-green-400">Need a Custom Plan?</h2>
     <p className="text-xl text-gray-300 mb-8">We can tailor a hosting solution to meet your specific requirements.</p>
     <Link to="/custom-plan">
-      <Button className="bg-purple-500 hover:bg-purple-600 text-white">Request Custom Plan</Button>
+      <GlowingButton className="bg-purple-500 hover:bg-purple-600 text-white">Request Custom Plan</GlowingButton>
     </Link>
   </motion.section>
 );

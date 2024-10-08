@@ -14,6 +14,26 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
+      {[...Array(50)].map((_, i) => (
+        <motion.circle
+          key={i}
+          cx={`${Math.random() * 100}%`}
+          cy={`${Math.random() * 100}%`}
+          r={`${Math.random() * 2 + 0.5}%`}
+          fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+          animate={{
+            opacity: [0.2, 0.5, 0.2],
+            scale: [0.8, 1.2, 0.8],
+            x: ['-2%', '2%', '-2%'],
+            y: ['-2%', '2%', '-2%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+      ))}
     </svg>
   </div>
 );
@@ -41,7 +61,7 @@ export const GlowingButton = ({ children, className, ...props }) => (
   >
     <span className="relative z-10 text-black">{children}</span>
     <motion.div
-      className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75"
+      className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 opacity-75"
       animate={{
         scale: [1, 1.2, 1],
         opacity: [0.7, 1, 0.7],

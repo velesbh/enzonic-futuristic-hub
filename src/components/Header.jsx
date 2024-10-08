@@ -10,6 +10,7 @@ import { ChevronDownIcon, MenuIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import { GlowingButton } from './AnimatedComponents';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -81,9 +82,9 @@ const Header = () => {
 const NavItem = ({ children, to }) => (
   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
     <Link to={to}>
-      <Button variant="ghost" className="text-white hover:text-blue-400 transition-colors duration-300">
+      <GlowingButton variant="ghost" className="text-white hover:text-blue-400 transition-colors duration-300">
         {children}
-      </Button>
+      </GlowingButton>
     </Link>
   </motion.div>
 );
@@ -91,9 +92,9 @@ const NavItem = ({ children, to }) => (
 const ServicesDropdown = ({ services }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="text-white hover:text-blue-400 transition-colors duration-300">
+      <GlowingButton variant="ghost" className="text-white hover:text-blue-400 transition-colors duration-300">
         Services <ChevronDownIcon className="ml-2 h-4 w-4" />
-      </Button>
+      </GlowingButton>
     </DropdownMenuTrigger>
     <DropdownMenuContent className="bg-gray-800 border-gray-700">
       {services.map((service, index) => (
@@ -138,9 +139,9 @@ const MobileMenu = ({ isOpen, services, onClose }) => (
 const MobileNavItem = ({ children, to, onClick }) => (
   <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left text-white hover:text-blue-400 transition-colors duration-300">
+      <GlowingButton variant="ghost" className="w-full text-left text-white hover:text-blue-400 transition-colors duration-300">
         {children}
-      </Button>
+      </GlowingButton>
     </Link>
   </motion.li>
 );
