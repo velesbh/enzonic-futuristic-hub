@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Server, Network, Newspaper, Wrench, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { AnimatedBackground, FloatingElement, GlowingButton, EnzonicLogo, ImageCard } from '../components/AnimatedComponents';
+import { AnimatedBackground, FloatingElement, GlowingButton, EnzonicLogo, ImageCard, AbstractShapes } from '../components/AnimatedComponents';
+import { FeaturedServices } from '../components/FeaturedServices';
 
 const Index = () => {
   const { t } = useLanguage();
@@ -27,6 +26,7 @@ const Index = () => {
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
       <AnimatedBackground />
+      <AbstractShapes />
       <Header />
       <main className="container mx-auto px-4 py-24 relative z-10">
         <HeroSection services={featuredServices} t={t} />
@@ -46,7 +46,7 @@ const HeroSection = ({ services, t }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
-    className="text-center mb-16"
+    className="text-center mb-16 relative"
   >
     <EnzonicLogo />
     <FloatingElement>
@@ -169,41 +169,6 @@ const DisclaimerSection = () => (
       </CardContent>
     </Card>
   </motion.div>
-);
-
-const FeaturedServices = () => (
-  <motion.section
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.6 }}
-    className="mb-16"
-  >
-    <h2 className="text-4xl font-bold mb-8 text-center text-blue-400">Featured Services</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <ServiceCard title="Enzonic Hosting" icon={Server} to="/hosting" />
-      <ServiceCard title="Enzonic Network" icon={Network} to="/enzonic-network" />
-      <ServiceCard title="Enzonic AI" icon={Newspaper} to="/enzonic-ai" />
-      <ServiceCard title="MC Tools" icon={Wrench} to="/mc-tools" />
-    </div>
-    <div className="text-center mt-8">
-      <Link to="/services">
-        <GlowingButton className="bg-blue-500 hover:bg-blue-600 text-white">
-          View All Services <ArrowRight className="ml-2 h-4 w-4" />
-        </GlowingButton>
-      </Link>
-    </div>
-  </motion.section>
-);
-
-const ServiceCard = ({ title, icon: Icon, to }) => (
-  <Link to={to}>
-    <Card className="bg-gray-800 hover:bg-gray-700 transition-colors duration-300 h-full">
-      <CardContent className="p-6 flex flex-col items-center text-center">
-        <Icon className="w-16 h-16 text-blue-400 mb-4" />
-        <h3 className="text-xl font-semibold text-blue-300">{title}</h3>
-      </CardContent>
-    </Card>
-  </Link>
 );
 
 export default Index;

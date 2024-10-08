@@ -225,3 +225,34 @@ export const ImageCard = ({ src, alt, text }) => (
     </div>
   </motion.div>
 );
+
+export const AbstractShapes = () => (
+  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    {[...Array(10)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20"
+        style={{
+          width: Math.random() * 300 + 50,
+          height: Math.random() * 300 + 50,
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          x: [0, Math.random() * 100 - 50],
+          y: [0, Math.random() * 100 - 50],
+          rotate: [0, 360],
+          scale: [1, 1.5, 1],
+        }}
+        transition={{
+          duration: Math.random() * 20 + 10,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        }}
+      />
+    ))}
+  </div>
+);
+
+// Export all components
+export { AnimatedBackground, FloatingElement, GlowingButton, ScrollToTopButton, SmoothFadeIn, PulsingIcon, SlideInText, FadeInScale, AnimatedGrid, EnzonicLogo, ImageCard, AbstractShapes };
