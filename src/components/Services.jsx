@@ -24,55 +24,47 @@ const iconMap = {
   "Enzonic Meet": MessageCircle,
 };
 
-const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      whileHover={{ scale: 1.05 }}
-      className="h-full"
-    >
-      <Card className="bg-card text-card-foreground h-full overflow-hidden relative shadow-lg border-2 border-primary/10">
-        <CardHeader className="relative z-10">
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
-          >
-            <Icon className="w-12 h-12 mb-4 text-primary" />
-          </motion.div>
-          <CardTitle className="text-2xl font-bold">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent className="relative z-10">
-          {comingSoon ? (
-            <div>
-              <p className="text-yellow-500 mb-4">Coming Soon</p>
-              <a href="https://discord.gg/M4Dz3Gj5tR" target="_blank" rel="noopener noreferrer">
-                <Button 
-                  variant="outline" 
-                  className="w-full transition-all duration-300"
-                >
-                  Join Discord for Updates
-                </Button>
-              </a>
-            </div>
-          ) : (
-            <Link to={to}>
-              <Button 
-                variant="default" 
-                className="w-full transition-all duration-300"
-              >
-                {action}
+const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: index * 0.1 }}
+    whileHover={{ scale: 1.05 }}
+    className="h-full"
+  >
+    <Card className="bg-card text-card-foreground h-full overflow-hidden relative shadow-lg border-2 border-primary/10">
+      <CardHeader className="relative z-10">
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+        >
+          <Icon className="w-12 h-12 mb-4 text-primary" />
+        </motion.div>
+        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent className="relative z-10">
+        {comingSoon ? (
+          <div>
+            <p className="text-yellow-500 mb-4">Coming Soon</p>
+            <a href="https://discord.gg/M4Dz3Gj5tR" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="w-full transition-all duration-300">
+                Join Discord for Updates
               </Button>
-            </Link>
-          )}
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-};
+            </a>
+          </div>
+        ) : (
+          <Link to={to}>
+            <Button variant="default" className="w-full transition-all duration-300">
+              {action}
+            </Button>
+          </Link>
+        )}
+      </CardContent>
+    </Card>
+  </motion.div>
+);
 
 const Services = () => {
   const services = [
@@ -80,7 +72,7 @@ const Services = () => {
     { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS", to: "/", comingSoon: true },
     { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD", to: "/", comingSoon: true },
     { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW", to: "/", comingSoon: true },
-    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/", comingSoon: true },
+    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/enzonic-ai" },
     { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/", comingSoon: true },

@@ -1,4 +1,4 @@
-import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, WrenchIcon, ImageIcon } from "lucide-react";
+import { HomeIcon, ServerIcon, UsersIcon, PhoneIcon, NewspaperIcon, WrenchIcon, ImageIcon, LayoutGridIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import EnzonicHosting from "./pages/EnzonicHosting.jsx";
 import News from "./pages/News.jsx";
@@ -7,10 +7,8 @@ import MCTools from "./pages/MCTools.jsx";
 import ImageVideoTools from "./pages/ImageVideoTools.jsx";
 import Team from "./pages/Team.jsx";
 import EnzonicAI from "./pages/EnzonicAI.jsx";
+import Services from "./components/Services.jsx";
 
-/**
- * Central place for defining the navigation items. Used for navigation components and routing.
- */
 export const navItems = [
   {
     title: "Home",
@@ -21,8 +19,8 @@ export const navItems = [
   {
     title: "Services",
     to: "/services",
-    icon: <ServerIcon className="h-4 w-4" />,
-    page: <Index />,
+    icon: <LayoutGridIcon className="h-4 w-4" />,
+    page: <Services />,
   },
   {
     title: "Enzonic Network",
