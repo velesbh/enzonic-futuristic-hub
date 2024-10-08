@@ -33,14 +33,14 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-24 relative z-10">
         <SmoothFadeIn>
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-primary text-center"
+              className="text-6xl font-bold mb-4 text-green-400 text-center"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -49,7 +49,7 @@ const Index = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 h-16 text-muted-foreground text-center"
+            className="text-2xl mb-8 h-16 text-gray-300 text-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -74,7 +74,7 @@ const Index = () => {
               { text: t('mcTools'), path: '/mc-tools' },
             ].map(({ text, path }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 transform hover:scale-105">
+                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
                   <span>{text}</span>
                 </GlowingButton>
               </Link>
@@ -85,12 +85,12 @@ const Index = () => {
         <SmoothFadeIn delay={0.4}>
           <div className="text-center mb-16 max-w-2xl mx-auto mt-16">
             <SlideInText>
-              <h2 className="text-3xl font-bold text-primary mb-4">
+              <h2 className="text-3xl font-bold text-green-400 mb-4">
                 Our Vision
               </h2>
             </SlideInText>
             <FadeInScale>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Empowering individuals and businesses with innovative, affordable, and reliable technology solutions.
               </p>
             </FadeInScale>
@@ -106,17 +106,17 @@ const Index = () => {
               { icon: Server, text: 'Reliable Hosting' },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="text-center flex flex-col items-center">
-                <Icon className="w-20 h-20 text-primary mb-2" />
-                <p className="text-sm text-muted-foreground">{text}</p>
+                <Icon className="w-20 h-20 text-green-400 mb-2" />
+                <p className="text-sm text-gray-300">{text}</p>
               </div>
             ))}
           </div>
         </SmoothFadeIn>
 
         <SmoothFadeIn delay={0.8}>
-          <div className="text-center mb-16 max-w-2xl mx-auto mt-16 bg-card p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-bold text-card-foreground mb-2">Disclaimer</h3>
-            <p className="text-muted-foreground">
+          <div className="text-center mb-16 max-w-2xl mx-auto mt-16 bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-400 mb-2">Disclaimer</h3>
+            <p className="text-gray-300">
               Enzonic.xyz is still a work in progress and will receive updates very frequently. We appreciate your patience and support as we continue to improve our services.
             </p>
           </div>
