@@ -8,9 +8,9 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#001a00', stopOpacity: 1 }} />
-          <stop offset="50%" style={{ stopColor: '#003300', stopOpacity: 1 }} />
-          <stop offset="100%" style={{ stopColor: '#004d00', stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: '#0a0a0a', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#1a1a1a', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#2a2a2a', stopOpacity: 1 }} />
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
@@ -20,7 +20,7 @@ export const AnimatedBackground = ({ additionalIcons = [] }) => (
           cx={`${Math.random() * 100}%`}
           cy={`${Math.random() * 100}%`}
           r={`${Math.random() * 2 + 0.5}%`}
-          fill={`rgba(0, ${Math.random() * 155 + 100}, ${Math.random() * 100}, 0.3)`}
+          fill={`rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`}
           animate={{
             opacity: [0.2, 0.5, 0.2],
             scale: [0.8, 1.2, 0.8],
@@ -59,9 +59,9 @@ export const GlowingButton = ({ children, className, ...props }) => (
     className={`relative overflow-hidden group ${className}`}
     {...props}
   >
-    <span className="relative z-10 text-black">{children}</span>
+    <span className="relative z-10 text-white">{children}</span>
     <motion.div
-      className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 opacity-75"
+      className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-900 opacity-75"
       animate={{
         scale: [1, 1.2, 1],
         opacity: [0.7, 1, 0.7],

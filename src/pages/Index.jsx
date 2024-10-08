@@ -36,7 +36,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-24 relative z-10">
@@ -61,7 +61,7 @@ const HeroSection = ({ services, t }) => (
   >
     <FloatingElement>
       <motion.h1 
-        className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
+        className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-400"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -112,9 +112,9 @@ const VisionSection = () => (
     transition={{ duration: 0.8, delay: 0.4 }}
     className="mb-16"
   >
-    <Card className="bg-gradient-to-br from-blue-900 to-purple-900 border-blue-500">
+    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
       <CardContent className="p-8">
-        <h2 className="text-4xl font-bold text-blue-400 mb-4">Our Vision</h2>
+        <h2 className="text-4xl font-bold text-gray-200 mb-4">Our Vision</h2>
         <p className="text-xl text-gray-300 leading-relaxed">
           Empowering individuals and businesses with innovative, affordable, and reliable technology solutions that inspire creativity and drive success.
         </p>
@@ -124,9 +124,9 @@ const VisionSection = () => (
 );
 
 const FeatureCard = ({ icon: Icon, text }) => (
-  <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-blue-500 transform transition-all duration-300 hover:scale-105">
+  <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 transform transition-all duration-300 hover:scale-105">
     <CardContent className="p-6 flex flex-col items-center text-center">
-      <Icon className="w-16 h-16 text-blue-400 mb-4" />
+      <Icon className="w-16 h-16 text-gray-300 mb-4" />
       <p className="text-lg font-semibold text-gray-200">{text}</p>
     </CardContent>
   </Card>
@@ -157,9 +157,9 @@ const DisclaimerSection = () => (
     transition={{ duration: 0.8, delay: 0.8 }}
     className="mb-16"
   >
-    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-yellow-500">
+    <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700">
       <CardContent className="p-8">
-        <h3 className="text-2xl font-bold text-yellow-400 mb-2">Disclaimer</h3>
+        <h3 className="text-2xl font-bold text-gray-200 mb-2">Disclaimer</h3>
         <p className="text-gray-300">
           Enzonic.xyz is continuously evolving to bring you the best experience. We appreciate your patience and support as we work on exciting updates and improvements.
         </p>
