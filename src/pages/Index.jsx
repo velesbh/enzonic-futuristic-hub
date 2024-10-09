@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { Server, Network, Newspaper, Wrench, ArrowRight } from 'lucide-react';
+import { Server, Network, Newspaper, Wrench } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -28,16 +28,18 @@ const Index = () => {
     <div className="min-h-screen text-white relative overflow-hidden">
       <AnimatedBackground />
       <AbstractShapes />
-      <Header />
-      <main className="container mx-auto px-4 py-24 relative z-10">
-        <HeroSection services={featuredServices} t={t} />
-        <FeaturesSection />
-        <FeaturedServices />
-        <ImageGallery />
-        <VisionSection />
-        <DisclaimerSection />
-      </main>
-      <Footer />
+      <div className="relative z-10">
+        <Header />
+        <main className="container mx-auto px-4 py-24">
+          <HeroSection services={featuredServices} t={t} />
+          <FeaturesSection />
+          <FeaturedServices />
+          <ImageGallery />
+          <VisionSection />
+          <DisclaimerSection />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
