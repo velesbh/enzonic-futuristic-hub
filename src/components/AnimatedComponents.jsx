@@ -67,3 +67,24 @@ export const AbstractShapes = () => (
     ))}
   </div>
 );
+
+export const GlowingButton = ({ children, className, ...props }) => (
+  <Button
+    className={`relative overflow-hidden group ${className}`}
+    {...props}
+  >
+    <span className="relative z-10 text-white">{children}</span>
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-900 opacity-75"
+      animate={{
+        scale: [1, 1.2, 1],
+        opacity: [0.7, 1, 0.7],
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        repeatType: 'reverse',
+      }}
+    />
+  </Button>
+);
