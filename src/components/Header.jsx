@@ -9,7 +9,6 @@ import {
 import { ChevronDownIcon, MenuIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
 
 const navItemVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -54,7 +53,7 @@ const Header = () => {
       initial="hidden"
       animate="visible"
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
-        isScrolled ? 'bg-background/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -72,13 +71,13 @@ const Header = () => {
             <motion.div variants={navItemVariants}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-primary hover:text-primary/80 transition-colors duration-300">
+                  <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
                     Services <ChevronDownIcon className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-background border-border">
+                <DropdownMenuContent className="bg-gray-800 border-gray-700">
                   {services.map((service, index) => (
-                    <DropdownMenuItem key={index} className="text-primary hover:bg-accent transition-colors duration-300">
+                    <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
                       <Link to={service.path}>{service.name}</Link>
                     </DropdownMenuItem>
                   ))}
@@ -88,11 +87,10 @@ const Header = () => {
             <NavItem to="/team">Team</NavItem>
             <NavItem to="/contact">Contact</NavItem>
             <NavItem to="/mc-tools">MC Tools</NavItem>
-            <ThemeToggle />
           </nav>
           <Button
             variant="ghost"
-            className="md:hidden text-primary"
+            className="md:hidden text-green-400"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <MenuIcon className="h-6 w-6" />
@@ -105,7 +103,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background shadow-lg"
+            className="md:hidden bg-gray-900 shadow-lg"
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
@@ -118,9 +116,6 @@ const Header = () => {
                 <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>Team</MobileNavItem>
                 <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavItem>
                 <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>MC Tools</MobileNavItem>
-                <li className="flex justify-center">
-                  <ThemeToggle />
-                </li>
               </ul>
             </nav>
           </motion.div>
@@ -133,7 +128,7 @@ const Header = () => {
 const NavItem = ({ children, to }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="text-primary hover:text-primary/80 transition-colors duration-300">
+      <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>
@@ -147,7 +142,7 @@ const MobileNavItem = ({ children, to, onClick }) => (
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left text-primary hover:text-primary/80 transition-colors duration-300">
+      <Button variant="ghost" className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>

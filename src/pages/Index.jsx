@@ -6,8 +6,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, SlideInText, FadeInScale } from '../components/AnimatedComponents';
 import { Server, Network, Newspaper, Wrench } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 
@@ -31,29 +30,26 @@ const Index = () => {
     'Enzonic Network',
     'Enzonic News',
     'Enzonic MC Tools',
-    'Enzonic Meet',
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+      <AnimatedBackground />
       <Header />
-      <main className="container mx-auto px-4 py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.h1 
-            className="text-6xl font-bold mb-4 text-primary"
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {t('welcome')}
-          </motion.h1>
+      <main className="container mx-auto px-4 py-24 relative z-10">
+        <SmoothFadeIn>
+          <FloatingElement>
+            <motion.h1 
+              className="text-6xl font-bold mb-4 text-green-400 text-center"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              {t('welcome')}
+            </motion.h1>
+          </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 h-16 text-muted-foreground"
+            className="text-2xl mb-8 h-16 text-gray-300 text-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -78,70 +74,53 @@ const Index = () => {
               { text: t('mcTools'), path: '/mc-tools' },
             ].map(({ text, path }) => (
               <Link key={text} to={path}>
-                <Button 
-                  variant="default"
-                  size="lg"
-                  className="px-8 py-6 text-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  {text}
-                </Button>
+                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+                  <span>{text}</span>
+                </GlowingButton>
               </Link>
             ))}
           </motion.div>
-        </motion.div>
+        </SmoothFadeIn>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
-        >
-          <Card className="bg-card text-card-foreground">
-            <CardContent className="p-8">
-              <h2 className="text-3xl font-bold text-primary mb-4">Our Vision</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+        <SmoothFadeIn delay={0.4}>
+          <div className="text-center mb-16 max-w-2xl mx-auto mt-16">
+            <SlideInText>
+              <h2 className="text-3xl font-bold text-green-400 mb-4">
+                Our Vision
+              </h2>
+            </SlideInText>
+            <FadeInScale>
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Empowering individuals and businesses with innovative, affordable, and reliable technology solutions.
               </p>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </FadeInScale>
+          </div>
+        </SmoothFadeIn>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
-        >
-          {[
-            { icon: Server, text: 'Cloud Services' },
-            { icon: Network, text: 'Networking' },
-            { icon: Wrench, text: 'Tools' },
-            { icon: Server, text: 'Reliable Hosting' },
-          ].map(({ icon: Icon, text }) => (
-            <Card key={text} className="bg-card text-card-foreground">
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <Icon className="w-16 h-16 text-primary mb-4" />
-                <p className="text-lg font-semibold">{text}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </motion.div>
+        <SmoothFadeIn delay={0.6}>
+          <div className="flex justify-center space-x-8 mb-16">
+            {[
+              { icon: Server, text: 'Cloud Services' },
+              { icon: Network, text: 'Networking' },
+              { icon: Wrench, text: 'Tools' },
+              { icon: Server, text: 'Reliable Hosting' },
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} className="text-center flex flex-col items-center">
+                <Icon className="w-20 h-20 text-green-400 mb-2" />
+                <p className="text-sm text-gray-300">{text}</p>
+              </div>
+            ))}
+          </div>
+        </SmoothFadeIn>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-16"
-        >
-          <Card className="bg-card text-card-foreground">
-            <CardContent className="p-8">
-              <h3 className="text-xl font-bold text-primary mb-2">Disclaimer</h3>
-              <p className="text-muted-foreground">
-                Enzonic.xyz is still a work in progress and will receive updates very frequently. We appreciate your patience and support as we continue to improve our services.
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
+        <SmoothFadeIn delay={0.8}>
+          <div className="text-center mb-16 max-w-2xl mx-auto mt-16 bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-yellow-400 mb-2">Disclaimer</h3>
+            <p className="text-gray-300">
+              Enzonic.xyz is still a work in progress and will receive updates very frequently. We appreciate your patience and support as we continue to improve our services.
+            </p>
+          </div>
+        </SmoothFadeIn>
       </main>
       <Services />
       <Team />
