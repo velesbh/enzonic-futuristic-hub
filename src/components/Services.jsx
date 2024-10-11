@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench, Image } from 'lucide-react';
+import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench, Image, Video } from 'lucide-react';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -21,6 +22,7 @@ const iconMap = {
   "Enzonic News": Newspaper,
   "Enzonic MC Tools": Wrench,
   "Image and Video Tools": Image,
+  "Enzonic Meet": Video,
 };
 
 const ServiceCard = ({ title, description, action, icon: Icon, to, index, comingSoon }) => {
@@ -80,19 +82,23 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
 };
 
 const Services = () => {
-  const services = [
+  const featuredServices = [
     { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER", to: "/hosting" },
+    { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
+    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/enzonic-ai" },
+    { title: "Enzonic Meet", description: "Video conferencing solution", action: "JOIN MEETING", to: "https://meet.enzonic.xyz" },
+  ];
+
+  const otherServices = [
     { title: "Enzonic Games", description: "Games developed by Enzonic Studios", action: "DOWNLOADS", to: "/", comingSoon: true },
     { title: "Enzonic Events", description: "In Minecraft events", action: "DISCORD", to: "/", comingSoon: true },
     { title: "Enzonic Translate", description: "AI-powered translator", action: "TRY NOW", to: "/", comingSoon: true },
-    { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic Web Designer", description: "A no coding website designer", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic Cloud", description: "Free and paid cloud storage platform", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic VPN", description: "A free and secure VPN", action: "TRY NOW", to: "/", comingSoon: true },
     { title: "Enzonic Productions", description: "High quality in-Minecraft or animated movies/series", action: "WATCH NOW", to: "/", comingSoon: true },
     { title: "Enzonic Workspace", description: "Collaborative tools for teams", action: "GET STARTED", to: "/", comingSoon: true },
     { title: "Enzonic Connect", description: "Social kinda like zoom", action: "JOIN NOW", to: "/", comingSoon: true },
-    { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
     { title: "Enzonic News", description: "Stay updated with the latest Enzonic news", action: "READ NOW", to: "/news" },
     { title: "Enzonic MC Tools", description: "Useful tools for Minecraft players and server admins", action: "USE TOOLS", to: "/mc-tools" },
     { title: "Image and Video Tools", description: "Powerful tools for image and video editing", action: "EDIT NOW", to: "/image-video-tools" },
@@ -120,15 +126,34 @@ const Services = () => {
           Our Services
         </motion.h2>
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {services.map((service, index) => (
+          {featuredServices.map((service, index) => (
             <ServiceCard key={index} {...service} icon={iconMap[service.title]} index={index} />
           ))}
         </motion.div>
+        <div className="text-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="bg-green-500 hover:bg-green-600 text-white">
+                More Services
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              {otherServices.map((service, index) => (
+                <DropdownMenuItem key={index}>
+                  <Link to={service.to} className="flex items-center">
+                    {React.createElement(iconMap[service.title], { className: "mr-2 h-4 w-4" })}
+                    <span>{service.title}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </section>
   );
