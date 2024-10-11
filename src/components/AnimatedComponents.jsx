@@ -1,70 +1,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { ArrowUpCircle } from 'lucide-react';
 
-export const AnimatedBackground = () => (
-  <div className="fixed inset-0 z-[-1] overflow-hidden">
-    <motion.div
-      className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"
-      animate={{
-        background: [
-          'linear-gradient(to bottom right, #1a365d, #4a148c, #1e3a8a)',
-          'linear-gradient(to bottom right, #4a148c, #1e3a8a, #1a365d)',
-          'linear-gradient(to bottom right, #1e3a8a, #1a365d, #4a148c)',
-        ],
-      }}
-      transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse' }}
-    />
-    {[...Array(25)].map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute rounded-full bg-white opacity-10"
-        style={{
-          width: Math.random() * 2 + 1,
-          height: Math.random() * 2 + 1,
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-        }}
-        animate={{
-          y: [0, -500],
-          opacity: [0, 0.3, 0],
-        }}
-        transition={{
-          duration: Math.random() * 10 + 10,
-          repeat: Infinity,
-          repeatType: 'loop',
-        }}
-      />
-    ))}
+export const AnimatedBackground = ({ additionalIcons = [] }) => (
+  <div className="fixed inset-0 z-0 overflow-hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{ stopColor: '#001a00', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#003300', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#004d00', stopOpacity: 1 }} />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grad1)" />
+    </svg>
   </div>
 );
 
-export const AbstractShapes = () => (
-  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-    {[...Array(5)].map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-10"
-        style={{
-          width: Math.random() * 200 + 50,
-          height: Math.random() * 200 + 50,
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-        }}
-        animate={{
-          x: [0, Math.random() * 50 - 25],
-          y: [0, Math.random() * 50 - 25],
-          rotate: [0, 360],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: Math.random() * 20 + 20,
-          repeat: Infinity,
-          repeatType: 'reverse',
-        }}
-      />
-    ))}
-  </div>
+export const FloatingElement = ({ children }) => (
+  <motion.div
+    animate={{
+      y: [0, -10, 0],
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      repeatType: 'reverse',
+      ease: 'easeInOut',
+    }}
+  >
+    {children}
+  </motion.div>
 );
 
 export const GlowingButton = ({ children, className, ...props }) => (
@@ -72,9 +39,9 @@ export const GlowingButton = ({ children, className, ...props }) => (
     className={`relative overflow-hidden group ${className}`}
     {...props}
   >
-    <span className="relative z-10 text-white">{children}</span>
+    <span className="relative z-10 text-black">{children}</span>
     <motion.div
-      className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-900 opacity-75"
+      className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-75"
       animate={{
         scale: [1, 1.2, 1],
         opacity: [0.7, 1, 0.7],
@@ -88,41 +55,121 @@ export const GlowingButton = ({ children, className, ...props }) => (
   </Button>
 );
 
-export const FloatingElement = ({ children }) => (
+export const ScrollToTopButton = () => {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const controls = motion.useAnimation();
+
+  React.useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  React.useEffect(() => {
+    if (isVisible) {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { type: 'spring', stiffness: 260, damping: 20 }
+      });
+    } else {
+      controls.start({ opacity: 0, y: 100 });
+    }
+  }, [isVisible, controls]);
+
+  return (
+    <motion.div
+      className="fixed bottom-5 right-5 z-50"
+      initial={{ opacity: 0, y: 100 }}
+      animate={controls}
+    >
+      <Button
+        onClick={scrollToTop}
+        className="rounded-full p-3 bg-green-500 hover:bg-green-600 text-black"
+      >
+        <ArrowUpCircle className="h-6 w-6" />
+      </Button>
+    </motion.div>
+  );
+};
+
+export const SmoothFadeIn = ({ children, delay = 0 }) => (
   <motion.div
-    animate={{
-      y: [0, -10, 0],
-      rotate: [-1, 1, -1],
-    }}
-    transition={{
-      duration: 5,
-      repeat: Infinity,
-      repeatType: 'reverse',
-    }}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay }}
   >
     {children}
   </motion.div>
 );
 
-export const EnzonicLogo = () => (
+export const PulsingIcon = ({ icon: Icon, size = 24, color = "text-green-500" }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-    className="mb-8"
+    animate={{
+      scale: [1, 1.2, 1],
+      opacity: [0.7, 1, 0.7],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      repeatType: 'reverse',
+    }}
   >
-    <img src="/enzonic-logo.png" alt="Enzonic Logo" className="w-48 h-48 mx-auto" />
+    <Icon className={`w-${size} h-${size} ${color}`} />
   </motion.div>
 );
 
-export const ImageCard = ({ src, alt, text }) => (
+export const SlideInText = ({ children }) => (
   <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
   >
-    <img src={src} alt={alt} className="w-full h-48 object-cover" />
-    <div className="p-4">
-      <p className="text-white text-lg font-semibold">{text}</p>
-    </div>
+    {children}
+  </motion.div>
+);
+
+export const FadeInScale = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
+
+export const AnimatedGrid = ({ children }) => (
+  <motion.div
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5, staggerChildren: 0.1 }}
+  >
+    {React.Children.map(children, (child, index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+      >
+        {child}
+      </motion.div>
+    ))}
   </motion.div>
 );
