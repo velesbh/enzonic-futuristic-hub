@@ -126,3 +126,19 @@ export const ImageCard = ({ src, alt, text }) => (
     </div>
   </motion.div>
 );
+
+export const PulsingIcon = ({ icon: Icon, size = 12 }) => (
+  <motion.div
+    animate={{
+      scale: [1, 1.2, 1],
+      opacity: [0.7, 1, 0.7],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      repeatType: 'reverse',
+    }}
+  >
+    <Icon className={`w-${size} h-${size} text-green-400 mb-4`} />
+  </motion.div>
+);
