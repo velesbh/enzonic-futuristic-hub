@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowUpCircle } from 'lucide-react';
 
 export const AnimatedBackground = () => (
   <div className="fixed inset-0 z-[-1] overflow-hidden">
@@ -87,4 +86,43 @@ export const GlowingButton = ({ children, className, ...props }) => (
       }}
     />
   </Button>
+);
+
+export const FloatingElement = ({ children }) => (
+  <motion.div
+    animate={{
+      y: [0, -10, 0],
+      rotate: [-1, 1, -1],
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      repeatType: 'reverse',
+    }}
+  >
+    {children}
+  </motion.div>
+);
+
+export const EnzonicLogo = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+    className="mb-8"
+  >
+    <img src="/enzonic-logo.png" alt="Enzonic Logo" className="w-48 h-48 mx-auto" />
+  </motion.div>
+);
+
+export const ImageCard = ({ src, alt, text }) => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+  >
+    <img src={src} alt={alt} className="w-full h-48 object-cover" />
+    <div className="p-4">
+      <p className="text-white text-lg font-semibold">{text}</p>
+    </div>
+  </motion.div>
 );
