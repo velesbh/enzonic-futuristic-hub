@@ -44,7 +44,7 @@ const ServiceCard = ({ title, description, action, icon: Icon, to, index, coming
             <Icon className="w-16 h-16 mb-4 text-green-400" />
           </motion.div>
           <CardTitle className="text-white text-2xl font-bold">{title}</CardTitle>
-          <CardDescription className="text-gray-300">{description}</CardDescription>
+          <p className="text-gray-300">{description}</p>
         </CardHeader>
         <CardContent className="relative z-10">
           {comingSoon ? (
@@ -86,7 +86,7 @@ const Services = () => {
     { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER", to: "/hosting" },
     { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
     { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/enzonic-ai" },
-    { title: "Enzonic Meet", description: "Video conferencing solution", action: "EXPLORE", to: "/enzonic-meet" }, // Updated this line
+    { title: "Enzonic Meet", description: "Video conferencing solution", action: "EXPLORE", to: "/enzonic-meet" },
   ];
 
   const otherServices = [
