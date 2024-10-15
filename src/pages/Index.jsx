@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
 import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, SlideInText, FadeInScale } from '../components/AnimatedComponents';
-import { Server, Network, Newspaper, Wrench } from 'lucide-react';
+import { Server, Network, Newspaper, Wrench, BrainCircuit } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
 import AdComponent from '../components/AdComponent';
 
@@ -34,14 +34,14 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative overflow-hidden">
       <AnimatedBackground />
       <Header />
       <main className="container mx-auto px-4 py-24 relative z-10">
         <SmoothFadeIn>
           <FloatingElement>
             <motion.h1 
-              className="text-6xl font-bold mb-4 text-green-400 text-center"
+              className="text-6xl font-bold mb-4 text-blue-600 dark:text-blue-400 text-center"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -50,7 +50,7 @@ const Index = () => {
             </motion.h1>
           </FloatingElement>
           <motion.div 
-            className="text-2xl mb-8 h-16 text-gray-300 text-center"
+            className="text-2xl mb-8 h-16 text-gray-700 dark:text-gray-300 text-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -69,13 +69,15 @@ const Index = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
-              { text: t('explore') + ' Hosting', path: '/hosting' },
-              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network' },
-              { text: t('latest'), path: '/news' },
-              { text: t('mcTools'), path: '/mc-tools' },
-            ].map(({ text, path }) => (
+              { text: t('explore') + ' Hosting', path: '/hosting', icon: Server },
+              { text: t('discover') + ' Enzonic Network', path: '/enzonic-network', icon: Network },
+              { text: t('latest'), path: '/news', icon: Newspaper },
+              { text: t('mcTools'), path: '/mc-tools', icon: Wrench },
+              { text: 'Enzonic AI', path: '/enzonic-ai', icon: BrainCircuit },
+            ].map(({ text, path, icon: Icon }) => (
               <Link key={text} to={path}>
-                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105">
+                <GlowingButton className="px-8 py-4 text-xl w-80 justify-center flex items-center bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white transition-all duration-300 transform hover:scale-105">
+                  <Icon className="mr-2 h-5 w-5" />
                   <span>{text}</span>
                 </GlowingButton>
               </Link>
@@ -122,6 +124,7 @@ const Index = () => {
             </p>
           </div>
         </SmoothFadeIn>
+
       </main>
       <Services />
       <Team />
