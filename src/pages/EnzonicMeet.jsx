@@ -42,16 +42,16 @@ const EnzonicMeet = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <a href="https://meet.enzonic.xyz" target="_blank" rel="noopener noreferrer">
+            <Link to="/enzonic-meet">
               <GlowingButton className="px-8 py-4 text-xl">
-                Join a Meeting
-              </GlowingButton>
-            </a>
-            <Link to="/contact">
-              <GlowingButton className="px-8 py-4 text-xl">
-                Learn More
+                Explore Features
               </GlowingButton>
             </Link>
+            <a href="https://meet.enzonic.xyz" target="_blank" rel="noopener noreferrer">
+              <GlowingButton className="px-8 py-4 text-xl">
+                Start a Meeting
+              </GlowingButton>
+            </a>
           </motion.div>
         </motion.div>
         
