@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { AnimatedBackground, FloatingElement, GlowingButton, SmoothFadeIn, SlideInText, FadeInScale } from '../components/AnimatedComponents';
 import { Server, Network, Newspaper, Wrench } from 'lucide-react';
 import { useLanguage } from '../utils/languageUtils';
+import AdComponent from '../components/AdComponent';
 
 const Index = () => {
   const { t } = useLanguage();
@@ -124,6 +125,11 @@ const Index = () => {
       </main>
       <Services />
       <Team />
+      <SmoothFadeIn delay={1}>
+        <div className="container mx-auto px-4 py-8">
+          <AdComponent adSlot="1234567890" />
+        </div>
+      </SmoothFadeIn>
       <Footer />
     </div>
   );
