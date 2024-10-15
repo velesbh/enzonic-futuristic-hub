@@ -4,6 +4,7 @@ const mockNews = [
   { id: 2, title: "Hosting Updates", author: "Veles BH", content: "We have now opened more minecraft plans, and more server hosting types will be comming very soon.", date: "2024-09-24" },
   { id: 3, title: "Jellyfin Updates", author: "Veles BH", content: "Sadly jellyfin is delayed due to hosting issue on node 4.", date: "2024-09-26" },
    { id: 4, title: "We are delaying services", author: "Veles BH", content: "Sadly most resource intensive service like ai, vpn and translate are delayed due to low budget and low computing power", date: "2024-09-26" },
+  { id: 4, title: "Enzonic MEET just came out!", author: "Veles BH", content: "Enzonic Meet is a meeting app wich is very simple, clean and FREE please go to the services page, find enzonic meet and click explore", date: "2024-10-16" },
 ];
 
 const mockRequests = [
