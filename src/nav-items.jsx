@@ -7,6 +7,7 @@ import MCTools from "./pages/MCTools.jsx";
 import ImageVideoTools from "./pages/ImageVideoTools.jsx";
 import Team from "./pages/Team.jsx";
 import EnzonicAI from "./pages/EnzonicAI.jsx";
+import EnzonicMeet from "./pages/EnzonicMeet.jsx";
 
 export const navItems = [
   {
@@ -71,8 +72,8 @@ export const navItems = [
   },
   {
     title: "Enzonic Meet",
-    to: "https://meet.enzonic.xyz",
+    to: "/enzonic-meet",
     icon: <VideoIcon className="h-4 w-4" />,
-    external: true,
+    page: <EnzonicMeet />,
   },
 ];

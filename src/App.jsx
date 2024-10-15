@@ -9,6 +9,7 @@ import AdminPanel from "./pages/AdminPanel";
 import EnzonicMods from "./pages/EnzonicMods";
 import ImageVideoTools from "./pages/ImageVideoTools";
 import Team from "./pages/Team";
+import EnzonicMeet from "./pages/EnzonicMeet";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/enzonic-mods" element={<EnzonicMods />} />
           <Route path="/image-video-tools" element={<ImageVideoTools />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/enzonic-meet" element={<EnzonicMeet />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
