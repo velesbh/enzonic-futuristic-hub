@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Users, MessageCircle, Network, Newspaper, Wrench, Image, Video } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Video, Users, Globe, ServerIcon, GamepadIcon, CalendarIcon, LanguagesIcon, BrainCircuitIcon, PencilRulerIcon, CloudIcon, ShieldCheckIcon, VideoIcon, Briefcase, Network, Newspaper, Wrench, Image } from 'lucide-react';
 
 const iconMap = {
   "Enzonic Hosting": ServerIcon,
@@ -86,7 +86,7 @@ const Services = () => {
     { title: "Enzonic Hosting", description: "We offer way more than you expect", action: "ENTER", to: "/hosting" },
     { title: "Enzonic Network", description: "Create, share, and play amazing minigames", action: "EXPLORE", to: "/enzonic-network" },
     { title: "Enzonic AI", description: "Advanced AI solutions", action: "TRY NOW", to: "/enzonic-ai" },
-    { title: "Enzonic Meet", description: "Video conferencing solution", action: "JOIN MEETING", to: "https://meet.enzonic.xyz" },
+    { title: "Enzonic Meet", description: "Video conferencing solution", action: "EXPLORE", to: "/enzonic-meet" }, // Updated this line
   ];
 
   const otherServices = [
