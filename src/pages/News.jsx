@@ -9,6 +9,7 @@ import { AnimatedBackground, FloatingElement, GlowingButton } from '../component
 import NewsManager from '../components/NewsManager';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { db } from '../lib/db';
+import AdComponent from '../components/AdComponent';
 
 const NewsCard = ({ title, date, author, content, onViewMore }) => (
   <motion.div whileHover={{ scale: 1.03 }} className="mb-8">
@@ -157,7 +158,15 @@ const News = () => {
           >
             <h2 className="text-4xl font-bold mb-8 text-center text-green-400">Latest News</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {newsItems.map((item) => (
+              {newsItems.slice(0, 3).map((item) => (
+                <NewsCard key={item.id} {...item} onViewMore={() => handleViewMore(item)} />
+              ))}
+            </div>
+            <div className="my-8">
+              <AdComponent adSlot="1234567891" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {newsItems.slice(3).map((item) => (
                 <NewsCard key={item.id} {...item} onViewMore={() => handleViewMore(item)} />
               ))}
             </div>

@@ -11,6 +11,7 @@ import TitleGenerator from '../components/TitleGenerator';
 import SummonGenerator from '../components/SummonGenerator';
 import AchievementGenerator from '../components/AchievementGenerator';
 import { Wand2, MessageSquare, Clock, Type, Rabbit, Trophy } from 'lucide-react';
+import AdComponent from '../components/AdComponent';
 
 const ToolTab = ({ icon: Icon, label, value }) => (
   <TabsTrigger value={value} className="flex items-center space-x-2">
@@ -91,6 +92,15 @@ const MCTools = () => {
           <h2 className="text-3xl font-bold mb-4 text-green-400">Need More Tools?</h2>
           <p className="text-xl text-gray-300 mb-6">We're constantly adding new features. Let us know what you'd like to see next!</p>
           <GlowingButton>Suggest a Tool</GlowingButton>
+        </motion.div>
+
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          <AdComponent adSlot="1234567892" />
         </motion.div>
       </main>
       <Footer />
