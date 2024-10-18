@@ -10,6 +10,7 @@ import EnzonicMods from "./pages/EnzonicMods";
 import ImageVideoTools from "./pages/ImageVideoTools";
 import Team from "./pages/Team";
 import EnzonicMeet from "./pages/EnzonicMeet";
+import ChatIcon from "./components/ChatIcon";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/team" element={<Team />} />
           <Route path="/enzonic-meet" element={<EnzonicMeet />} />
         </Routes>
+        <ChatIcon />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
