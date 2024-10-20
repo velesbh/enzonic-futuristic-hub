@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -6,9 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon, MenuIcon } from 'lucide-react';
+import { ChevronDownIcon, MenuIcon, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTheme } from './ThemeProvider';
 
 const navItemVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -18,6 +19,7 @@ const navItemVariants = {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const services = [
     { name: "Enzonic Hosting", path: "/hosting" },
@@ -53,7 +55,7 @@ const Header = () => {
       initial="hidden"
       animate="visible"
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
-        isScrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-white dark:bg-gray-900 shadow-lg' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -71,13 +73,13 @@ const Header = () => {
             <motion.div variants={navItemVariants}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+                  <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
                     Services <ChevronDownIcon className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-gray-800 border-gray-700">
+                <DropdownMenuContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
                   {services.map((service, index) => (
-                    <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
+                    <DropdownMenuItem key={index} className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
                       <Link to={service.path}>{service.name}</Link>
                     </DropdownMenuItem>
                   ))}
@@ -88,13 +90,23 @@ const Header = () => {
             <NavItem to="/contact">Contact</NavItem>
             <NavItem to="/mc-tools">MC Tools</NavItem>
           </nav>
-          <Button
-            variant="ghost"
-            className="md:hidden text-green-400"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <MenuIcon className="h-6 w-6" />
-          </Button>
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="text-gray-700 dark:text-gray-300"
+            >
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </Button>
+            <Button
+              variant="ghost"
+              className="md:hidden text-gray-700 dark:text-gray-300"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <MenuIcon className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
       </div>
       <AnimatePresence>
@@ -103,7 +115,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-gray-900 shadow-lg"
+            className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
@@ -128,7 +140,7 @@ const Header = () => {
 const NavItem = ({ children, to }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+      <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
         {children}
       </Button>
     </Link>
@@ -142,7 +154,7 @@ const MobileNavItem = ({ children, to, onClick }) => (
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
+      <Button variant="ghost" className="w-full text-left text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
         {children}
       </Button>
     </Link>
