@@ -73,13 +73,13 @@ const Header = () => {
             <motion.div variants={navItemVariants}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                  <Button variant="ghost" className="modern-text">
                     Services <ChevronDownIcon className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
                   {services.map((service, index) => (
-                    <DropdownMenuItem key={index} className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
+                    <DropdownMenuItem key={index} className="modern-text hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
                       <Link to={service.path}>{service.name}</Link>
                     </DropdownMenuItem>
                   ))}
@@ -95,13 +95,13 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-gray-700 dark:text-gray-300"
+              className="modern-text"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </Button>
             <Button
               variant="ghost"
-              className="md:hidden text-gray-700 dark:text-gray-300"
+              className="md:hidden modern-text"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <MenuIcon className="h-6 w-6" />
@@ -140,7 +140,7 @@ const Header = () => {
 const NavItem = ({ children, to }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+      <Button variant="ghost" className="modern-text">
         {children}
       </Button>
     </Link>
@@ -154,7 +154,7 @@ const MobileNavItem = ({ children, to, onClick }) => (
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+      <Button variant="ghost" className="w-full text-left modern-text">
         {children}
       </Button>
     </Link>
