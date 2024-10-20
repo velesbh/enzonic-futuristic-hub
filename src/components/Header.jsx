@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon, MenuIcon, Sun, Moon } from 'lucide-react';
+import { ChevronDownIcon, MenuIcon, Sun, Moon, Home, Users, Mail, Tool } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTheme } from './ThemeProvider';
@@ -30,18 +30,10 @@ const Header = () => {
   }, []);
 
   const services = [
-    { name: "Enzonic Hosting", path: "/hosting" },
-    { name: "Enzonic Games", path: "/" },
-    { name: "Enzonic Events", path: "/" },
-    { name: "Enzonic Translate", path: "/" },
-    { name: "Enzonic AI", path: "/enzonic-ai" },
-    { name: "Enzonic Web Designer", path: "/" },
-    { name: "Enzonic Cloud", path: "/" },
-    { name: "Enzonic VPN", path: "/" },
-    { name: "Enzonic Productions", path: "/" },
-    { name: "Enzonic Network", path: "/enzonic-network" },
-    { name: "Enzonic News", path: "/news" },
-    { name: "Enzonic MC Tools", path: "/mc-tools" },
+    { name: "Enzonic Hosting", path: "/hosting", icon: Home },
+    { name: "Enzonic Network", path: "/enzonic-network", icon: Users },
+    { name: "Enzonic News", path: "/news", icon: Mail },
+    { name: "Enzonic MC Tools", path: "/mc-tools", icon: Tool },
   ];
 
   const headerVariants = {
@@ -69,7 +61,7 @@ const Header = () => {
             </motion.div>
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/" icon={Home}>Home</NavItem>
             <motion.div variants={navItemVariants}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -80,15 +72,18 @@ const Header = () => {
                 <DropdownMenuContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
                   {services.map((service, index) => (
                     <DropdownMenuItem key={index} className="modern-text hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
-                      <Link to={service.path}>{service.name}</Link>
+                      <Link to={service.path} className="flex items-center">
+                        <service.icon className="mr-2 h-4 w-4" />
+                        <span>{service.name}</span>
+                      </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             </motion.div>
-            <NavItem to="/team">Team</NavItem>
-            <NavItem to="/contact">Contact</NavItem>
-            <NavItem to="/mc-tools">MC Tools</NavItem>
+            <NavItem to="/team" icon={Users}>Team</NavItem>
+            <NavItem to="/contact" icon={Mail}>Contact</NavItem>
+            <NavItem to="/mc-tools" icon={Tool}>MC Tools</NavItem>
           </nav>
           <div className="flex items-center space-x-4">
             <Button
@@ -119,15 +114,15 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
-                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</MobileNavItem>
+                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)} icon={Home}>Home</MobileNavItem>
                 {services.map((service, index) => (
-                  <MobileNavItem key={index} to={service.path} onClick={() => setIsMobileMenuOpen(false)}>
+                  <MobileNavItem key={index} to={service.path} onClick={() => setIsMobileMenuOpen(false)} icon={service.icon}>
                     {service.name}
                   </MobileNavItem>
                 ))}
-                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>Team</MobileNavItem>
-                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavItem>
-                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>MC Tools</MobileNavItem>
+                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)} icon={Users}>Team</MobileNavItem>
+                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)} icon={Mail}>Contact</MobileNavItem>
+                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)} icon={Tool}>MC Tools</MobileNavItem>
               </ul>
             </nav>
           </motion.div>
@@ -137,24 +132,26 @@ const Header = () => {
   );
 };
 
-const NavItem = ({ children, to }) => (
+const NavItem = ({ children, to, icon: Icon }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="modern-text">
+      <Button variant="ghost" className="modern-text flex items-center">
+        <Icon className="mr-2 h-4 w-4" />
         {children}
       </Button>
     </Link>
   </motion.li>
 );
 
-const MobileNavItem = ({ children, to, onClick }) => (
+const MobileNavItem = ({ children, to, onClick, icon: Icon }) => (
   <motion.li
     variants={navItemVariants}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left modern-text">
+      <Button variant="ghost" className="w-full text-left modern-text flex items-center">
+        <Icon className="mr-2 h-4 w-4" />
         {children}
       </Button>
     </Link>
