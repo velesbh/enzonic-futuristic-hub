@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -21,6 +21,14 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const services = [
     { name: "Enzonic Hosting", path: "/hosting" },
     { name: "Enzonic Games", path: "/" },
@@ -35,14 +43,6 @@ const Header = () => {
     { name: "Enzonic News", path: "/news" },
     { name: "Enzonic MC Tools", path: "/mc-tools" },
   ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const headerVariants = {
     hidden: { y: -100 },
