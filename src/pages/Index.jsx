@@ -4,12 +4,31 @@ import { Loader2 } from 'lucide-react';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-4">
+      {/* Animated gradient background */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{
+          background: 'linear-gradient(-45deg, #4ade80, #22c55e, #16a34a, #15803d)',
+          backgroundSize: '400% 400%',
+        }}
+        animate={{
+          backgroundPosition: ['0% 0%', '100% 100%'],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut',
+        }}
+      />
+
+      {/* Content overlay */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center max-w-2xl mx-auto"
+        className="relative z-10 text-center"
       >
         <motion.div
           animate={{ rotate: 360 }}
