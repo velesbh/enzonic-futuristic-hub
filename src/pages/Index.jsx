@@ -9,14 +9,14 @@ const Index = () => {
       <motion.div
         className="absolute inset-0 z-0"
         style={{
-          background: 'linear-gradient(-45deg, #4ade80, #22c55e, #16a34a, #15803d)',
+          background: 'linear-gradient(-45deg, #166534, #14532d, #052e16, #022c1d)',
           backgroundSize: '400% 400%',
         }}
         animate={{
-          backgroundPosition: ['0% 0%', '100% 100%'],
+          backgroundPosition: ['0% 50%', '100% 50%', '100% 100%', '0% 100%'],
         }}
         transition={{
-          duration: 15,
+          duration: 20,
           repeat: Infinity,
           repeatType: 'reverse',
           ease: 'easeInOut',
