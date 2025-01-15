@@ -3,19 +3,18 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowUpCircle } from 'lucide-react';
 
-export const AnimatedBackground = () => (
+export const AnimatedBackground = ({ additionalIcons = [] }) => (
   <div className="fixed inset-0 z-0 overflow-hidden">
-    <motion.div
-      className="absolute inset-0 modern-gradient opacity-20"
-      animate={{
-        backgroundPosition: ['0% 0%', '100% 100%'],
-      }}
-      transition={{
-        duration: 20,
-        repeat: Infinity,
-        repeatType: 'reverse',
-      }}
-    />
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{ stopColor: '#001a00', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#003300', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#004d00', stopOpacity: 1 }} />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grad1)" />
+    </svg>
   </div>
 );
 

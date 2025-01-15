@@ -6,10 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon, MenuIcon, Sun, Moon, Home, Users, Mail, Tool } from 'lucide-react';
+import { ChevronDownIcon, MenuIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useTheme } from './ThemeProvider';
 
 const navItemVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -19,7 +18,21 @@ const navItemVariants = {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+
+  const services = [
+    { name: "Enzonic Hosting", path: "/hosting" },
+    { name: "Enzonic Games", path: "/" },
+    { name: "Enzonic Events", path: "/" },
+    { name: "Enzonic Translate", path: "/" },
+    { name: "Enzonic AI", path: "/enzonic-ai" },
+    { name: "Enzonic Web Designer", path: "/" },
+    { name: "Enzonic Cloud", path: "/" },
+    { name: "Enzonic VPN", path: "/" },
+    { name: "Enzonic Productions", path: "/" },
+    { name: "Enzonic Network", path: "/enzonic-network" },
+    { name: "Enzonic News", path: "/news" },
+    { name: "Enzonic MC Tools", path: "/mc-tools" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,13 +41,6 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const services = [
-    { name: "Enzonic Hosting", path: "/hosting", icon: Home },
-    { name: "Enzonic Network", path: "/enzonic-network", icon: Users },
-    { name: "Enzonic News", path: "/news", icon: Mail },
-    { name: "Enzonic MC Tools", path: "/mc-tools", icon: Tool },
-  ];
 
   const headerVariants = {
     hidden: { y: -100 },
@@ -47,7 +53,7 @@ const Header = () => {
       initial="hidden"
       animate="visible"
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
-        isScrolled ? 'bg-white dark:bg-gray-900 shadow-lg' : 'bg-transparent'
+        isScrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -61,47 +67,34 @@ const Header = () => {
             </motion.div>
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
-            <NavItem to="/" icon={Home}>Home</NavItem>
+            <NavItem to="/">Home</NavItem>
             <motion.div variants={navItemVariants}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="modern-text">
+                  <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
                     Services <ChevronDownIcon className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                <DropdownMenuContent className="bg-gray-800 border-gray-700">
                   {services.map((service, index) => (
-                    <DropdownMenuItem key={index} className="modern-text hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
-                      <Link to={service.path} className="flex items-center">
-                        <service.icon className="mr-2 h-4 w-4" />
-                        <span>{service.name}</span>
-                      </Link>
+                    <DropdownMenuItem key={index} className="text-green-400 hover:bg-green-700 transition-colors duration-300">
+                      <Link to={service.path}>{service.name}</Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             </motion.div>
-            <NavItem to="/team" icon={Users}>Team</NavItem>
-            <NavItem to="/contact" icon={Mail}>Contact</NavItem>
-            <NavItem to="/mc-tools" icon={Tool}>MC Tools</NavItem>
+            <NavItem to="/team">Team</NavItem>
+            <NavItem to="/contact">Contact</NavItem>
+            <NavItem to="/mc-tools">MC Tools</NavItem>
           </nav>
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="modern-text"
-            >
-              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-            </Button>
-            <Button
-              variant="ghost"
-              className="md:hidden modern-text"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              <MenuIcon className="h-6 w-6" />
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            className="md:hidden text-green-400"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <MenuIcon className="h-6 w-6" />
+          </Button>
         </div>
       </div>
       <AnimatePresence>
@@ -110,19 +103,19 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
+            className="md:hidden bg-gray-900 shadow-lg"
           >
             <nav className="container mx-auto px-4 py-4">
               <ul className="space-y-2">
-                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)} icon={Home}>Home</MobileNavItem>
+                <MobileNavItem to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</MobileNavItem>
                 {services.map((service, index) => (
-                  <MobileNavItem key={index} to={service.path} onClick={() => setIsMobileMenuOpen(false)} icon={service.icon}>
+                  <MobileNavItem key={index} to={service.path} onClick={() => setIsMobileMenuOpen(false)}>
                     {service.name}
                   </MobileNavItem>
                 ))}
-                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)} icon={Users}>Team</MobileNavItem>
-                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)} icon={Mail}>Contact</MobileNavItem>
-                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)} icon={Tool}>MC Tools</MobileNavItem>
+                <MobileNavItem to="/team" onClick={() => setIsMobileMenuOpen(false)}>Team</MobileNavItem>
+                <MobileNavItem to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</MobileNavItem>
+                <MobileNavItem to="/mc-tools" onClick={() => setIsMobileMenuOpen(false)}>MC Tools</MobileNavItem>
               </ul>
             </nav>
           </motion.div>
@@ -132,26 +125,24 @@ const Header = () => {
   );
 };
 
-const NavItem = ({ children, to, icon: Icon }) => (
+const NavItem = ({ children, to }) => (
   <motion.li variants={navItemVariants}>
     <Link to={to}>
-      <Button variant="ghost" className="modern-text flex items-center">
-        <Icon className="mr-2 h-4 w-4" />
+      <Button variant="ghost" className="text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>
   </motion.li>
 );
 
-const MobileNavItem = ({ children, to, onClick, icon: Icon }) => (
+const MobileNavItem = ({ children, to, onClick }) => (
   <motion.li
     variants={navItemVariants}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
   >
     <Link to={to} onClick={onClick}>
-      <Button variant="ghost" className="w-full text-left modern-text flex items-center">
-        <Icon className="mr-2 h-4 w-4" />
+      <Button variant="ghost" className="w-full text-left text-green-400 hover:text-green-300 transition-colors duration-300">
         {children}
       </Button>
     </Link>
